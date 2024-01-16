@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SuperMarioBros.Controllers;
+using SuperMarioBros.PlayerCharacter;
+using SuperMarioBros.PlayerCharacter.PlayerStates;
+using System.Linq.Expressions;
 
 namespace SuperMarioBros
 {
@@ -8,6 +12,8 @@ namespace SuperMarioBros
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        public IPlayer MarioPlayer { get; set; }
+        public IController Controller { get; set; }
 
         public Game1()
         {
@@ -26,8 +32,8 @@ namespace SuperMarioBros
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            MarioPlayer = new Player(this);
+            Controller = new GameplayController(this);
         }
 
         protected override void Update(GameTime gameTime)
