@@ -25,7 +25,7 @@ namespace SuperMarioBros.PlayerCharacter
             this.game = game;
             this.position = new Vector2(0, 0);
             State = new RightIdlePlayerState(this);
-            Speed = 1;
+            Speed = 100;
         }
 
         public void BecomeIdle()
@@ -60,6 +60,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void Update()
         {
             State.Update();
+            Sprite.Update();
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {

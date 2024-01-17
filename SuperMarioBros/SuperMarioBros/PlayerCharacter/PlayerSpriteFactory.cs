@@ -25,7 +25,7 @@ namespace SuperMarioBros.PlayerCharacter
         private PlayerSpriteFactory() { }
         public void LoadAllTextures(ContentManager content)
         {
-            playerTexture = content.Load<Texture2D>("characters");
+            playerTexture = content.Load<Texture2D>("MarioChracters");
         }
 
         public IPlayerSprite CreateLeftIdlePlayerSprite()

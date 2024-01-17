@@ -19,7 +19,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightMovingPlayerSprite();
             accerlerationCounter = 0;
-            player.Speed = 1;
+            player.Speed = 6;
         }
         public void BecomeIdle()
         {
@@ -56,7 +56,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             accerlerationCounter++;
             if(accerlerationCounter >= 8)
             {
-                player.Speed++;
+                //player.Speed++;
                 accerlerationCounter = 0;
             }
         }
