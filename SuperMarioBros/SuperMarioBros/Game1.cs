@@ -31,6 +31,7 @@ namespace SuperMarioBros
 
         protected override void LoadContent()
         {
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             Controller = new GameplayController(this);
@@ -41,7 +42,8 @@ namespace SuperMarioBros
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            MarioPlayer.Update();
+            Controller.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -49,8 +51,11 @@ namespace SuperMarioBros
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
-            // TODO: Add your drawing code here
+            MarioPlayer.Draw(_spriteBatch, Color.White);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

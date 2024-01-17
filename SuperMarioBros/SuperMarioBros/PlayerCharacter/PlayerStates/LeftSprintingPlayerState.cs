@@ -35,7 +35,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void Jump()
         {
-            player.State = new LeftSprintJumpingPlayerState(player);
+           // player.State = new LeftSprintJumpingPlayerState(player);
         }
 
         public void Crouch()

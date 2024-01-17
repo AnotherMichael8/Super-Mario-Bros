@@ -1,4 +1,5 @@
-﻿using SuperMarioBros.PlayerCharacter.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,14 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class RightWalkingPlayerState : IPlayerState
     {
         private Player player;
+        private int accerlerationCounter;
 
         public RightWalkingPlayerState(Player player)
         {
             this.player = player;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateRightMovingPlayerSprite();
+            accerlerationCounter = 0;
+            player.Speed = 1;
         }
         public void BecomeIdle()
         {
@@ -23,6 +28,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void MoveLeft()
         {
+            player.State = new LeftWalkingPlayerState(player);
         }
 
         public void MoveRight()
@@ -36,7 +42,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void Jump()
         {
-            player.State = new RightWalkJumpingPlayerState(player);
+            //player.State = new RightWalkJumpingPlayerState(player);
         }
 
         public void Crouch()
@@ -46,6 +52,13 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void Update()
         {
+            player.Position = new Vector2(player.Position.X + player.Speed, player.Position.Y);
+            accerlerationCounter++;
+            if(accerlerationCounter >= 8)
+            {
+                player.Speed++;
+                accerlerationCounter = 0;
+            }
         }
     }
 }

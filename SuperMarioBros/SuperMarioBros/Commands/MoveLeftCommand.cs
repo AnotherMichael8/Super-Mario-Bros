@@ -16,7 +16,7 @@ namespace SuperMarioBros.Commands
 
         public void Execute()
         {
-            game.link.MoveLeft();
+            game.MarioPlayer.MoveLeft();
         }
     }
 }

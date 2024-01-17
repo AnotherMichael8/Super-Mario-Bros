@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,17 @@ namespace SuperMarioBros.PlayerCharacter
         private PlayerSpriteFactory() { }
         public void LoadAllTextures(ContentManager content)
         {
-            playerTexture = content.Load<Texture2D>("LinkPlayerSpriteSheetFinal");
+            playerTexture = content.Load<Texture2D>("characters");
         }
 
+        public IPlayerSprite CreateLeftIdlePlayerSprite()
+        {
+            return new LeftIdlePlayerSprite(playerTexture);
+        }
+        public IPlayerSprite CreateRightIdlePlayerSprite()
+        {
+            return new RightIdlePlayerSprite(playerTexture);
+        }
         public IPlayerSprite CreateLeftMovingPlayerSprite()
         {
             return new LeftMovingPlayerSprite(playerTexture);

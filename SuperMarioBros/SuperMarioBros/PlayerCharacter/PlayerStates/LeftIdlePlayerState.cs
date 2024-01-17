@@ -1,5 +1,4 @@
 ﻿using SuperMarioBros.PlayerCharacter.Interfaces;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftIdlePlayerState(Player player)
         {
             this.player = player;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftIdlePlayerSprite();
         }
         public void BecomeIdle()
         {

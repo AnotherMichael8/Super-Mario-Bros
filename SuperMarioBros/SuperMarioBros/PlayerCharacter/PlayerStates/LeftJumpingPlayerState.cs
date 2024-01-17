@@ -15,15 +15,16 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftJumpingPlayerState(Player player)
         {
             this.player = player;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
         }
         public void BecomeIdle()
         {
-            player.State = new LeftFallingPlayerState(player);
+           // player.State = new LeftFallingPlayerState(player);
         }
 
         public void MoveLeft()
         {
-            player.State = new LeftWalkJumpingPlayerState(player);
+           // player.State = new LeftWalkJumpingPlayerState(player);
         }
 
         public void MoveRight()

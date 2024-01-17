@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SuperMarioBros.Commands;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace SuperMarioBros.Controllers
 {
     public class GameplayController : KeyboardController
     {
-        private List<Keys> moveKeys = new List<Keys>();;
+        private List<Keys> moveKeys = new List<Keys>();
 
         public GameplayController(Game1 game) : base(game) { }
 
@@ -34,7 +35,7 @@ namespace SuperMarioBros.Controllers
             moveKeys.Add(Keys.Right);
             moveKeys.Add(Keys.D);
             moveKeys.Add(Keys.A);
-            moveKeys.Add(Keys.LeftControl);
+           // moveKeys.Add(Keys.LeftControl);
         }
         public override void Update(GameTime gameTime)
         {
@@ -43,6 +44,10 @@ namespace SuperMarioBros.Controllers
             {
                 if (!pressedKeys.Contains(heldKeys[c]))
                 {
+                    //Checks if the sprint button is still being held
+                    if (heldKeys[c] == Keys.LeftControl) { }
+                    //new StopSprintingCommand.Execute();
+
                     heldKeys.Remove(heldKeys[c]);
                     c--;
                 }

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
-    public class LeftMovingPlayerSprite : IPlayerSprite
+    public class LeftJumpingPlayerSprite : IPlayerSprite
     {
         private Texture2D texture;
-        private readonly Rectangle sourceRectangle = new Rectangle(208, 44, 14, 16);
+        private readonly Rectangle sourceRectangle = new Rectangle(141, 44, 17, 16);
         private int frameCounter;
-        public LeftMovingPlayerSprite(Texture2D texture)
+        public LeftJumpingPlayerSprite(Texture2D texture)
         {
             this.texture = texture;
             frameCounter = 0;

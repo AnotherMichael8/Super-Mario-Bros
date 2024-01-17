@@ -14,10 +14,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftCrouchingPlayerState(Player player)
         {
             this.player = player;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftCrouchingPlayerSprite();
         }
         public void BecomeIdle()
         {
-            player.State = new RightFallingPlayerState(player);
+           // player.State = new RightFallingPlayerState(player);
         }
 
         public void MoveLeft()
@@ -27,7 +28,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void MoveRight()
         {
-            player.State = new RightWalkJumpingPlayerState(player);
+            //player.State = new RightWalkJumpingPlayerState(player);
         }
 
         public void Sprint()

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.PlayerCharacter.PlayerSprites;
+using SuperMarioBros.PlayerCharacter.PlayerStates;
 
 namespace SuperMarioBros.PlayerCharacter
 {
@@ -16,12 +18,14 @@ namespace SuperMarioBros.PlayerCharacter
         public Vector2 Position { get { return position; } set { position = value; } }
         public IPlayerSprite Sprite { get; set; }
         public IPlayerState State { get; set; }
+        public int Speed { get; set; }
 
         public Player(Game1 game)
         {
             this.game = game;
             this.position = new Vector2(0, 0);
-            //State = 
+            State = new RightIdlePlayerState(this);
+            Speed = 1;
         }
 
         public void BecomeIdle()
@@ -55,11 +59,11 @@ namespace SuperMarioBros.PlayerCharacter
         }
         public void Update()
         {
-
+            State.Update();
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-             
+             Sprite.Draw(spriteBatch, position, color);
         }
     }
 }

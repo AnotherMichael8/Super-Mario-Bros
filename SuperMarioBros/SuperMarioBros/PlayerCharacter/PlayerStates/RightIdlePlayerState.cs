@@ -15,6 +15,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public RightIdlePlayerState(Player player)
         {
             this.player = player;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
         }
         public void BecomeIdle()
         {

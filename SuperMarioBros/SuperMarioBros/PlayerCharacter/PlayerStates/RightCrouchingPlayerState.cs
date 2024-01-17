@@ -14,6 +14,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public RightCrouchingPlayerState(Player player)
         {
             this.player = player;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateRightCrouchingPlayerSprite();
         }
         public void BecomeIdle()
         {
