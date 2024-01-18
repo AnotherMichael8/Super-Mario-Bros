@@ -23,7 +23,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Player(Game1 game)
         {
             this.game = game;
-            this.position = new Vector2(0, 0);
+            this.position = new Vector2(0,200);
             State = new RightIdlePlayerState(this);
             Speed = 100;
         }
@@ -47,6 +47,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Sprint();
         }
+        public void StopSprinting()
+        {
+            State.StopSprinting();
+        }
 
         public void Jump()
         {
@@ -60,7 +64,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void Update()
         {
             State.Update();
-            Sprite.Update();
+            Sprite.Update(Speed);
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {

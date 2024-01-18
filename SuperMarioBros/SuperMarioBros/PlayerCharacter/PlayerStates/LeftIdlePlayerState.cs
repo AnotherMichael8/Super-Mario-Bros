@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftIdlePlayerState : IPlayerState
+    public class LeftIdlePlayerState : AbstractPlayerState
     {
         private Player player;
 
@@ -16,36 +16,28 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftIdlePlayerSprite();
         }
-        public void BecomeIdle()
+
+        public override void MoveLeft()
         {
+            player.State = new LeftMovingPlayerState(player);
         }
 
-        public void MoveLeft()
+        public override void MoveRight()
         {
-            player.State = new LeftWalkingPlayerState(player);
+            player.State = new RightMovingPlayerState(player);
         }
 
-        public void MoveRight()
-        {
-            player.State = new RightWalkingPlayerState(player);
-        }
-
-        public void Sprint()
-        {
-            player.State = new LeftSprintingPlayerState(player);
-        }
-
-        public void Jump()
+        public override void Jump()
         {
             player.State = new LeftJumpingPlayerState(player);
         }
 
-        public void Crouch()
+        public override void Crouch()
         {
             player.State = new LeftCrouchingPlayerState(player);
         }
 
-        public void Update()
+        public override void Update()
         {
         }
     }

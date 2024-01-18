@@ -12,7 +12,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     public class RightIdlePlayerSprite : IPlayerSprite
     {
         private Texture2D texture;
-        private readonly Rectangle sourceRectangle = new Rectangle(223, 44, 14, 16);
+        private readonly Rectangle sourceRectangle = new Rectangle(0, 8, 16, 16);
         private int frameCounter;
         public RightIdlePlayerSprite(Texture2D texture)
         {
@@ -20,16 +20,16 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
             frameCounter = 0;
         }
 
-        public void Update()
+        public void Update(int currentSpeed)
         {
             frameCounter++;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width * 3, sourceRectangle.Height * 3);
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
 
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.FlipHorizontally, 0);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0);
         }
     }
 }

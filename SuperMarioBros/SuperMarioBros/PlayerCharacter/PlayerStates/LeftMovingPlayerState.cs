@@ -9,55 +9,52 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftWalkingPlayerState : IPlayerState
+    public class LeftMovingPlayerState : AbstractPlayerState
     {
         private Player player;
-        private int accelerationCounter;
+        private int accerlerationCounter;
 
-        public LeftWalkingPlayerState(Player player)
+        public LeftMovingPlayerState(Player player)
         {
             this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftMovingPlayerSprite();
-            accelerationCounter = 0;
+            accerlerationCounter = 0;
             player.Speed = 1;
         }
-        public void BecomeIdle()
+        public override void BecomeIdle()
         {
             player.State = new LeftIdlePlayerState(player);
         }
-
-        public void MoveLeft()
+        public override void MoveRight()
         {
+            player.State = new RightSlidingPlayerState(player);
         }
 
-        public void MoveRight()
-        {
-            player.State = new RightWalkingPlayerState(player);
-        }
-
-        public void Sprint()
-        {
-            player.State = new LeftSprintingPlayerState(player);
-        }
-
-        public void Jump()
+        public override void Jump()
         {
             //player.State = new LeftWalkJumpingPlayerState(player);
         }
 
-        public void Crouch()
+        public override void Crouch()
         {
             player.State = new LeftCrouchingPlayerState(player);
         }
 
-        public void Update()
+        public override void Update()
         {
             player.Position = new Vector2(player.Position.X - player.Speed, player.Position.Y);
-            accelerationCounter++;
-            if (accelerationCounter >= 8)
+            accerlerationCounter++;
+            if (accerlerationCounter >= 10)
             {
-                player.Speed++;
-                accelerationCounter = 0;
+                if (player.Speed < AccelerationCap)
+                {
+                    player.Speed++;
+                }
+                else if (player.Speed > AccelerationCap)
+                {
+                    player.Speed--;
+                }
+                accerlerationCounter = 0;
             }
         }
     }

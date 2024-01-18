@@ -22,18 +22,18 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
             sourceRectangle = spriteAnimation[0];
         }
 
-        public void Update()//int currentSpeed)
+        public void Update(int currentSpeed)
         {
-            if(frameCounter >= 6)
+            if(frameCounter >= 24 - 3 * currentSpeed)
             {
                 frameCounter = 0;
                 sourceRectangle = spriteAnimation[0];
             }
-            else if(frameCounter >= 4)
+            else if(frameCounter >= 16 - 2 * currentSpeed)
             {
                 sourceRectangle = spriteAnimation[1];
             }
-            else if(frameCounter >= 2)
+            else if(frameCounter >= 8 - currentSpeed)
             {
                 sourceRectangle = spriteAnimation[2];
             }

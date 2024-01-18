@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightSprintingPlayerState : IPlayerState
+    public class RightSprintingPlayerState //: IPlayerState
     {
         private Player player;
 
@@ -27,7 +27,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void MoveRight()
         {
-            player.State = new RightWalkingPlayerState(player);
+            player.State = new RightMovingPlayerState(player);
         }
 
         public void Sprint()

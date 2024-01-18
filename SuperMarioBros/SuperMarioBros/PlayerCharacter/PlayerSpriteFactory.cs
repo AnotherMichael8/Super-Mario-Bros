@@ -60,5 +60,13 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new RightCrouchingPlayerSprite(playerTexture);
         }
+        public IPlayerSprite CreateRightSlidingPlayerSprite()
+        {
+            return new RightSlidingPlayerSprite(playerTexture);
+        }
+        public IPlayerSprite CreateLeftSlidingPlayerSprite()
+        {
+            return new LeftSlidingPlayerSprite(playerTexture);
+        }
     }
 }

@@ -12,24 +12,39 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     public class LeftMovingPlayerSprite : IPlayerSprite
     {
         private Texture2D texture;
-        private readonly Rectangle sourceRectangle = new Rectangle(208, 44, 14, 16);
+        private Rectangle sourceRectangle;
+        private readonly Rectangle[] spriteAnimation = { new Rectangle(20, 8, 16, 16), new Rectangle(38, 8, 16, 16), new Rectangle(56, 8, 16, 16) };
         private int frameCounter;
         public LeftMovingPlayerSprite(Texture2D texture)
         {
             this.texture = texture;
             frameCounter = 0;
+            sourceRectangle = spriteAnimation[0];
         }
 
-        public void Update()
+        public void Update(int currentSpeed)
         {
+            if (frameCounter >= 24 - 3 * currentSpeed)
+            {
+                frameCounter = 0;
+                sourceRectangle = spriteAnimation[0];
+            }
+            else if (frameCounter >= 16 - 2 * currentSpeed)
+            {
+                sourceRectangle = spriteAnimation[1];
+            }
+            else if (frameCounter >= 8 - currentSpeed)
+            {
+                sourceRectangle = spriteAnimation[2];
+            }
             frameCounter++;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width * 3, sourceRectangle.Height * 3);
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
 
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.FlipHorizontally, 0);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace SuperMarioBros.Controllers
                 {
                     //Checks if the sprint button is still being held
                     if (heldKeys[c] == Keys.LeftControl) { }
-                    //new StopSprintingCommand.Execute();
+                        new StopSprintingCommand(game).Execute();
 
                     heldKeys.Remove(heldKeys[c]);
                     c--;

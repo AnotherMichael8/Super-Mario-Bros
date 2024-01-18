@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftJumpingPlayerState : IPlayerState
+    public class LeftJumpingPlayerState : AbstractPlayerState
     {
         private Player player;
 
@@ -17,34 +17,21 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
         }
-        public void BecomeIdle()
+        public override void BecomeIdle()
         {
            // player.State = new LeftFallingPlayerState(player);
         }
 
-        public void MoveLeft()
+        public override void MoveLeft()
         {
            // player.State = new LeftWalkJumpingPlayerState(player);
         }
 
-        public void MoveRight()
+        public override void MoveRight()
         {
             //player.State = new RightWalkingPlayerState(player);
         }
-
-        public void Sprint()
-        {
-        }
-
-        public void Jump()
-        {
-        }
-
-        public void Crouch()
-        {
-        }
-
-        public void Update()
+        public override void Update()
         {
         }
     }

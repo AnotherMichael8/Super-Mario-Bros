@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Commands
 {
-    public class SprintCommand : ICommand
+    public class StopSprintingCommand : ICommand
     {
         private Game1 game;
-        public SprintCommand(Game1 game)
+        public StopSprintingCommand(Game1 game)
         {
             this.game = game;
         }
 
         public void Execute()
         {
-            game.MarioPlayer.Sprint();
+            game.MarioPlayer.StopSprinting();
         }
     }
 }

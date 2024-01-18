@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    internal class RightCrouchingPlayerState : IPlayerState
+    internal class RightCrouchingPlayerState : AbstractPlayerState
     {
         private Player player;
 
@@ -16,32 +16,20 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightCrouchingPlayerSprite();
         }
-        public void BecomeIdle()
+        public override void BecomeIdle()
         {
             player.State = new RightIdlePlayerState(player);
         }
 
-        public void MoveLeft()
+        public override void MoveLeft()
         {
         }
 
-        public void MoveRight()
+        public override void MoveRight()
         {
         }
 
-        public void Sprint()
-        {
-        }
-
-        public void Jump()
-        {
-        }
-
-        public void Crouch()
-        {
-        }
-
-        public void Update()
+        public override void Update()
         {
         }
     }

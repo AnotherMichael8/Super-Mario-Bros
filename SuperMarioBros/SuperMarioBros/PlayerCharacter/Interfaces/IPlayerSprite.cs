@@ -10,7 +10,7 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
 {
     public interface IPlayerSprite
     {
-        public void Update();
+        public void Update(int currentSpeed);
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color);
     }
 }
