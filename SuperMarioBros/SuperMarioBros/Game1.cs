@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SuperMarioBros.Blocks;
 using SuperMarioBros.Controllers;
 using SuperMarioBros.PlayerCharacter;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
@@ -14,6 +15,7 @@ namespace SuperMarioBros
         private SpriteBatch _spriteBatch;
         public IPlayer MarioPlayer { get; set; }
         public IController Controller { get; set; }
+        public LevelGenerator levelGenerator { get; set; }
 
         public Game1()
         {
@@ -32,9 +34,12 @@ namespace SuperMarioBros
         protected override void LoadContent()
         {
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             Controller = new GameplayController(this);
+            levelGenerator = new LevelGenerator();
+            levelGenerator.CreateFloor();
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,7 +59,7 @@ namespace SuperMarioBros
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
             MarioPlayer.Draw(_spriteBatch, Color.White);
-
+            levelGenerator.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

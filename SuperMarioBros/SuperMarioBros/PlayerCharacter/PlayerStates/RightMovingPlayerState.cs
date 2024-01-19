@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SuperMarioBros.PlayerCharacter.Interfaces;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +35,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             //player.State = new RightWalkJumpingPlayerState(player);
         }
 
-        public override  void Crouch()
+        public override void Crouch()
         {
             player.State = new RightCrouchingPlayerState(player);
         }

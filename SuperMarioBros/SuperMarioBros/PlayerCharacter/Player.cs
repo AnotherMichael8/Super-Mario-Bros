@@ -23,7 +23,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Player(Game1 game)
         {
             this.game = game;
-            this.position = new Vector2(0,200);
+            this.position = new Vector2(0,384);
             State = new RightIdlePlayerState(this);
             Speed = 100;
         }
