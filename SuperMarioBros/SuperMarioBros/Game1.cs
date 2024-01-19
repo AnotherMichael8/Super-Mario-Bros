@@ -6,6 +6,7 @@ using SuperMarioBros.Controllers;
 using SuperMarioBros.PlayerCharacter;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 using System.Linq.Expressions;
+using SuperMarioBros.Collision;
 
 namespace SuperMarioBros
 {
@@ -16,6 +17,7 @@ namespace SuperMarioBros
         public IPlayer MarioPlayer { get; set; }
         public IController Controller { get; set; }
         public LevelGenerator levelGenerator { get; set; }
+        public CollisionManager collisionManager;
 
         public Game1()
         {
@@ -39,6 +41,7 @@ namespace SuperMarioBros
             MarioPlayer = new Player(this);
             Controller = new GameplayController(this);
             levelGenerator = new LevelGenerator();
+            collisionManager = new CollisionManager(this);
             levelGenerator.CreateFloor();
         }
 
@@ -49,6 +52,7 @@ namespace SuperMarioBros
 
             MarioPlayer.Update();
             Controller.Update(gameTime);
+            collisionManager.Update();
 
             base.Update(gameTime);
         }

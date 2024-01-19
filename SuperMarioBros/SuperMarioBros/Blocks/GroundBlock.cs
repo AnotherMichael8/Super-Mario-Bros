@@ -23,5 +23,9 @@ namespace SuperMarioBros.Blocks
         {
             sprite.Draw(spriteBatch, sourceRectangle, position, color);
         }
+        public Rectangle GetHitBox()
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
+        }
     }
 }

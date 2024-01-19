@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Collision;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace SuperMarioBros.Blocks
             {
                 blocks.Add(new GroundBlock(new Vector2(x, 448)));
                 blocks.Add(new GroundBlock(new Vector2(x, 416)));
+                CollisionManager.GameObjectList.Add(new GroundBlock(new Vector2(x, 448)));
+                CollisionManager.GameObjectList.Add(new GroundBlock(new Vector2(x, 416)));
             }
         }
         public void Draw(SpriteBatch spriteBatch)

@@ -1,5 +1,4 @@
-﻿using SuperMarioBros.PlayerCharacter.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,30 +7,27 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftJumpingPlayerState : AbstractPlayerState
+    public class LeftFallingPlayerState : AbstractPlayerState
     {
         private Player player;
         private int jumpingSpeed;
         private int accelerationCounter;
-        private int jumpCnt;
-
-        public LeftJumpingPlayerState(Player player)
+        public LeftFallingPlayerState(Player player)
         {
             this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
-            jumpingSpeed = 20;
+            jumpingSpeed = 4;
             accelerationCounter = 0;
-            jumpCnt = 0;
+            player.OnGround = false;
         }
         public override void BecomeIdle()
         {
-            if(jumpCnt > 50)
-                player.State = new LeftFallingPlayerState(player);
+            //player.State = new LeftIdlePlayerState(player);
         }
 
         public override void MoveLeft()
         {
-           // player.State = new LeftWalkJumpingPlayerState(player);
+            // player.State = new LeftWalkJumpingPlayerState(player);
         }
 
         public override void MoveRight()
@@ -41,17 +37,16 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void Update()
         {
             player.Position = new Vector2(player.Position.X, player.Position.Y - jumpingSpeed);
-            if(accelerationCounter == 8)
+            if (accelerationCounter == 8 && jumpingSpeed > 0)
             {
                 jumpingSpeed--;
                 accelerationCounter = 0;
             }
-            else if(jumpingSpeed == 5)
+            else if (player.OnGround)
             {
-                BecomeIdle();
+                player.State = new LeftIdlePlayerState(player);
             }
             accelerationCounter++;
-            jumpCnt++;
         }
     }
 }

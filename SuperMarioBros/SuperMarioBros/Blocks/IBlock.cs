@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Blocks
 {
-    public interface IBlock
+    public interface IBlock : IGameObject
     {
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color color);

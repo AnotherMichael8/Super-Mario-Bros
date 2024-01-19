@@ -14,16 +14,16 @@ namespace SuperMarioBros.PlayerCharacter
     public class Player : IPlayer
     {
         private Game1 game;
-        private Vector2 position;
-        public Vector2 Position { get { return position; } set { position = value; } }
+        public Vector2 Position { get; set; }
         public IPlayerSprite Sprite { get; set; }
         public IPlayerState State { get; set; }
         public int Speed { get; set; }
+        public bool OnGround { get; set; }
 
         public Player(Game1 game)
         {
             this.game = game;
-            this.position = new Vector2(0,384);
+            Position = new Vector2(0,384);
             State = new RightIdlePlayerState(this);
             Speed = 100;
         }
@@ -65,10 +65,15 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Update();
             Sprite.Update(Speed);
+            Position = new Vector2(Position.X, Position.Y + 5);
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-             Sprite.Draw(spriteBatch, position, color);
+             Sprite.Draw(spriteBatch, Position, color);
+        }
+        public Rectangle GetHitBox()
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
         }
     }
 }

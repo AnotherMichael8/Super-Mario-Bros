@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter
 {
-    public interface IPlayer
+    public interface IPlayer : IGameObject
     {
+        public Vector2 Position { get; set; }
+        public bool OnGround { get; set; }
         public void BecomeIdle();
         public void MoveLeft();
         public void MoveRight();
