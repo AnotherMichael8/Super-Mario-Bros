@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftFallingPlayerState : AbstractPlayerState
+    public class RightFallingPlayerState : AbstractPlayerState
     {
         private int fallingSpeed;
         private int accelerationCounter;
-        public LeftFallingPlayerState(Player player) : base(player)
+        public RightFallingPlayerState(Player player) : base(player) 
         {
-            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
+            player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
             JumpingSpeed = 9;
             accelerationCounter = 0;
-            player.OnGround = false;
             fallingSpeed = 2;
+            player.OnGround = false;
         }
         public override void BecomeIdle()
         {
@@ -26,12 +26,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public override void MoveLeft()
         {
-            // player.State = new LeftWalkJumpingPlayerState(player);
+            // player.State = new LeftMoveJumpingPlayerState(player);
         }
 
         public override void MoveRight()
         {
-            //player.State = new RightWalkingPlayerState(player);
+            //player.State = new RightMoveJumpingPlayerState(player);
         }
         public override void UpdateMovement()
         {
@@ -44,7 +44,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             }
             else if (player.OnGround)
             {
-                player.State = new LeftIdlePlayerState(player);
+                player.State = new RightIdlePlayerState(player);
             }
             accelerationCounter++;
         }

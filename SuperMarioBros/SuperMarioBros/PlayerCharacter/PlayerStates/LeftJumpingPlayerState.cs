@@ -10,45 +10,50 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class LeftJumpingPlayerState : AbstractPlayerState
     {
-        private Player player;
-        private int jumpingSpeed;
+        
         private int accelerationCounter;
         private int jumpCnt;
+        private bool stopJump;
 
-        public LeftJumpingPlayerState(Player player)
+        public LeftJumpingPlayerState(Player player) : base(player)
         {
-            this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
-            jumpingSpeed = 20;
+            JumpingSpeed = 18;
             accelerationCounter = 0;
             jumpCnt = 0;
+            stopJump = false;
         }
         public override void BecomeIdle()
         {
-            if(jumpCnt > 50)
-                player.State = new LeftFallingPlayerState(player);
+            
         }
 
         public override void MoveLeft()
         {
-           // player.State = new LeftWalkJumpingPlayerState(player);
+            player.State = new LeftMoveJumpingPlayerState(player, JumpingSpeed);
         }
 
         public override void MoveRight()
         {
             //player.State = new RightWalkingPlayerState(player);
         }
-        public override void Update()
+        public override void StopJumping()
         {
-            player.Position = new Vector2(player.Position.X, player.Position.Y - jumpingSpeed);
-            if(accelerationCounter == 8)
+            if (jumpCnt > 3)
+                player.State = new LeftFallingPlayerState(player);
+            stopJump = true;
+        }
+        public override void UpdateMovement()
+        {
+            //player.Position = new Vector2(player.Position.X, player.Position.Y - JumpingSpeed);
+            if(accelerationCounter == 8 && !stopJump)
             {
-                jumpingSpeed--;
+                JumpingSpeed -= 2;
                 accelerationCounter = 0;
             }
-            else if(jumpingSpeed == 5)
+            else if(JumpingSpeed == 10 || stopJump)
             {
-                BecomeIdle();
+                StopJumping();
             }
             accelerationCounter++;
             jumpCnt++;

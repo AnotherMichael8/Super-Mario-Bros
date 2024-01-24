@@ -19,6 +19,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void StopSprinting();
         public void Jump();
         public void Crouch();
+        public void StopJumping();
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color color);
     }

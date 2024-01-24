@@ -9,12 +9,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class LeftSlidingPlayerState : AbstractPlayerState
     {
-        private Player player;
         private int accerlerationCounter;
 
-        public LeftSlidingPlayerState(Player player)
+        public LeftSlidingPlayerState(Player player) : base(player) 
         {
-            this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftSlidingPlayerSprite();
             accerlerationCounter = 0;
         }
@@ -22,16 +20,16 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new LeftIdlePlayerState(player);
         }
-        public override void Update()
+        public override void UpdateMovement()
         {
-            player.Position = new Vector2(player.Position.X + player.Speed, player.Position.Y);
+            //player.Position = new Vector2(player.Position.X + Speed, player.Position.Y);
             accerlerationCounter++;
-            if (accerlerationCounter >= 3 && player.Speed > 0)
+            if (accerlerationCounter >= 3 && Speed > 0)
             {
-                player.Speed--;
+                Speed--;
                 accerlerationCounter = 0;
             }
-            else if (player.Speed == 0)
+            else if (Speed == 0)
             {
                 FinishedSliding();
             }

@@ -10,12 +10,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class RightIdlePlayerState : AbstractPlayerState
     {
-        private Player player;
-
-        public RightIdlePlayerState(Player player)
+        private int decelerationRate;
+        public RightIdlePlayerState(Player player) : base(player)
         {
-            this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
+            decelerationRate = 0;
         }
 
         public override void MoveLeft()
@@ -37,9 +36,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new RightCrouchingPlayerState(player);
         }
-
-        public override void Update()
+        public override void UpdateMovement()
         {
+            if (Speed > 0)
+            {
+                Speed--;
+            }
         }
     }
 }

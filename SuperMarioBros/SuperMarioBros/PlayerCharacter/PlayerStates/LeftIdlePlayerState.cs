@@ -9,12 +9,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class LeftIdlePlayerState : AbstractPlayerState
     {
-        private Player player;
-
-        public LeftIdlePlayerState(Player player)
+        public LeftIdlePlayerState(Player player) : base(player)
         {
-            this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftIdlePlayerSprite();
+            //Speed = 0;
         }
 
         public override void MoveLeft()
@@ -36,9 +34,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new LeftCrouchingPlayerState(player);
         }
-
-        public override void Update()
+        public override void UpdateMovement()
         {
+            if (Speed < 0)
+            {
+                Speed++;
+            }
         }
     }
 }

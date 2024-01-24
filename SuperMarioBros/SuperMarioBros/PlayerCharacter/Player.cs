@@ -18,6 +18,7 @@ namespace SuperMarioBros.PlayerCharacter
         public IPlayerSprite Sprite { get; set; }
         public IPlayerState State { get; set; }
         public int Speed { get; set; }
+        public int JumpingSpeed { get; set; }
         public bool OnGround { get; set; }
 
         public Player(Game1 game)
@@ -61,11 +62,15 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Crouch();
         }
+        public void StopJumping()
+        {
+            State.StopJumping();
+        }
         public void Update()
         {
             State.Update();
             Sprite.Update(Speed);
-            Position = new Vector2(Position.X, Position.Y + 5);
+            Position = new Vector2(Position.X, Position.Y + 10);
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {

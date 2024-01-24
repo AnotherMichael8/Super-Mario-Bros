@@ -13,6 +13,7 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
         public void MoveRight();
         public void Sprint();
         public void StopSprinting();
+        public void StopJumping();
         public void Jump();
         public void Crouch();
         public void Update();

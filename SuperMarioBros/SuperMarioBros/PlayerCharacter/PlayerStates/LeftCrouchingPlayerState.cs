@@ -9,11 +9,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class LeftCrouchingPlayerState : AbstractPlayerState
     {
-        private Player player;
-
-        public LeftCrouchingPlayerState(Player player)
+        public LeftCrouchingPlayerState(Player player) : base(player)
         {
-            this.player = player;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftCrouchingPlayerSprite();
         }
         public override void BecomeIdle()
@@ -29,9 +26,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override  void MoveRight()
         {
             //player.State = new RightWalkJumpingPlayerState(player);
-        }
-        public override  void Update()
-        {
         }
     }
 }

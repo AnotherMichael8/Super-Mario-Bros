@@ -4,6 +4,7 @@ using SuperMarioBros.Commands;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,8 +46,10 @@ namespace SuperMarioBros.Controllers
                 if (!pressedKeys.Contains(heldKeys[c]))
                 {
                     //Checks if the sprint button is still being held
-                    if (heldKeys[c] == Keys.LeftControl) { }
+                    if (heldKeys[c] == Keys.LeftControl)
                         new StopSprintingCommand(game).Execute();
+                    else if (heldKeys[c] == Keys.W)//|| heldKeys[c] == Keys.Up)
+                        new StopJumpingCommand(game).Execute();
 
                     heldKeys.Remove(heldKeys[c]);
                     c--;
