@@ -35,7 +35,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             if(accelerationCounter == 8)
             {
-                Speed -= 5;
+                Speed--;
             }
         }
 

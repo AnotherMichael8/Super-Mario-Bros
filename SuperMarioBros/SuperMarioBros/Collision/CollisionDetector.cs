@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Collision.SideCollisionHandlers;
 using SuperMarioBros.Blocks;
+using SuperMarioBros.Enemies;
 
 namespace SuperMarioBros.Collision
 {
@@ -19,9 +20,26 @@ namespace SuperMarioBros.Collision
             if (playerHitBox.Intersects(objHitBox))
             {
                 ICollision side = SideDetector(playerHitBox, objHitBox);
-                if (obj is IBlock)
+                if (obj is IBlock block)
                 {
-                    PlayerBlockHandler.HandlePlayerBlockCollision(player, (IBlock)obj, side);
+                    PlayerBlockHandler.HandlePlayerBlockCollision(player, block, side);
+                }
+                else if(obj is IEnemy enemy)
+                {
+                    PlayerEnemyHandler.HandlePlayerEnemyCollision(player, enemy, side);
+                }
+            }
+        }
+        public static void CheckEnemyCollision(IEnemy enemy, IGameObject obj, List<IGameObject> gameObjectList)
+        {
+            Rectangle enemyRectangle = enemy.GetHitBox();
+            Rectangle collisionRectangle = obj.GetHitBox();
+            if (collisionRectangle.Intersects(enemyRectangle))
+            {
+                ICollision side = SideDetector(enemyRectangle, collisionRectangle);
+                if (obj is IBlock block)
+                {
+                    EnemyBlockHandler.HandleEnemyBlockCollision(enemy, block, side);
                 }
             }
         }

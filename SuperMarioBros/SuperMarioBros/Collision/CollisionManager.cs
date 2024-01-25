@@ -1,4 +1,5 @@
-﻿using SuperMarioBros.PlayerCharacter;
+﻿using SuperMarioBros.Enemies;
+using SuperMarioBros.PlayerCharacter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,25 @@ namespace SuperMarioBros.Collision
                 CollisionDetector.CheckPlayerCollision(player, obj, game);
             }
         }
+        public void CheckEnemyCollsion()
+        {
+            for (int i = 0; i < GameObjectList.Count; i++)
+            {
+                if (GameObjectList[i] is IEnemy enemy)
+                {
+                    for (int c = 0; c < GameObjectList.Count; c++)
+                    {
+                        IGameObject obj = GameObjectList[c];
+                        CollisionDetector.CheckEnemyCollision(enemy, obj, GameObjectList);
+                    }
+                }
+            }
+        }
 
         public void Update()
         {
             CheckPlayerCollision();
+            CheckEnemyCollsion();
         }
 
     }
