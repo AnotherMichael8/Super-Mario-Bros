@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 {
-    public class GoombaMovingRightState : IEnemyState
+    public class GoombaDeathState : IEnemyState
     {
         private Goomba goomba;
-        public GoombaMovingRightState(Goomba goomba)
+        private int deathCounter;
+        public GoombaDeathState(Goomba goomba)
         {
             this.goomba = goomba;
+            goomba.Sprite = EnemySpriteFactory.Instance.CreateDeathGoombaEnemySprite();
+            deathCounter = 0;
         }
         public void Kill()
         {
-
         }
         public void MoveLeft()
         {
-            goomba.State = new GoombaMovingLeftState(goomba);
         }
 
         public void MoveRight()
@@ -29,7 +30,12 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 
         public void Update()
         {
-            goomba.Position = new Vector2(goomba.Position.X + 1, goomba.Position.Y);
+            if(deathCounter == 30)
+            {
+                AbstractEnemy.Enemies.Remove(goomba);
+            }
+            deathCounter++;
+
         }
     }
 }

@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperMarioBros.Enemies.Goomba.GoombaStates
+namespace SuperMarioBros.Enemies.Koopa.KoopaStates
 {
-    public class GoombaMovingRightState : IEnemyState
+    public class KoopaMovingRightState : IEnemyState
     {
-        private Goomba goomba;
-        public GoombaMovingRightState(Goomba goomba)
+        private Koopa koopa;
+        public KoopaMovingRightState(Koopa koopa)
         {
-            this.goomba = goomba;
+            this.koopa = koopa;
         }
         public void Kill()
         {
@@ -20,7 +20,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
         }
         public void MoveLeft()
         {
-            goomba.State = new GoombaMovingLeftState(goomba);
+            koopa.State = new KoopaMovingLeftState(koopa);
         }
 
         public void MoveRight()
@@ -29,7 +29,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 
         public void Update()
         {
-            goomba.Position = new Vector2(goomba.Position.X + 1, goomba.Position.Y);
+            koopa.Position = new Vector2(koopa.Position.X + 1, koopa.Position.Y);
         }
     }
 }

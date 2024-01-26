@@ -1,19 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Collision;
-using SuperMarioBros.Enemies.Goomba.GoombaSprites;
-using SuperMarioBros.Enemies.Goomba.GoombaStates;
+using SuperMarioBros.Enemies.Koopa.KoopaSprites;
+using SuperMarioBros.Enemies.Koopa.KoopaStates;
 
-namespace SuperMarioBros.Enemies.Goomba
+namespace SuperMarioBros.Enemies.Koopa
 {
-    public class Goomba : AbstractEnemy
+    public class Koopa : AbstractEnemy
     {
-        private const int Height = 32;
+        private const int Height = 48;
         private const int Width = 32;
-        public Goomba(Vector2 position) : base(position)
+        public bool InShell { get; private set; }
+        public Koopa(Vector2 position) : base(position)
         {
-            Sprite = EnemySpriteFactory.Instance.CreateMovingGoombaEnemySprite();
-            State = new GoombaMovingLeftState(this);
+            Sprite = EnemySpriteFactory.Instance.CreateMovingKoopaEnemySprite();
+            State = new KoopaMovingLeftState(this);
+            InShell = false;
         }
         public override void MoveRight()
         {
@@ -26,7 +28,7 @@ namespace SuperMarioBros.Enemies.Goomba
         public override void Kill()
         {
             State.Kill();
-            IsDead = true;
+            InShell = true;
         }
         public override int GetHeight()
         {
@@ -38,7 +40,7 @@ namespace SuperMarioBros.Enemies.Goomba
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X + 2, (int)Position.Y - 5, 28, 32);
+            return new Rectangle((int)Position.X - 2, (int)Position.Y - 9, 30, 48);
         }
     }
 }

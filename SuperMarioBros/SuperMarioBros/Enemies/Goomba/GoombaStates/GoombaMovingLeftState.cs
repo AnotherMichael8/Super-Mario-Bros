@@ -16,7 +16,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
         }
         public void Kill()
         {
-            goomba.Position = new Vector2(goomba.Position.X + 200, goomba.Position.Y);
+            goomba.State = new GoombaDeathState(goomba);
         }
         public void MoveLeft()
         {
@@ -24,7 +24,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 
         public void MoveRight()
         {
-            goomba.GoombaState = new GoombaMovingRightState(goomba);
+            goomba.State = new GoombaMovingRightState(goomba);
         }
 
         public void Update()

@@ -18,7 +18,7 @@ namespace SuperMarioBros.Collision
             Rectangle blockHitBox = block.GetHitBox();
             if (side is TopCollision)
             {
-                enemy.Position = new Vector2(enemy.Position.X, blockHitBox.Y - 32);
+                enemy.Position = new Vector2(enemy.Position.X, blockHitBox.Y - enemy.GetHeight());
             }
         }
     }

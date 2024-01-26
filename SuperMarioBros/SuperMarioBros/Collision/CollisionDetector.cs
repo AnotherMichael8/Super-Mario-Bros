@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SuperMarioBros.Collision.SideCollisionHandlers;
 using SuperMarioBros.Blocks;
 using SuperMarioBros.Enemies;
+using SuperMarioBros.Enemies.Koopa;
 
 namespace SuperMarioBros.Collision
 {
@@ -26,7 +27,14 @@ namespace SuperMarioBros.Collision
                 }
                 else if(obj is IEnemy enemy)
                 {
-                    PlayerEnemyHandler.HandlePlayerEnemyCollision(player, enemy, side);
+                    if (enemy is Koopa koopa)
+                    {
+                        PlayerEnemyHandler.HandlePlayerKoopaCollision(player, koopa, side);
+                    }
+                    else
+                    {
+                        PlayerEnemyHandler.HandlePlayerEnemyCollision(player, enemy, side);
+                    }
                 }
             }
         }

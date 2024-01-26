@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Enemies.Goomba.GoombaSprites;
+using SuperMarioBros.Enemies.Koopa.KoopaSprites;
 using SuperMarioBros.PlayerCharacter;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,18 @@ namespace SuperMarioBros.Enemies
         public IEnemySprite CreateMovingGoombaEnemySprite()
         {
             return new GoombaMovingSprite(enemyTexture);
+        }
+        public IEnemySprite CreateDeathGoombaEnemySprite()
+        {
+            return new GoombaDeathSprite(enemyTexture);
+        }
+        public IEnemySprite CreateMovingKoopaEnemySprite()
+        {
+            return new KoopaMovingSprite(enemyTexture);
+        }
+        public IEnemySprite CreateInShellKoopaEnemySprite()
+        {
+            return new KoopaInShellSprite(enemyTexture);
         }
     }
 }

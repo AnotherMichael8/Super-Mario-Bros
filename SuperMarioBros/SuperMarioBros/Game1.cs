@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using SuperMarioBros.Collision;
 using SuperMarioBros.Enemies;
 using SuperMarioBros.Enemies.Goomba;
+using SuperMarioBros.Enemies.Koopa;
 
 namespace SuperMarioBros
 {
@@ -44,7 +45,7 @@ namespace SuperMarioBros
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             collisionManager = new CollisionManager(this);
-            goomba = new Goomba(new Vector2(200, 384));
+            goomba = new Koopa(new Vector2(400, 384));
             Controller = new GameplayController(this);
             levelGenerator = new LevelGenerator();
             levelGenerator.CreateFloor();

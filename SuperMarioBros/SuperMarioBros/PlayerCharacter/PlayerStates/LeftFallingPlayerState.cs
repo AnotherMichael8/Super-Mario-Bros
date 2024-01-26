@@ -11,6 +11,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         private int fallingSpeed;
         private int accelerationCounter;
+        private const int HOP = 12;
         public LeftFallingPlayerState(Player player) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
@@ -32,6 +33,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void MoveRight()
         {
             //player.State = new RightWalkingPlayerState(player);
+        }
+        public override void Jump()
+        {
+            player.State = new LeftMoveJumpingPlayerState(player, HOP);
         }
         public override void UpdateMovement()
         {

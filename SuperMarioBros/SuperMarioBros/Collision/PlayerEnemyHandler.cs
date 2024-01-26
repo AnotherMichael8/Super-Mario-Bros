@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Enemies.Koopa;
+using System.Numerics;
 
 namespace SuperMarioBros.Collision
 {
@@ -14,13 +16,39 @@ namespace SuperMarioBros.Collision
     {
         public static void HandlePlayerEnemyCollision(IPlayer player, IEnemy enemy, ICollision side)
         {
-            if(side is TopCollision)
+            if (!enemy.IsDead)
             {
-                enemy.Kill();
+                if (side is TopCollision)
+                {
+                    enemy.Kill();
+                    player.Jump();
+                }
+                else
+                {
+
+                }
             }
-            else
+        }
+        public static void HandlePlayerKoopaCollision(IPlayer player, Koopa koopa, ICollision side)
+        {
+            if (side is TopCollision && !koopa.InShell)
             {
-                player.Position = new Vector2(enemy.Position.X - 32, player.Position.Y);
+                koopa.Kill();
+                player.Jump();
+            }
+            else if (side is LeftCollision)
+            {
+                if(koopa.InShell)
+                {
+                    koopa.MoveRight();
+                }
+            }
+            else if (side is RightCollision)
+            {
+                if (koopa.InShell)
+                {
+                    koopa.MoveLeft();
+                }
             }
         }
     }
