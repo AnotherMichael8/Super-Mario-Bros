@@ -21,7 +21,7 @@ namespace SuperMarioBros.PlayerCharacter
         public int Speed { get; set; }
         public int JumpingSpeed { get; set; }
         public bool OnGround { get; set; }
-        public bool IsDead { get; private set; }
+        public bool IsDead { get; set; }
 
         public Player(Game1 game)
         {
@@ -59,7 +59,6 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Jump();
         }
-
         public void Crouch()
         {
             State.Crouch();
@@ -71,7 +70,6 @@ namespace SuperMarioBros.PlayerCharacter
         public void Kill()
         {
             State.Kill();
-            IsDead = true;
         }
         public void SetDecorator(IPlayer decoLink)
         {

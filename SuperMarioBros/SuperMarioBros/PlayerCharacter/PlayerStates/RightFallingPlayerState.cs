@@ -15,9 +15,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public RightFallingPlayerState(Player player) : base(player) 
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
-            JumpingSpeed = 9;
             accelerationCounter = 0;
-            fallingSpeed = 2;
+            fallingSpeed = 5;
             player.OnGround = false;
         }
         public override void BecomeIdle()
@@ -45,7 +44,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             {
                 JumpingSpeed -= fallingSpeed;
                 accelerationCounter = 0;
-                fallingSpeed++;
             }
             else if (player.OnGround)
             {

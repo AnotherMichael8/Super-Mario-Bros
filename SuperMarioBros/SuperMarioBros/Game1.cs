@@ -58,8 +58,8 @@ namespace SuperMarioBros
 
             MarioPlayer.Update();
             goomba.Update();
-            Controller.Update(gameTime);
             collisionManager.Update();
+            Controller.Update(gameTime);
 
             base.Update(gameTime);
         }

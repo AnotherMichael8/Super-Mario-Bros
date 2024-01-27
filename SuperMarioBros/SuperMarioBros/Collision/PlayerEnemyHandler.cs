@@ -42,12 +42,20 @@ namespace SuperMarioBros.Collision
                 {
                     koopa.MoveRight();
                 }
+                else
+                {
+                    player.Kill();
+                }
             }
             else if (side is RightCollision)
             {
                 if (koopa.InShell)
                 {
                     koopa.MoveLeft();
+                }
+                else
+                {
+                    player.Kill();
                 }
             }
         }

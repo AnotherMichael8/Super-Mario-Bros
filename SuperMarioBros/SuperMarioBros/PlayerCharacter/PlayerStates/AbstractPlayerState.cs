@@ -39,7 +39,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public void Update()
         {
-            player.Position = new Vector2(player.Position.X + Speed, player.Position.Y - JumpingSpeed);
+            player.Position = new Vector2(player.Position.X + Speed, player.Position.Y - JumpingSpeed/16);
             player.Speed = Math.Abs(Speed);
             UpdateMovement();
         }
