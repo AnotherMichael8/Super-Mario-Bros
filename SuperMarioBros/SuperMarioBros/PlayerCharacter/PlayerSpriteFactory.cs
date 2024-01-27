@@ -68,5 +68,9 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new LeftSlidingPlayerSprite(playerTexture);
         }
+        public IPlayerSprite CreateDeathPlayerSprite()
+        {
+            return new DeathPlayerSprite(playerTexture);
+        }
     }
 }

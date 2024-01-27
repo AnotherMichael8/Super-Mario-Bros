@@ -33,6 +33,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             AccelerationCap = 3;
         }
+        public virtual void Kill()
+        {
+            player.State = new DeathPlayerState(player);
+        }
         public void Update()
         {
             player.Position = new Vector2(player.Position.X + Speed, player.Position.Y - JumpingSpeed);

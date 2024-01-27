@@ -25,7 +25,7 @@ namespace SuperMarioBros.Collision
                 }
                 else
                 {
-
+                    player.Kill();
                 }
             }
         }

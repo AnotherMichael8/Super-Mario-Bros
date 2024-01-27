@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace SuperMarioBros.PlayerCharacter
         public int Speed { get; set; }
         public int JumpingSpeed { get; set; }
         public bool OnGround { get; set; }
+        public bool IsDead { get; private set; }
 
         public Player(Game1 game)
         {
@@ -66,6 +68,19 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.StopJumping();
         }
+        public void Kill()
+        {
+            State.Kill();
+            IsDead = true;
+        }
+        public void SetDecorator(IPlayer decoLink)
+        {
+            game.MarioPlayer = decoLink;
+        }
+        public void RemoveDecorator()
+        {
+            game.MarioPlayer = this;
+        }
         public void Update()
         {
             State.Update();
@@ -78,7 +93,10 @@ namespace SuperMarioBros.PlayerCharacter
         }
         public Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
+            if(!IsDead)
+                return new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
+            else
+                return Rectangle.Empty;
         }
     }
 }
