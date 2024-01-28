@@ -10,20 +10,18 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class RightMoveJumpingPlayerState : AbstractPlayerState
     {
-        
-        private int accelerationCounter;
-        private int jumpCnt;
-        private bool stopJump;
-        public RightMoveJumpingPlayerState(Player player, int jumpingSpeed = 18) : base(player)
+        private int fallingSpeed;
+        private bool noLeft;
+        public RightMoveJumpingPlayerState(Player player, int jumpingSpeed = 300) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
-            accelerationCounter = 0;
-            jumpCnt = 0;
-            stopJump = false;
-            if(Speed == 0)
+            fallingSpeed = 3;
+            player.OnGround = false;
+            noLeft = jumpingSpeed == 300 && Speed >= 48;
+            if (Speed == 0)
             {
-                Speed = 1;
+                Speed = 16;
             }
         }
         public override void BecomeIdle()
@@ -33,36 +31,29 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public override void MoveLeft()
         {
-            if(accelerationCounter == 8)
-            {
-                Speed--;
-            }
+            player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed, noLeft);
         }
-
         public override void MoveRight()
-        {
-            //player.State = new RightMoveJumpingPlayerState(player);
+        { 
         }
         public override void StopJumping()
         {
-            if (jumpCnt > 3)
-                player.State = new RightFallingPlayerState(player);
-            stopJump = true;
+            fallingSpeed = 8;
         }
         public override void UpdateMovement()
         {
-            //player.Position = new Vector2(player.Position.X + Speed, player.Position.Y - JumpingSpeed);
-            if (accelerationCounter == 8 && !stopJump)
-            {
-                JumpingSpeed -= 2;
-                accelerationCounter = 0;
-            }
-            else if (JumpingSpeed == 10 || stopJump)
+            JumpingSpeed -= fallingSpeed;
+            if (JumpingSpeed <= 160)
             {
                 StopJumping();
             }
-            accelerationCounter++;
-            jumpCnt++;
+            if (player.OnGround)
+            {
+                if (Speed != 0)
+                    player.State = new RightMovingPlayerState(player, Speed);
+                else
+                    player.State = new RightIdlePlayerState(player);
+            }
         }
     }
 }

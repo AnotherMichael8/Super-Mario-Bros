@@ -1,6 +1,4 @@
-﻿using SuperMarioBros.PlayerCharacter.Interfaces;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,35 +6,30 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftMoveJumpingPlayerState : AbstractPlayerState
+    public class LeftFacingRightMoveJumpingPlayerState : AbstractPlayerState
     {
         private int fallingSpeed;
-        private bool noRight;
-        public LeftMoveJumpingPlayerState(Player player, int jumpingSpeed = 300) : base(player)
+        private int rightBarrier;
+        public LeftFacingRightMoveJumpingPlayerState(Player player, int jumpingSpeed, bool noRight = false) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
-            player.OnGround = false;
-            noRight = jumpingSpeed == 300 && Speed <= -48;
-            if(Speed == 0)
-            {
-                Speed = -16;
-            }
+            if (noRight)
+                rightBarrier = 0;
+            else
+                rightBarrier = 48;
         }
-        public override void BecomeIdle()
-        {
-            //player.State = new RightFallingPlayerState(player);
-        }
-
         public override void MoveLeft()
         {
-            //player.State = new LeftWalkJumpingPlayerState(player);
+            Speed -= 4;
         }
-
         public override void MoveRight()
         {
-            player.State = new LeftFacingRightMoveJumpingPlayerState(player, JumpingSpeed, noRight);
+            if (Speed < rightBarrier && !player.OnGround)
+                Speed += 16;
+            else if (player.OnGround)
+                player.State = new RightMovingPlayerState(player, Speed);
         }
         public override void StopJumping()
         {
@@ -51,7 +44,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             }
             if (player.OnGround)
             {
-                player.State = new LeftMovingPlayerState(player, Speed);
+                player.State = new LeftSlidingPlayerState(player); ;
             }
         }
     }

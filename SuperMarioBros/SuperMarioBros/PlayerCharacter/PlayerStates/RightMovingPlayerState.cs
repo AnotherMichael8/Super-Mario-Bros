@@ -10,14 +10,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class RightMovingPlayerState : AbstractPlayerState
     {
-        private int accelerationCounter;
         private bool stop;
 
-        public RightMovingPlayerState(Player player) : base(player)
+        public RightMovingPlayerState(Player player, int speed = 16) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightMovingPlayerSprite();
-            accelerationCounter = 0;
-            Speed = 1;
+            Speed = speed;
             stop = false;
         }
         public override void BecomeIdle()
@@ -26,6 +24,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                 player.State = new RightIdlePlayerState(player);
             else if (!stop)
                 stop = true;
+        }
+        public override void MoveRight()
+        {
+            stop = false;
         }
         public override void MoveLeft()
         {
@@ -40,28 +42,17 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void Crouch()
         {
             player.State = new RightCrouchingPlayerState(player);
-        } 
+        }
 
         public override void UpdateMovement()
         {
-            //player.Position = new Vector2(player.Position.X + Speed, player.Position.Y);
-            accelerationCounter++;
-            if(stop && accelerationCounter > 8)
+            if(stop)
             {
-                Speed--;
-                accelerationCounter = 0;
+                Speed -= 2;
             }
-            else if (accelerationCounter >= 10)
+            else if (Speed < AccelerationCap)
             {
-                if (Speed < AccelerationCap)
-                {
-                    Speed++;
-                }
-                else if (Speed > AccelerationCap)
-                {
-                    Speed--;
-                }
-                accelerationCounter = 0;
+                Speed += 2;
             }
         }
     }

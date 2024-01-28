@@ -82,7 +82,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void Update()
         {
             State.Update();
-            Sprite.Update(Speed);
+            Sprite.Update(Speed/16);
             Position = new Vector2(Position.X, Position.Y + 10);
         }
         public void Draw(SpriteBatch spriteBatch, Color color)

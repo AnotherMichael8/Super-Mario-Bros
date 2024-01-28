@@ -12,7 +12,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftIdlePlayerState(Player player) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftIdlePlayerSprite();
-            //Speed = 0;
+            Speed = 0;
         }
 
         public override void MoveLeft()

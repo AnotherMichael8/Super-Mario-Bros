@@ -15,6 +15,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
             decelerationRate = 0;
+            Speed = 0;
         }
 
         public override void MoveLeft()

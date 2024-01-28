@@ -10,7 +10,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public abstract class AbstractPlayerState : IPlayerState
     {
-        protected static int AccelerationCap = 3;
+        protected static int AccelerationCap = 3 * 16;
         protected static int JumpingSpeed = 0;
         protected static int Speed = 0;
         protected Player player;
@@ -27,11 +27,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public virtual void StopJumping() { }
         public virtual void Sprint() 
         {
-            AccelerationCap = 6;
+            AccelerationCap = 6 * 16;
         }
         public virtual void StopSprinting()
         {
-            AccelerationCap = 3;
+            AccelerationCap = 3 * 16;
         }
         public virtual void Kill()
         {
@@ -39,7 +39,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public void Update()
         {
-            player.Position = new Vector2(player.Position.X + Speed, player.Position.Y - JumpingSpeed/16);
+            player.Position = new Vector2(player.Position.X + Speed/16, player.Position.Y - JumpingSpeed/16);
             player.Speed = Math.Abs(Speed);
             UpdateMovement();
         }
