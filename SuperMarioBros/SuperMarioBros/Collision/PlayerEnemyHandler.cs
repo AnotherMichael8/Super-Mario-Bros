@@ -21,6 +21,7 @@ namespace SuperMarioBros.Collision
                 if (side is TopCollision)
                 {
                     enemy.Kill();
+                    player.OnGround = true;
                     player.Jump();
                 }
                 else
@@ -34,6 +35,7 @@ namespace SuperMarioBros.Collision
             if (side is TopCollision && !koopa.InShell)
             {
                 koopa.Kill();
+                player.OnGround = true;
                 player.Jump();
             }
             else if (side is LeftCollision)

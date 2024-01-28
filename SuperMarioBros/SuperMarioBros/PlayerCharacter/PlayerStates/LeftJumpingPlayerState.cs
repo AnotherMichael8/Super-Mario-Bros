@@ -32,6 +32,14 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new LeftFacingRightMoveJumpingPlayerState(player, JumpingSpeed);
         }
+        public override void Jump()
+        {
+            if (player.OnGround)
+            {
+                JumpingSpeed = 200;
+                player.OnGround = false;
+            }
+        }
         public override void StopJumping()
         {
             fallingSpeed = 8;
