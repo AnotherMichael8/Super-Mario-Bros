@@ -28,8 +28,11 @@ namespace SuperMarioBros.Collision
             }
             else if (side is BottomCollision)
             {
-                block.Bumb();
-                player.StopUpwardMovement();
+                if (player.State is IJumpingPlayerState)
+                {
+                    block.Bumb();
+                    player.StopUpwardMovement();
+                }
             }
             else if (side is LeftCollision)
             {

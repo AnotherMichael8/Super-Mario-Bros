@@ -12,17 +12,24 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         private int fallingSpeed;
         private bool noRight;
-        public LeftMoveJumpingPlayerState(Player player, int jumpingSpeed = 164) : base(player)
+        public LeftMoveJumpingPlayerState(Player player, int jumpingSpeed) : base(player)
+        {
+            JumpingSpeed = jumpingSpeed;
+            Initialize();
+        }
+        public LeftMoveJumpingPlayerState(Player player) : base(player)
+        {
+            Initialize();
+            JumpingSpeed = 164 + (24 / (Speed / 16));
+        }
+        public void Initialize()
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
-            JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
             player.OnGround = false;
-            noRight = jumpingSpeed == 172 && Speed <= -48;
-            if(Speed == 0)
-            {
+            if (Speed <= 0 && Speed >= -15)
                 Speed = -16;
-            }
+            noRight = Speed >= 48;
         }
         public override void BecomeIdle()
         {

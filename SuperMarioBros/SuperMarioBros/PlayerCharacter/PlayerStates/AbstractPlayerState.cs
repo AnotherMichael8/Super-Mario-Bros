@@ -39,7 +39,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public virtual void StopUpwardMovement() 
         {
-            JumpingSpeed = 160;
+            JumpingSpeed = 16;
         }
         public virtual void Fall() { }
         public void Update()

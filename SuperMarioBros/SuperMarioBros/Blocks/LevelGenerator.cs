@@ -19,16 +19,15 @@ namespace SuperMarioBros.Blocks
         }
         public void CreateFloor()
         {
-            for (int x = 0; x < 800; x += 32)
+            IBlock groundBlock = new GroundBlock(new Vector2(0, 416), 25, 2);
+            blocks.Add(groundBlock);
+            CollisionManager.GameObjectList.Add(groundBlock);
+            for (int i = 0; i < 10; i++)
             {
-                blocks.Add(new UsedBlock(new Vector2(x, 448)));
-                blocks.Add(new GroundBlock(new Vector2(x, 416)));
-                CollisionManager.GameObjectList.Add(new GroundBlock(new Vector2(x, 448)));
-                CollisionManager.GameObjectList.Add(new GroundBlock(new Vector2(x, 416)));
+                IBlock block = new DiamondBlock(new Vector2(224, 288 - 32*i));
+                blocks.Add(block);
+                CollisionManager.GameObjectList.Add(block);
             }
-            IBlock block = new QuestionBlock(new Vector2(224, 288));
-            blocks.Add(block);
-            CollisionManager.GameObjectList.Add(block);
         }
         public void Update()
         {
