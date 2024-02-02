@@ -16,6 +16,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
             decelerationRate = 0;
             Speed = 0;
+            JumpingSpeed = 0;
         }
 
         public override void MoveLeft()
@@ -32,7 +33,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new RightJumpingPlayerState(player);
         }
-
+        public override void Fall()
+        {
+            player.State = new RightFallingPlayerState(player);
+        }
         public override void Crouch()
         {
             player.State = new RightCrouchingPlayerState(player);

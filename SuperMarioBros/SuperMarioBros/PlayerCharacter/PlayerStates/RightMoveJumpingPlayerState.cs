@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightMoveJumpingPlayerState : AbstractPlayerState
+    public class RightMoveJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState
     {
         private int fallingSpeed;
         private bool noLeft;
-        public RightMoveJumpingPlayerState(Player player, int jumpingSpeed = 300) : base(player)
+        public RightMoveJumpingPlayerState(Player player, int jumpingSpeed = 164) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
             player.OnGround = false;
-            noLeft = jumpingSpeed == 300 && Speed >= 48;
+            noLeft = jumpingSpeed == 156 && Speed >= 48;
             if (Speed == 0)
             {
                 Speed = 16;
@@ -51,9 +51,9 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
-            if (JumpingSpeed <= 160)
+            if (JumpingSpeed <= 16)
             {
-                StopJumping();
+                player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);
             }
             if (player.OnGround)
             {

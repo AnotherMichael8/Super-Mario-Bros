@@ -37,11 +37,17 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new DeathPlayerState(player);
         }
+        public virtual void StopUpwardMovement() 
+        {
+            JumpingSpeed = 160;
+        }
+        public virtual void Fall() { }
         public void Update()
         {
-            player.Position = new Vector2(player.Position.X + Speed/16, player.Position.Y - JumpingSpeed/16);
-            player.Speed = Math.Abs(Speed);
+            Speed = player.Speed;
             UpdateMovement();
+            player.Position = new Vector2(player.Position.X + Speed/16, player.Position.Y - JumpingSpeed/16);
+            player.Speed = Speed;
         }
         public virtual void UpdateMovement() {}
     }

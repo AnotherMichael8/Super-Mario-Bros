@@ -10,46 +10,36 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class RightFallingPlayerState : AbstractPlayerState
     {
         private int fallingSpeed;
-        private int accelerationCounter;
-        private const int HOP = 12;
-        public RightFallingPlayerState(Player player) : base(player) 
+        public RightFallingPlayerState(Player player, int jumpingSpeed = 16) : base(player)
         {
-            player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
-            accelerationCounter = 0;
-            fallingSpeed = 5;
+            JumpingSpeed = jumpingSpeed;
+            fallingSpeed = 8;
             player.OnGround = false;
         }
-        public override void BecomeIdle()
-        {
-            //player.State = new LeftIdlePlayerState(player);
-        }
-
         public override void MoveLeft()
         {
-            // player.State = new LeftMoveJumpingPlayerState(player);
+            player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed, true);
         }
 
         public override void MoveRight()
         {
-            //player.State = new RightMoveJumpingPlayerState(player);
+            //Speed = 16;
         }
         public override void Jump()
         {
-            player.State = new RightMoveJumpingPlayerState(player, HOP);
+            if (player.OnGround)
+            {
+                JumpingSpeed = 200;
+                player.OnGround = false;
+            }
         }
         public override void UpdateMovement()
         {
-            //player.Position = new Vector2(player.Position.X, player.Position.Y - JumpingSpeed);
-            if (accelerationCounter == 8 && JumpingSpeed > 0)
-            {
-                JumpingSpeed -= fallingSpeed;
-                accelerationCounter = 0;
-            }
-            else if (player.OnGround)
+            JumpingSpeed -= fallingSpeed;
+            if (player.OnGround)
             {
                 player.State = new RightIdlePlayerState(player);
             }
-            accelerationCounter++;
         }
     }
 }

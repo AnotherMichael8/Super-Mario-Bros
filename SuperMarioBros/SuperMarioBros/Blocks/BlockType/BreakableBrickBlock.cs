@@ -1,27 +1,31 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperMarioBros.Blocks
+namespace SuperMarioBros.Blocks.BlockType
 {
-    public class GroundBlock : IBlock
+    public class BreakableBrickBlock : IBlock
     {
-        private Rectangle sourceRectangle = new Rectangle(0, 16, 16, 16);
+        private Rectangle sourceRectangle = new Rectangle(17, 16, 16, 16);
         private Vector2 position;
         private BlockSprite sprite;
-        public GroundBlock(Vector2 position)
+        public BreakableBrickBlock(Vector2 position)
         {
             this.position = position;
             sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
         }
-        public void Update() {}
+        public void Update() { }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
             sprite.Draw(spriteBatch, sourceRectangle, position, color);
+        }
+        public void Bumb()
+        {
+            position.Y += 100;
         }
         public Rectangle GetHitBox()
         {

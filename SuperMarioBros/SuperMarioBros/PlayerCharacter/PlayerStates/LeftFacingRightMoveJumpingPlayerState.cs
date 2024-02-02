@@ -46,7 +46,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
-            if (JumpingSpeed <= 160)
+            if (JumpingSpeed <= 16)
             {
                 StopJumping();
             }

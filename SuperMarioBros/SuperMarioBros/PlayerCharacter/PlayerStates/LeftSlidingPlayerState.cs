@@ -12,6 +12,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftSlidingPlayerState(Player player) : base(player) 
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftSlidingPlayerSprite();
+            JumpingSpeed = 0;
         }
         private void FinishedSliding()
         {

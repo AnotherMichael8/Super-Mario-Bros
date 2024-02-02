@@ -13,7 +13,10 @@ namespace SuperMarioBros.PlayerCharacter
     {
         public Vector2 Position { get; set; }
         public IPlayerSprite Sprite { get; set; }
+        public IPlayerState State { get; set; }
+        public int Speed { get; set; }
         public bool OnGround { get; set; }
+        public bool IsFalling { get; set; }
         public void BecomeIdle();
         public void MoveLeft();
         public void MoveRight();
@@ -23,6 +26,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void Crouch();
         public void StopJumping();
         public void Kill();
+        public void StopUpwardMovement();
         public void SetDecorator(IPlayer player);
         public void RemoveDecorator();
         public void Update();

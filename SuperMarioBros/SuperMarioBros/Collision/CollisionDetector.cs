@@ -54,7 +54,7 @@ namespace SuperMarioBros.Collision
         public static ICollision SideDetector(Rectangle affectedSprite, Rectangle nonAffectedSprite)
         {
             Rectangle intersect = Rectangle.Intersect(affectedSprite, nonAffectedSprite);
-            if (intersect.Width > intersect.Height)
+            if (intersect.Width >= intersect.Height)
             {
                 if (affectedSprite.Top < nonAffectedSprite.Top && affectedSprite.Bottom < nonAffectedSprite.Bottom)
                 {
@@ -77,6 +77,5 @@ namespace SuperMarioBros.Collision
                 }
             }
         }
-
     }
 }

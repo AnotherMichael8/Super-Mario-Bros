@@ -45,7 +45,7 @@ namespace SuperMarioBros
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             collisionManager = new CollisionManager(this);
-            goomba = new Goomba(new Vector2(400, 384));
+            //goomba = new Goomba(new Vector2(400, 384));
             Controller = new GameplayController(this);
             levelGenerator = new LevelGenerator();
             levelGenerator.CreateFloor();
@@ -57,7 +57,8 @@ namespace SuperMarioBros
                 Exit();
 
             MarioPlayer.Update();
-            goomba.Update();
+            //goomba.Update();
+            levelGenerator.Update();
             collisionManager.Update();
             Controller.Update(gameTime);
 
@@ -70,7 +71,7 @@ namespace SuperMarioBros
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
             MarioPlayer.Draw(_spriteBatch, Color.White);
-            goomba.Draw(_spriteBatch);
+            //goomba.Draw(_spriteBatch);
             levelGenerator.Draw(_spriteBatch);
             _spriteBatch.End();
 

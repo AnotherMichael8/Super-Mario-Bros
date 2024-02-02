@@ -17,6 +17,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftMovingPlayerSprite();
             Speed = speed;
             stop = false;
+            JumpingSpeed = 0;
         }
         public override void BecomeIdle()
         {
@@ -42,7 +43,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new LeftCrouchingPlayerState(player);
         }
-
+        public override void Fall()
+        {
+            player.State = new LeftMoveFallingPlayerState(player);
+        }
         public override void UpdateMovement()
         {
             if (stop)

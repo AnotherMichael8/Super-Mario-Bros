@@ -22,11 +22,13 @@ namespace SuperMarioBros.Collision
 
         public void CheckPlayerCollision()
         {
+            PlayerBlockHandler.SetFalling();
             for (int c = 0; c < GameObjectList.Count; c++)
             {
                 IGameObject obj = GameObjectList[c];
                 CollisionDetector.CheckPlayerCollision(player, obj, game);
             }
+            PlayerBlockHandler.SendFallingData(player);
         }
         public void CheckEnemyCollsion()
         {

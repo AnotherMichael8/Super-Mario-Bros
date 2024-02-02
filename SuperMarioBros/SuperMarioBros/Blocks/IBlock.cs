@@ -12,5 +12,6 @@ namespace SuperMarioBros.Blocks
     {
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color color);
+        public void Bumb();
     }
 }

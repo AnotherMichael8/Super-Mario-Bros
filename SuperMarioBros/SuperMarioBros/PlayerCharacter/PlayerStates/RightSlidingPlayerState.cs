@@ -9,12 +9,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class RightSlidingPlayerState : AbstractPlayerState
     {
-        private int accerlerationCounter;
-
         public RightSlidingPlayerState(Player player) : base(player) 
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightSlidingPlayerSprite();
-            accerlerationCounter = 0;
+            JumpingSpeed = 0;
         }
         private void FinishedSliding()
         {

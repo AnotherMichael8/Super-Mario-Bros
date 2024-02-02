@@ -16,19 +16,22 @@ namespace SuperMarioBros.PlayerCharacter
     {
         private Game1 game;
         public Vector2 Position { get; set; }
+        public static int previousY;
         public IPlayerSprite Sprite { get; set; }
         public IPlayerState State { get; set; }
         public int Speed { get; set; }
         public int JumpingSpeed { get; set; }
         public bool OnGround { get; set; }
         public bool IsDead { get; set; }
+        public bool IsFalling { get; set; }
 
         public Player(Game1 game)
         {
             this.game = game;
             Position = new Vector2(0,384);
+            previousY = 384;
             State = new RightIdlePlayerState(this);
-            Speed = 100;
+            IsFalling = false;
         }
 
         public void BecomeIdle()
@@ -54,7 +57,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.StopSprinting();
         }
-
+        public void Fall()
+        {
+            State.Fall();
+        }
         public void Jump()
         {
             State.Jump();
@@ -71,6 +77,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Kill();
         }
+        public void StopUpwardMovement()
+        {
+            State.StopUpwardMovement();
+        }
         public void SetDecorator(IPlayer decoLink)
         {
             game.MarioPlayer = decoLink;
@@ -81,9 +91,11 @@ namespace SuperMarioBros.PlayerCharacter
         }
         public void Update()
         {
+            if (IsFalling)
+                Fall();
             State.Update();
-            Sprite.Update(Speed/16);
-            Position = new Vector2(Position.X, Position.Y + 10);
+            Position = new Vector2(Position.X, Position.Y + 1);
+            Sprite.Update(Math.Abs(Speed)/16);          
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
