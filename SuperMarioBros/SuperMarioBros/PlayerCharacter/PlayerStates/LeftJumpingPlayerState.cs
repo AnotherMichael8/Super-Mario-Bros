@@ -49,7 +49,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             JumpingSpeed -= fallingSpeed;
             if (JumpingSpeed <= 16)
             {
-                player.State = new RightFallingPlayerState(player, JumpingSpeed);
+                player.State = new LeftFallingPlayerState(player, JumpingSpeed);
             }
             if (player.OnGround)
             {

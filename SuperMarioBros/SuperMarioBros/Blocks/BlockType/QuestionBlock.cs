@@ -15,12 +15,14 @@ namespace SuperMarioBros.Blocks.BlockType
         private Vector2 position;
         private BlockSprite sprite;
         private int animateCounter;
+        private int bumpCounter;
         public QuestionBlock(Vector2 position)
         {
             this.position = position;
             sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
             sourceRectangle = spriteAnimation[0];
             animateCounter = 0;
+            bumpCounter = -6;
         }
         public void Update() 
         {
@@ -36,14 +38,19 @@ namespace SuperMarioBros.Blocks.BlockType
             else if (animateCounter > 20)
                 sourceRectangle = spriteAnimation[1];
             animateCounter++;
+            if(bumpCounter > -6)
+            {
+                position.Y -= bumpCounter;
+                bumpCounter--;
+            }
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
             sprite.Draw(spriteBatch, sourceRectangle, position, color);
         }
-        public void Bumb()
+        public void Bump()
         {
-            position.Y -= 100;
+            bumpCounter = 5;
         }
         public Rectangle GetHitBox()
         {

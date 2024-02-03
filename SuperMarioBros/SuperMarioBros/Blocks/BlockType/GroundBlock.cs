@@ -34,7 +34,7 @@ namespace SuperMarioBros.Blocks
             }
             sprite.Draw(spriteBatch, sourceRectangle, position, color);
         }
-        public void Bumb()
+        public void Bump()
         {
             position.Y += 100;
         }

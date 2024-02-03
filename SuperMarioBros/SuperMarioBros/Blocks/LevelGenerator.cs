@@ -24,9 +24,15 @@ namespace SuperMarioBros.Blocks
             CollisionManager.GameObjectList.Add(groundBlock);
             for (int i = 0; i < 10; i++)
             {
-                IBlock block = new DiamondBlock(new Vector2(224, 288 - 32*i));
+                IBlock block2 = new DiamondBlock(new Vector2(192, 288 - 32 * i));
+                IBlock block3 = new QuestionBlock(new Vector2(256, 288 - 32 * i));
+                IBlock block = new QuestionBlock(new Vector2(224, 288 - 32*i));
                 blocks.Add(block);
+                blocks.Add(block2);
+                blocks.Add(block3);
                 CollisionManager.GameObjectList.Add(block);
+                CollisionManager.GameObjectList.Add(block2);
+                CollisionManager.GameObjectList.Add(block3);
             }
         }
         public void Update()

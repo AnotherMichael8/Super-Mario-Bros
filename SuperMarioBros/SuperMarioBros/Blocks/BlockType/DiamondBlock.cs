@@ -23,9 +23,9 @@ namespace SuperMarioBros.Blocks.BlockType
         {
             sprite.Draw(spriteBatch, sourceRectangle, position, color);
         }
-        public void Bumb()
+        public void Bump()
         {
-            position.Y += 100;
+            //position.Y += 100;
         }
         public Rectangle GetHitBox()
         {

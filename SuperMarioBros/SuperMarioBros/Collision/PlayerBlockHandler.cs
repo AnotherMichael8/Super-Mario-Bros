@@ -30,20 +30,20 @@ namespace SuperMarioBros.Collision
             {
                 if (player.State is IJumpingPlayerState)
                 {
-                    block.Bumb();
+                    block.Bump();
                     player.StopUpwardMovement();
                 }
             }
             else if (side is LeftCollision)
             {
-                player.Position = new Vector2(blockHitBox.X - 32, player.Position.Y);
+                player.Position = new Vector2(blockHitBox.X - 32, player.Position.Y - 1);
                 if (player.Speed > 1)
                     player.Speed -= 3;
             }
             else if (side is RightCollision)
             {
-                player.Position = new Vector2(blockHitBox.X + 32, player.Position.Y);
-                if (player.Speed > 1)
+                player.Position = new Vector2(blockHitBox.X + 32, player.Position.Y - 1);
+                if (player.Speed < -1)
                     player.Speed += 3;
             }
 
