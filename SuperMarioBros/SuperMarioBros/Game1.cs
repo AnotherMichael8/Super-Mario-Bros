@@ -33,7 +33,7 @@ namespace SuperMarioBros
 
         protected override void Initialize()
         {
-            Globals.BlockSize = 64;
+            Globals.BlockSize = 32;
             _graphics.PreferredBackBufferWidth = 512 * 2;
             _graphics.PreferredBackBufferHeight = 480 * 2;
             _graphics.ApplyChanges();

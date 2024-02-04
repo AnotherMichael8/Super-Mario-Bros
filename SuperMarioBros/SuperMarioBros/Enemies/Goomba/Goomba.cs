@@ -8,8 +8,8 @@ namespace SuperMarioBros.Enemies.Goomba
 {
     public class Goomba : AbstractEnemy
     {
-        private const int Height = 32;
-        private const int Width = 32;
+        private int Height = Globals.BlockSize;
+        private int Width = Globals.BlockSize;
         public Goomba(Vector2 position) : base(position)
         {
             Sprite = EnemySpriteFactory.Instance.CreateMovingGoombaEnemySprite();
@@ -38,7 +38,7 @@ namespace SuperMarioBros.Enemies.Goomba
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X + 2, (int)Position.Y - 5, 28, 32);
+            return new Rectangle((int)Position.X + 2, (int)Position.Y - 5, 28, Globals.BlockSize);
         }
     }
 }

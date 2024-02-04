@@ -41,7 +41,7 @@ namespace SuperMarioBros.Levels
         }
         public void CreateBlockObject(string[] blockDetails)
         {
-            Vector2 position = new Vector2(int.Parse(blockDetails[2]) * 32, int.Parse(blockDetails[3]) * 32);
+            Vector2 position = new Vector2(int.Parse(blockDetails[2]) * Globals.BlockSize,  int.Parse(blockDetails[3]) * Globals.BlockSize);
             IBlock block;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
@@ -61,15 +61,15 @@ namespace SuperMarioBros.Levels
         }
         public void CreateFloor()
         {
-            IBlock groundBlock = new GroundBlock(new Vector2(0, 416), 25, 2);
+            IBlock groundBlock = new GroundBlock(new Vector2(0, 480 * Globals.BlockSize/32 - 64), 16, 2);
             AbstractBlock.Blocks.Add(groundBlock);
             CollisionManager.GameObjectList.Add(groundBlock);
             /*
             for (int i = 0; i < 1; i++)
             {
-                IBlock block2 = new DiamondBlock(new Vector2(192, 288 - 32 * i));
-                IBlock block3 = new QuestionBlock(new Vector2(256, 288 - 32 * i));
-                IBlock block = new QuestionBlock(new Vector2(224, 288 - 32*i));
+                IBlock block2 = new DiamondBlock(new Vector2(192, 288 - Globals.BlockSize * i));
+                IBlock block3 = new QuestionBlock(new Vector2(256, 288 - Globals.BlockSize * i));
+                IBlock block = new QuestionBlock(new Vector2(224, 288 - Globals.BlockSize*i));
                 AbstractBlock.Blocks.Add(block);
                 AbstractBlock.Blocks.Add(block2);
                 AbstractBlock.Blocks.Add(block3);

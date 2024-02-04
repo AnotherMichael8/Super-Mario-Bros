@@ -25,13 +25,13 @@ namespace SuperMarioBros.Blocks
             {
                 for (int h = 0; h < height; h++)
                 {
-                    sprite.Draw(spriteBatch, sourceRectangle, new Vector2((int)position.X + 32 * w, (int)position.Y + 32 * h), color);
+                    sprite.Draw(spriteBatch, sourceRectangle, new Vector2((int)position.X + Globals.BlockSize * w, (int)position.Y + Globals.BlockSize * h), color);
                 }
             }
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)position.X, (int)position.Y, 32 * width, 32 * height);
+            return new Rectangle((int)position.X, (int)position.Y, Globals.BlockSize * width, Globals.BlockSize * height);
         }
     }
 }

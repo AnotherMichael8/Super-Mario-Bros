@@ -9,7 +9,7 @@ namespace SuperMarioBros
     public class Globals
     {
         public static int BlockSize = 32;
-        public static int ScreenSizeMulti = 1;
+        public static double ScreenSizeMulti = 1;
 
     }
 }

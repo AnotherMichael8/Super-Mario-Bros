@@ -17,7 +17,7 @@ namespace SuperMarioBros.Blocks
         }
         public void Draw(SpriteBatch spriteBatch, Rectangle sourceRectangle, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, Globals.BlockSize, Globals.BlockSize);
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
         }
     }
