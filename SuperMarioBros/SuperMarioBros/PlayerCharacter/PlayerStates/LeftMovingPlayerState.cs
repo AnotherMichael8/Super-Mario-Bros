@@ -12,16 +12,18 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class LeftMovingPlayerState : AbstractPlayerState
     {
         private bool stop;
-        public LeftMovingPlayerState(Player player, int speed = -16) : base(player)
+        public LeftMovingPlayerState(Player player, int speed = -32) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftMovingPlayerSprite();
+            if (speed > 0)
+                speed = -32;
             Speed = speed;
             stop = false;
             JumpingSpeed = 0;
         }
         public override void BecomeIdle()
         {
-            if (Speed == 0)
+            if (Speed >= 0)
                 player.State = new LeftIdlePlayerState(player);
             else if (!stop)
                 stop = true;

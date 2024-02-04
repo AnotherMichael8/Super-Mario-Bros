@@ -48,7 +48,6 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.MoveRight();
         }
-
         public void Sprint()
         {
             State.Sprint();

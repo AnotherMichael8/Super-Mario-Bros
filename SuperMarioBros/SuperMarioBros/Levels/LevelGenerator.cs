@@ -1,0 +1,83 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockType;
+using SuperMarioBros.Collision;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SuperMarioBros.Blocks;
+
+namespace SuperMarioBros.Levels
+{
+    public class LevelGenerator
+    {
+        private List<string[]> CSVLines = new List<string[]>();
+        public LevelGenerator()
+        {
+            //blocks = new List<IBlock>();
+        }
+        public void CreateAllFiles(int numBlocks)
+        {
+            for (int i = 0; i < numBlocks; i++)
+            {
+                string fileName = Directory.GetCurrentDirectory();
+                fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/LevelCSV/1-1." + (i + 1) + ".csv";
+                CSVLines.Add(File.ReadAllLines(fileName));
+            }
+        }
+        public void LoadFile(int levelChunk)
+        {
+            foreach (string gameObject in CSVLines[levelChunk - 1])
+            {
+                string[] objDetails = gameObject.Split(",");
+                if (objDetails[0].Equals("Block"))
+                {
+                    CreateBlockObject(objDetails);
+                }
+            }
+        }
+        public void CreateBlockObject(string[] blockDetails)
+        {
+            Vector2 position = new Vector2(int.Parse(blockDetails[2]) * 32, int.Parse(blockDetails[3]) * 32);
+            IBlock block;
+            if (blockDetails[1].Equals("QuestionBlock"))
+            {
+                block = new QuestionBlock(position);
+            }
+            else if (blockDetails[1].Equals("BreakableBrickBlock"))
+            {
+                block = new BreakableBrickBlock(position);
+            }
+            else
+            {
+                block = new UsedBlock(position);
+            }
+            AbstractBlock.Blocks.Add(block);
+            CollisionManager.GameObjectList.Add(block);
+
+        }
+        public void CreateFloor()
+        {
+            IBlock groundBlock = new GroundBlock(new Vector2(0, 416), 25, 2);
+            AbstractBlock.Blocks.Add(groundBlock);
+            CollisionManager.GameObjectList.Add(groundBlock);
+            /*
+            for (int i = 0; i < 1; i++)
+            {
+                IBlock block2 = new DiamondBlock(new Vector2(192, 288 - 32 * i));
+                IBlock block3 = new QuestionBlock(new Vector2(256, 288 - 32 * i));
+                IBlock block = new QuestionBlock(new Vector2(224, 288 - 32*i));
+                AbstractBlock.Blocks.Add(block);
+                AbstractBlock.Blocks.Add(block2);
+                AbstractBlock.Blocks.Add(block3);
+                CollisionManager.GameObjectList.Add(block);
+                CollisionManager.GameObjectList.Add(block2);
+                CollisionManager.GameObjectList.Add(block3);
+            }
+            */
+        }
+    }
+}

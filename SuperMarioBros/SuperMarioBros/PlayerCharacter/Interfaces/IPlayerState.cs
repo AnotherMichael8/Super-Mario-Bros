@@ -8,6 +8,7 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
 {
     public interface IPlayerState
     {
+        public static int Speed { get; set; }
         public void BecomeIdle();
         public void MoveLeft();
         public void MoveRight();

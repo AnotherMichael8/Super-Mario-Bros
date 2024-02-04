@@ -8,28 +8,12 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
-    public class UsedBlock : IBlock
+    public class UsedBlock : AbstractBlock
     {
-        private Rectangle sourceRectangle = new Rectangle(51, 16, 16, 16);
-        private Vector2 position;
-        private BlockSprite sprite;
-        public UsedBlock(Vector2 position)
+        public UsedBlock(Vector2 position) : base(position)
         {
-            this.position = position;
+            sourceRectangle = new Rectangle(51, 16, 16, 16);
             sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
-        }
-        public void Update() { }
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            sprite.Draw(spriteBatch, sourceRectangle, position, color);
-        }
-        public void Bump()
-        {
-            position.Y += 100;
-        }
-        public Rectangle GetHitBox()
-        {
-            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
         }
     }
 }

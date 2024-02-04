@@ -25,7 +25,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public override void MoveRight()
         {
-            Speed = 16;
+            Speed = 24;
         }
         public override void Jump()
         {

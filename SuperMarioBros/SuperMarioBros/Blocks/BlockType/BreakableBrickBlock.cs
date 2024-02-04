@@ -8,28 +8,26 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
-    public class BreakableBrickBlock : IBlock
+    public class BreakableBrickBlock : AbstractBlock
     {
-        private Rectangle sourceRectangle = new Rectangle(17, 16, 16, 16);
-        private Vector2 position;
-        private BlockSprite sprite;
-        public BreakableBrickBlock(Vector2 position)
+        private int bumpCounter;
+        public BreakableBrickBlock(Vector2 position) : base(position)
         {
-            this.position = position;
+            sourceRectangle = new Rectangle(17, 16, 16, 16);
             sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
+            bumpCounter = -6;
         }
-        public void Update() { }
-        public void Draw(SpriteBatch spriteBatch, Color color)
+        public override void Update()
         {
-            sprite.Draw(spriteBatch, sourceRectangle, position, color);
+            if (bumpCounter > -6)
+            {
+                position.Y -= bumpCounter;
+                bumpCounter--;
+            }
         }
-        public void Bump()
+        public override void Bump()
         {
-            position.Y += 100;
-        }
-        public Rectangle GetHitBox()
-        {
-            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
+            bumpCounter = 5;
         }
     }
 }

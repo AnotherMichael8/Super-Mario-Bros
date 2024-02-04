@@ -18,6 +18,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new RightIdlePlayerState(player);
         }
+        public override void Fall()
+        {
+            player.State = new RightMoveFallingPlayerState(player);
+        }
         public override void UpdateMovement()
         {
             if (Speed < 0)

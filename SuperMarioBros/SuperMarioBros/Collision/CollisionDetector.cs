@@ -126,7 +126,6 @@ namespace SuperMarioBros.Collision
         public static ICollision WarnSideDetector(Rectangle playerHitBox, Rectangle objHitBox)
         {
             List<Tuple<ICollision, int>> collisionWarning = new List<Tuple<ICollision, int>>();
-            //ICollision[] warnRectSides = { new TopCollision(), new BottomCollision(), new LeftCollision(), new RightCollision() };
             Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9, playerHitBox.Width, 9), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, 9), new Rectangle(playerHitBox.X - 9, playerHitBox.Y, 9, playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, 9, playerHitBox.Height) };
             for (int i = 0; i < warnPlayerRectangles.Length; i++)
             {

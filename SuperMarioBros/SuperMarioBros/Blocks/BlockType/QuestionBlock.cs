@@ -8,23 +8,19 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
-    public class QuestionBlock : IBlock
+    public class QuestionBlock : AbstractBlock
     {
-        private Rectangle sourceRectangle;
         private Rectangle[] spriteAnimation = { new Rectangle(298, 78, 16, 16), new Rectangle(315, 78, 16, 16), new Rectangle(332, 78, 16, 16) };
-        private Vector2 position;
-        private BlockSprite sprite;
         private int animateCounter;
         private int bumpCounter;
-        public QuestionBlock(Vector2 position)
+        public QuestionBlock(Vector2 position) : base(position)
         {
-            this.position = position;
             sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
             sourceRectangle = spriteAnimation[0];
             animateCounter = 0;
             bumpCounter = -6;
         }
-        public void Update() 
+        public override void Update() 
         {
             if (animateCounter > 48)
             {
@@ -44,17 +40,9 @@ namespace SuperMarioBros.Blocks.BlockType
                 bumpCounter--;
             }
         }
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            sprite.Draw(spriteBatch, sourceRectangle, position, color);
-        }
-        public void Bump()
+        public override void Bump()
         {
             bumpCounter = 5;
-        }
-        public Rectangle GetHitBox()
-        {
-            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
         }
     }
 }

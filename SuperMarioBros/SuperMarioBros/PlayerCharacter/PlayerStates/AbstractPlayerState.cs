@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         protected static int AccelerationCap = 3 * 16;
         protected static int JumpingSpeed = 0;
-        protected static int Speed = 0;
+        public static int Speed { get;  set; } = 0;
         protected Player player;
+        private static bool dictionaryMade = false; 
+        protected static Dictionary<Type, IPlayerState> PlayerSpriteStateDict = new Dictionary<Type, IPlayerState>();
 
         public AbstractPlayerState(Player player)
         {
@@ -41,10 +44,13 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             JumpingSpeed = 16;
         }
-        public virtual void Fall() { }
+        public virtual void Fall() 
+        { 
+        }
+
         public void Update()
         {
-            Speed = player.Speed;
+            //Speed = player.Speed;
             UpdateMovement();
             player.Position = new Vector2(player.Position.X + Speed/16, player.Position.Y - JumpingSpeed/16);
             player.Speed = Speed;

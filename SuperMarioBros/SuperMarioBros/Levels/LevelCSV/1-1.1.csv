@@ -1,0 +1,8 @@
+﻿Block,QuestionBlock,0,9,COIN
+Block,BreakableBrickBlock,4,9
+Block,QuestionBlock,5,9,POWERUP
+Block,BreakableBrickBlock,6,9
+Block,QuestionBlock,7,9,COIN
+Block,BreakableBrickBlock,8,9
+Block,QuestionBlock,6,5,COIN
+Enemy,Goomba,6,3

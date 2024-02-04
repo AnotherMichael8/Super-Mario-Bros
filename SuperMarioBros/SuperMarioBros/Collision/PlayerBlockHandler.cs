@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.PlayerCharacter.PlayerStates;
 
 namespace SuperMarioBros.Collision
 {
@@ -37,14 +38,14 @@ namespace SuperMarioBros.Collision
             else if (side is LeftCollision)
             {
                 player.Position = new Vector2(blockHitBox.X - 32, player.Position.Y - 1);
-                if (player.Speed > 1)
-                    player.Speed -= 3;
+                if (AbstractPlayerState.Speed > 1)
+                    AbstractPlayerState.Speed -= 3;
             }
             else if (side is RightCollision)
             {
                 player.Position = new Vector2(blockHitBox.X + 32, player.Position.Y - 1);
-                if (player.Speed < -1)
-                    player.Speed += 3;
+                if (AbstractPlayerState.Speed < -1)
+                    AbstractPlayerState.Speed += 3;
             }
 
         }

@@ -10,6 +10,7 @@ using SuperMarioBros.Collision;
 using SuperMarioBros.Enemies;
 using SuperMarioBros.Enemies.Goomba;
 using SuperMarioBros.Enemies.Koopa;
+using SuperMarioBros.Levels;
 
 namespace SuperMarioBros
 {
@@ -32,7 +33,9 @@ namespace SuperMarioBros
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = 512;
+            _graphics.PreferredBackBufferHeight = 480;
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -49,6 +52,8 @@ namespace SuperMarioBros
             Controller = new GameplayController(this);
             levelGenerator = new LevelGenerator();
             levelGenerator.CreateFloor();
+            levelGenerator.CreateAllFiles(1);
+            levelGenerator.LoadFile(1);
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,7 +63,7 @@ namespace SuperMarioBros
 
             MarioPlayer.Update();
             //goomba.Update();
-            levelGenerator.Update();
+            AbstractBlock.UpdateAllBlocks();
             collisionManager.Update();
             Controller.Update(gameTime);
 
@@ -72,7 +77,7 @@ namespace SuperMarioBros
 
             MarioPlayer.Draw(_spriteBatch, Color.White);
             //goomba.Draw(_spriteBatch);
-            levelGenerator.Draw(_spriteBatch);
+            AbstractBlock.DrawAllBlocks(_spriteBatch,Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
