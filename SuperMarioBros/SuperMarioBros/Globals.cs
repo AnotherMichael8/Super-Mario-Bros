@@ -8,6 +8,8 @@ namespace SuperMarioBros
 {
     public class Globals
     {
-        public const int blockSize = 32;
+        public static int BlockSize = 32;
+        public static int ScreenSizeMulti = 1;
+
     }
 }
