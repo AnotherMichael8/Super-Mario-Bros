@@ -22,7 +22,7 @@ namespace SuperMarioBros.Collision
             {
                 if (!(player.State is IJumpingPlayerState))
                 {
-                    player.Position = new Vector2(player.Position.X, blockHitBox.Y - Globals.BlockSize);
+                    player.Position = new Vector2(player.Position.X, (int)(blockHitBox.Y - Globals.BlockSize));
                     player.OnGround = true;
                     IsFalling = false;
                 }
@@ -37,13 +37,13 @@ namespace SuperMarioBros.Collision
             }
             else if (side is LeftCollision)
             {
-                player.Position = new Vector2(blockHitBox.X - Globals.BlockSize, player.Position.Y - 1);
+                player.Position = new Vector2((int)(blockHitBox.X - Globals.BlockSize), player.Position.Y - 1);
                 if (AbstractPlayerState.Speed > 1)
                     AbstractPlayerState.Speed -= 3;
             }
             else if (side is RightCollision)
             {
-                player.Position = new Vector2(blockHitBox.X + Globals.BlockSize, player.Position.Y - 1);
+                player.Position = new Vector2((int)(blockHitBox.X + Globals.BlockSize), player.Position.Y - 1);
                 if (AbstractPlayerState.Speed < -1)
                     AbstractPlayerState.Speed += 3;
             }

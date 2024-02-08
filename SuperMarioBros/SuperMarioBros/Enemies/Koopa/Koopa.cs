@@ -9,7 +9,7 @@ namespace SuperMarioBros.Enemies.Koopa
     public class Koopa : AbstractEnemy
     {
         private int Height = (int)(Globals.BlockSize * 1.5);
-        private int Width = Globals.BlockSize;
+        private int Width = (int)Globals.BlockSize;
         public bool InShell { get; private set; }
         public Koopa(Vector2 position) : base(position)
         {

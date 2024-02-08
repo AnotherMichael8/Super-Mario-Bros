@@ -27,7 +27,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, Globals.BlockSize, Globals.BlockSize);
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
 
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0);
         }

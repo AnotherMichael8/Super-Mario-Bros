@@ -31,7 +31,7 @@ namespace SuperMarioBros.Blocks
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)position.X, (int)position.Y, Globals.BlockSize * width, Globals.BlockSize * height);
+            return new Rectangle((int)position.X, (int)position.Y, (int)(Globals.BlockSize * width), (int)(Globals.BlockSize * height));
         }
     }
 }

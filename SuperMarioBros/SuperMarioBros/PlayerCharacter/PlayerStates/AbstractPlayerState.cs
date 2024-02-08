@@ -52,8 +52,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             //Speed = player.Speed;
             UpdateMovement();
-            player.Position = new Vector2(player.Position.X + (Speed/16) * ((Globals.BlockSize / 32)), player.Position.Y - ((JumpingSpeed/16)) * (Globals.BlockSize / 32));
-            player.Speed = Speed * (Globals.BlockSize / 32);
+            player.Position = new Vector2((int)(player.Position.X + (Speed/16) * (Globals.BlockSize / 32)), (int)(player.Position.Y - ((JumpingSpeed/16)) * (Globals.BlockSize / 32)));
+            player.Speed = Speed/16;
         }
         public virtual void UpdateMovement() {}
     }

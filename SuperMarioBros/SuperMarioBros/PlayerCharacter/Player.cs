@@ -94,7 +94,7 @@ namespace SuperMarioBros.PlayerCharacter
                 Fall();
             State.Update();
             Position = new Vector2(Position.X, Position.Y + 1);
-            Sprite.Update(Math.Abs(Speed)/(16 * ((Globals.BlockSize)/32)));          
+            Sprite.Update(Math.Abs(Speed));          
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
@@ -103,7 +103,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Rectangle GetHitBox()
         {
             if(!IsDead)
-                return new Rectangle((int)Position.X, (int)Position.Y, Globals.BlockSize, Globals.BlockSize);
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
             else
                 return Rectangle.Empty;
         }

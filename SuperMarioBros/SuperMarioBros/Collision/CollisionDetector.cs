@@ -126,7 +126,7 @@ namespace SuperMarioBros.Collision
         public static ICollision WarnSideDetector(Rectangle playerHitBox, Rectangle objHitBox)
         {
             List<Tuple<ICollision, int>> collisionWarning = new List<Tuple<ICollision, int>>();
-            Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9 * (Globals.BlockSize/32), playerHitBox.Width, 9 * (Globals.BlockSize / 32)), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, 9 * (Globals.BlockSize / 32)), new Rectangle(playerHitBox.X - 9 * (Globals.BlockSize / 32), playerHitBox.Y, 9 * (Globals.BlockSize / 32), playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, 9 * (Globals.BlockSize / 32), playerHitBox.Height) };
+            Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9 * (int)(Globals.BlockSize/32), playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle((int)(playerHitBox.X - 9 * (Globals.BlockSize / 32)), playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height) };
             for (int i = 0; i < warnPlayerRectangles.Length; i++)
             {
                 if (warnPlayerRectangles[i].Intersects(objHitBox))
