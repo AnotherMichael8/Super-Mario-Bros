@@ -25,7 +25,7 @@ namespace SuperMarioBros.Blocks
             {
                 for (int h = 0; h < height; h++)
                 {
-                    sprite.Draw(spriteBatch, sourceRectangle, new Vector2((int)position.X + Globals.BlockSize * w, (int)position.Y + Globals.BlockSize * h), color);
+                    sprite.Draw(spriteBatch, sourceRectangle, new Vector2((int)position.X + (int)(Globals.BlockSize * w), (int)position.Y + (int)(Globals.BlockSize * h)), color);
                 }
             }
         }

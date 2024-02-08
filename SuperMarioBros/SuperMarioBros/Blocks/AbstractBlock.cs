@@ -26,7 +26,7 @@ namespace SuperMarioBros.Blocks
         }
         public virtual Rectangle GetHitBox()
         {
-            return new Rectangle((int)position.X, (int)position.Y, Globals.BlockSize, Globals.BlockSize);
+            return new Rectangle((int)position.X, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
         }
         public static void UpdateAllBlocks()
         {

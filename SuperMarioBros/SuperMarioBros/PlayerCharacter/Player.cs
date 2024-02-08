@@ -94,7 +94,7 @@ namespace SuperMarioBros.PlayerCharacter
                 Fall();
             State.Update();
             Position = new Vector2(Position.X, Position.Y + 1);
-            Sprite.Update(Math.Abs(Speed)/16);          
+            Sprite.Update(Math.Abs(Speed)/(16 * ((Globals.BlockSize)/32)));          
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
