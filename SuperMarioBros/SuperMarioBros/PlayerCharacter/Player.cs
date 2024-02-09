@@ -28,7 +28,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Player(Game1 game)
         {
             this.game = game;
-            Position = new Vector2(0,384);
+            Position = new Vector2(0, Globals.ScreenHeight - (int)(3 * Globals.BlockSize));
             previousY = 384;
             State = new RightIdlePlayerState(this);
             IsFalling = false;

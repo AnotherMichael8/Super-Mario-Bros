@@ -21,7 +21,7 @@ namespace SuperMarioBros.Blocks.BlockType
         {
             if (bumpCounter > -6)
             {
-                position.Y -= bumpCounter;
+                position.Y -= (int)(bumpCounter * (Globals.BlockSize / 32));
                 bumpCounter--;
             }
         }

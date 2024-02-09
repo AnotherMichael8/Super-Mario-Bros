@@ -10,6 +10,8 @@ namespace SuperMarioBros
     {
         public static double BlockSize = 32;
         public static double ScreenSizeMulti = 1;
+        public static int ScreenHeight = 480;
+        public static int ScreenWidth = 512;
 
     }
 }
