@@ -14,7 +14,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftJumpingPlayerState(Player player) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
-            JumpingSpeed = 156;
+            JumpingSpeed = 140;
             fallingSpeed = 3;
             player.OnGround = false;
         }

@@ -13,6 +13,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         protected static int AccelerationCap = 3 * 16;
         protected static int JumpingSpeed = 0;
+        private double trueXPosition;
+        private double trueYPosition;
         public static int Speed { get;  set; } = 0;
         protected Player player;
         private static bool dictionaryMade = false; 
@@ -21,6 +23,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public AbstractPlayerState(Player player)
         {
             this.player = player;
+            trueXPosition = player.Position.X;
+            trueYPosition = player.Position.Y;
         }
         public virtual void BecomeIdle() { }
         public virtual void Crouch() { }
@@ -52,7 +56,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             //Speed = player.Speed;
             UpdateMovement();
-            player.Position = new Vector2((int)(player.Position.X + (Speed/16) * (Globals.BlockSize / 32)), (int)(player.Position.Y - ((JumpingSpeed/16)) * (Globals.BlockSize / 32)));
+            trueXPosition = player.Position.X + (Speed / 16.0) * Globals.ScreenSizeMulti;
+            trueYPosition = player.Position.Y - (JumpingSpeed / 16.0) * Globals.ScreenSizeMulti;
+            player.Position = new Vector2((int)trueXPosition, (int)trueYPosition);
+            //player.Position = new Vector2((int)(player.Position.X + (Speed/16.0) * (Globals.BlockSize / 32)), (int)(player.Position.Y - (JumpingSpeed/16.0) * (Globals.BlockSize / 32)));
             player.Speed = Speed/16;
         }
         public virtual void UpdateMovement() {}

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Blocks;
+using SuperMarioBros.Collectibles;
+using SuperMarioBros.Collectibles.Collectibles;
 
 namespace SuperMarioBros.Levels
 {
@@ -62,7 +64,10 @@ namespace SuperMarioBros.Levels
         public void CreateFloor()
         {
             IBlock groundBlock = new GroundBlock(new Vector2(0, (int)(480 * (Globals.BlockSize/32) - 64 * (Globals.BlockSize/32))), 16, 2);
+            ICollectibles mushroom = new Flower(new Vector2(0, Globals.ScreenHeight - (int)(3 * Globals.BlockSize)));
             AbstractBlock.Blocks.Add(groundBlock);
+            AbstractCollectibles.Collectibles.Add(mushroom);
+            CollisionManager.GameObjectList.Add(mushroom);
             CollisionManager.GameObjectList.Add(groundBlock);
             /*
             for (int i = 0; i < 1; i++)

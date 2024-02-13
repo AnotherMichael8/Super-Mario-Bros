@@ -11,6 +11,7 @@ using SuperMarioBros.Enemies;
 using SuperMarioBros.Enemies.Goomba;
 using SuperMarioBros.Enemies.Koopa;
 using SuperMarioBros.Levels;
+using SuperMarioBros.Collectibles;
 
 namespace SuperMarioBros
 {
@@ -33,7 +34,7 @@ namespace SuperMarioBros
 
         protected override void Initialize()
         {
-            Globals.BlockSize = 66;
+            Globals.BlockSize = 32;
             _graphics.PreferredBackBufferWidth = (int)(512 * Globals.BlockSize/32);
             _graphics.PreferredBackBufferHeight = (int)(480 * Globals.BlockSize/32);
             Globals.ScreenWidth = (int)(512 * Globals.BlockSize / 32);
@@ -49,6 +50,7 @@ namespace SuperMarioBros
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            CollectiblesSpriteFactory.Instance.LoadAllTextures(Content);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             collisionManager = new CollisionManager(this);
@@ -68,6 +70,7 @@ namespace SuperMarioBros
             MarioPlayer.Update();
             //goomba.Update();
             AbstractBlock.UpdateAllBlocks();
+            AbstractCollectibles.UpdateAllSprites();
             collisionManager.Update();
             Controller.Update(gameTime);
 
@@ -82,6 +85,7 @@ namespace SuperMarioBros
             MarioPlayer.Draw(_spriteBatch, Color.White);
             //goomba.Draw(_spriteBatch);
             AbstractBlock.DrawAllBlocks(_spriteBatch,Color.White);
+            AbstractCollectibles.DrawAllSprites(_spriteBatch,Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
