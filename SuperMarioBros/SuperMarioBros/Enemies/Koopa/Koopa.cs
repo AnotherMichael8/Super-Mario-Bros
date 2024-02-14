@@ -40,7 +40,7 @@ namespace SuperMarioBros.Enemies.Koopa
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X - 2, (int)Position.Y - 9, 30, 48);
+            return new Rectangle((int)Position.X + 2, (int)Position.Y + 15, 30, 42);
         }
     }
 }

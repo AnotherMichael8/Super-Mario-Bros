@@ -35,7 +35,7 @@ namespace SuperMarioBros.Enemies
         {
             for (int i = 0; i < Enemies.Count; i++)
             {
-                Enemies[i].Position = new Vector2(Position.X, Position.Y + 10);
+                Enemies[i].Position = new Vector2(Position.X, Position.Y + 1);
                 Enemies[i].Sprite.Update();
                 Enemies[i].State.Update();
             }

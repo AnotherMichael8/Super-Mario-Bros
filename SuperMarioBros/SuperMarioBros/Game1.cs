@@ -25,6 +25,8 @@ namespace SuperMarioBros
         public CollisionManager collisionManager;
         public IEnemy goomba { get; set; }
 
+        Texture2D _texture;
+        Texture2D texture2;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -39,6 +41,10 @@ namespace SuperMarioBros
             _graphics.PreferredBackBufferHeight = (int)(480 * Globals.BlockSize/32);
             Globals.ScreenWidth = (int)(512 * Globals.BlockSize / 32);
             Globals.ScreenHeight = (int)(480 * Globals.BlockSize / 32);
+            _texture = new Texture2D(GraphicsDevice, 1, 1);
+            _texture.SetData(new Color[] { new Color(Color.Red, 0.05f) });
+            texture2 = new Texture2D(GraphicsDevice, 1, 1);
+            texture2.SetData(new Color[] { new Color(Color.Blue, 0.3f) });
 
             _graphics.ApplyChanges();
 
@@ -53,8 +59,8 @@ namespace SuperMarioBros
             CollectiblesSpriteFactory.Instance.LoadAllTextures(Content);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
-            collisionManager = new CollisionManager(this);
-            //goomba = new Goomba(new Vector2(400, 384));
+            collisionManager = new CollisionManager(this, _spriteBatch);
+            goomba = new Koopa(new Vector2(400, 384));
             Controller = new GameplayController(this);
             levelGenerator = new LevelGenerator();
             levelGenerator.CreateFloor();
@@ -68,7 +74,7 @@ namespace SuperMarioBros
                 Exit();
 
             MarioPlayer.Update();
-            //goomba.Update();
+            goomba.Update();
             AbstractBlock.UpdateAllBlocks();
             AbstractCollectibles.UpdateAllSprites();
             collisionManager.Update();
@@ -83,12 +89,27 @@ namespace SuperMarioBros
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
             MarioPlayer.Draw(_spriteBatch, Color.White);
-            //goomba.Draw(_spriteBatch);
+            goomba.Draw(_spriteBatch);
             AbstractBlock.DrawAllBlocks(_spriteBatch,Color.White);
             AbstractCollectibles.DrawAllSprites(_spriteBatch,Color.White);
+            //DrawCollisionBox();
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        public void DrawCollisionBox()
+        {
+            foreach (IGameObject obj in CollisionManager.GameObjectList)
+            {
+                _spriteBatch.Draw(_texture, obj.GetHitBox(), Color.White);
+            }
+            _spriteBatch.Draw(_texture, MarioPlayer.GetHitBox(), Color.White);
+            Rectangle playerHitBox = MarioPlayer.GetHitBox();
+            Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9 * (int)(Globals.BlockSize / 32), playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle((int)(playerHitBox.X - 9 * (Globals.BlockSize / 32)), playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height) };
+            foreach (Rectangle rectangle in warnPlayerRectangles)
+            {
+                _spriteBatch.Draw(texture2, rectangle, Color.White);
+            }
         }
     }
 }

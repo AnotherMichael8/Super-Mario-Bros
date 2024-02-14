@@ -25,14 +25,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             //Speed = 16;
         }
-        public override void Jump()
-        {
-            if (player.OnGround)
-            {
-                JumpingSpeed = 200;
-                player.OnGround = false;
-            }
-        }
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;

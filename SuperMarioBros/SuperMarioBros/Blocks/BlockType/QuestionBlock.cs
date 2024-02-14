@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Collectibles;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -13,12 +14,14 @@ namespace SuperMarioBros.Blocks.BlockType
         private Rectangle[] spriteAnimation = { new Rectangle(298, 78, 16, 16), new Rectangle(315, 78, 16, 16), new Rectangle(332, 78, 16, 16) };
         private int animateCounter;
         private int bumpCounter;
-        public QuestionBlock(Vector2 position) : base(position)
+        private ICollectibles collectible;
+        public QuestionBlock(Vector2 position, ICollectibles collectible) : base(position)
         {
             sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
             sourceRectangle = spriteAnimation[0];
             animateCounter = 0;
             bumpCounter = -6;
+            this.collectible = collectible;
         }
         public override void Update() 
         {
@@ -43,6 +46,7 @@ namespace SuperMarioBros.Blocks.BlockType
         public override void Bump()
         {
             bumpCounter = 5;
+            AbstractCollectibles.Collectibles.Add(collectible);
         }
     }
 }

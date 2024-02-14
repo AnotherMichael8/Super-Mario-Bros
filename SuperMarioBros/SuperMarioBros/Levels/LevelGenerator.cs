@@ -64,25 +64,11 @@ namespace SuperMarioBros.Levels
         public void CreateFloor()
         {
             IBlock groundBlock = new GroundBlock(new Vector2(0, (int)(480 * (Globals.BlockSize/32) - 64 * (Globals.BlockSize/32))), 16, 2);
-            ICollectibles mushroom = new Flower(new Vector2(0, Globals.ScreenHeight - (int)(3 * Globals.BlockSize)));
+            ICollectibles mushroom = new Coin(new Vector2(64, Globals.ScreenHeight - (int)(3 * Globals.BlockSize)));
             AbstractBlock.Blocks.Add(groundBlock);
             AbstractCollectibles.Collectibles.Add(mushroom);
             CollisionManager.GameObjectList.Add(mushroom);
             CollisionManager.GameObjectList.Add(groundBlock);
-            /*
-            for (int i = 0; i < 1; i++)
-            {
-                IBlock block2 = new DiamondBlock(new Vector2(192, 288 - Globals.BlockSize * i));
-                IBlock block3 = new QuestionBlock(new Vector2(256, 288 - Globals.BlockSize * i));
-                IBlock block = new QuestionBlock(new Vector2(224, 288 - Globals.BlockSize*i));
-                AbstractBlock.Blocks.Add(block);
-                AbstractBlock.Blocks.Add(block2);
-                AbstractBlock.Blocks.Add(block3);
-                CollisionManager.GameObjectList.Add(block);
-                CollisionManager.GameObjectList.Add(block2);
-                CollisionManager.GameObjectList.Add(block3);
-            }
-            */
         }
     }
 }

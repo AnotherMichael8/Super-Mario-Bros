@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 {
@@ -33,6 +34,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
             if(deathCounter == 30)
             {
                 AbstractEnemy.Enemies.Remove(goomba);
+                //CollisionManager.GameObjectList.Remove(goomba);
             }
             deathCounter++;
 

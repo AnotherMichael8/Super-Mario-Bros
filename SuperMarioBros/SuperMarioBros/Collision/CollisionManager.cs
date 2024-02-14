@@ -1,4 +1,6 @@
-﻿using SuperMarioBros.Enemies;
+﻿using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Collision.CollisionHandlers;
+using SuperMarioBros.Enemies;
 using SuperMarioBros.PlayerCharacter;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,13 @@ namespace SuperMarioBros.Collision
         private Game1 game;
         private IPlayer player; 
         public static List<IGameObject> GameObjectList;
-        public CollisionManager(Game1 game) 
+        public static SpriteBatch spriteBatch;
+        public CollisionManager(Game1 game, SpriteBatch spriteBatch) 
         { 
             this.game = game;
             GameObjectList = new List<IGameObject>();
             player = game.MarioPlayer;
+            CollisionManager.spriteBatch = spriteBatch; 
         }
 
         public void CheckPlayerCollision()

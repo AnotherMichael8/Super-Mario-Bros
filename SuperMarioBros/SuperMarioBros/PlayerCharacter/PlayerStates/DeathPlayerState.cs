@@ -15,20 +15,15 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateDeathPlayerSprite();
             Speed = 0;
-            JumpingSpeed = 0;
+            JumpingSpeed = 155;
             player.IsDead = true;
             moveTimer = 5;
             moveSpeed = 17;
         }
         public override void UpdateMovement()
         {
-            player.Position = new Vector2(player.Position.X, player.Position.Y - moveSpeed);
-            if(moveTimer == 5)
-            {
-                moveSpeed--;
-                moveTimer = 0;
-            }
-            moveTimer++;
+            //player.Position = new Vector2(player.Position.X, player.Position.Y - moveSpeed);
+            JumpingSpeed -= 5;
         }
     }
 }

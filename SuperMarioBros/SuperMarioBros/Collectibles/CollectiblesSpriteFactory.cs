@@ -35,5 +35,9 @@ namespace SuperMarioBros.Collectibles
         {
             return new FlowerSprite(collectiblesTexture);
         }
+        public ICollectiblesSprite CreateCoinSprite()
+        {
+            return new CoinSprite(collectiblesTexture);
+        }
     }
 }

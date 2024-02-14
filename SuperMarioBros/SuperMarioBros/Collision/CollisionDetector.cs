@@ -10,6 +10,9 @@ using SuperMarioBros.Blocks;
 using SuperMarioBros.Enemies;
 using SuperMarioBros.Enemies.Koopa;
 using System.Net.Http.Headers;
+using SuperMarioBros.Collectibles;
+using SuperMarioBros.Collision.CollisionHandlers;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SuperMarioBros.Collision
 {
@@ -21,49 +24,7 @@ namespace SuperMarioBros.Collision
         {
             Rectangle playerHitBox = player.GetHitBox();
             Rectangle objHitBox = obj.GetHitBox();
-            /*
-            ICollision[] warnRectSides = {new TopCollision(), new BottomCollision(), new LeftCollision(), new RightCollision()};
-            Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9, playerHitBox.Width, 9), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, 9), new Rectangle(playerHitBox.X - 9, playerHitBox.Y, 9, playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, 9, playerHitBox.Height) };
-            for(int i = 0;  i < warnPlayerRectangles.Length; i++)
-            {
-                if (warnPlayerRectangles[i].Intersects(objHitBox))
-                {
-                    Rectangle intersectRect = Rectangle.Intersect(objHitBox, warnPlayerRectangles[i]);
-                    Tuple<ICollision, IGameObject, int> newCollision = new Tuple<ICollision, IGameObject, int>(warnRectSides[i], obj, intersectRect.Width * intersectRect.Height);
-                    if (collisionWarning.Count > 0)
-                    {
-                        for(int c = 0; c < collisionWarning.Count; c++)
-                        {
-                            if (collisionWarning[c].Item3 < newCollision.Item3)
-                            {
-                                collisionWarning.Insert(c, newCollision);
-                                break;
-                            }
-                            if(c ==  collisionWarning.Count - 1)
-                            {
-                                collisionWarning.Add(newCollision);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        collisionWarning.Add(newCollision);
-                    }
-
-                }
-                else
-                {
-                    for(int c = 0; c < collisionWarning.Count; c++)
-                    {
-                        if (collisionWarning[c].Item1.Equals(warnRectSides[i]) && collisionWarning[c].Item2.Equals(obj))
-                        {
-                            collisionWarning.Remove(collisionWarning[c]);
-                        }
-                    }
-                }
-                
-            }
-            */
+            
             if (playerHitBox.Intersects(objHitBox))
             {
                 ICollision side = WarnSideDetector(playerHitBox, objHitBox);
@@ -81,6 +42,10 @@ namespace SuperMarioBros.Collision
                     {
                         PlayerEnemyHandler.HandlePlayerEnemyCollision(player, enemy, side);
                     }
+                }
+                else if(obj is ICollectibles item)
+                {
+                    PlayerCollectibleHandler.HandlePlayerCollectibleCollision(player, item, side);
                 }
             }
         }
@@ -156,6 +121,10 @@ namespace SuperMarioBros.Collision
                 }
             }
             return collisionWarning[0].Item1;
+        }
+        public void DrawHitBox(Rectangle hitBox)
+        {
+            //CollisionManager.spriteBatch.Draw(
         }
     }
 }

@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
-    public class Flower : AbstractCollectibles
+    public class Coin : AbstractCollectibles
     {
         public override int SpawnDist { get; } = 16;
-        public Flower(Vector2 position) : base(position)
+        public Coin(Vector2 position) : base(position) 
         {
-            sprite = CollectiblesSpriteFactory.Instance.CreateFlowerSprite();
+            sprite = CollectiblesSpriteFactory.Instance.CreateCoinSprite();
             verticalMovementFactor = 8;
+        }
+        public override Rectangle GetHitBox()
+        {
+            return Rectangle.Empty;
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
