@@ -7,23 +7,23 @@ using Microsoft.Xna.Framework;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
-    public class Flower : AbstractCollectibles
+    public class Flower : AbstractCollectibles, IPowerUp
     {
         public override int SpawnDist { get; } = 16;
         public Flower(Vector2 position) : base(position)
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateFlowerSprite();
-            verticalMovementFactor = 8;
+            verticalMovementFactor = 16;
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
-            if (trueYPosition <= orginalPosition.Y - SpawnDist * Globals.ScreenSizeMulti)
+            if (trueYPosition <= orginalPosition.Y - Globals.BlockSize)
             {
                 trueYPosition = orginalPosition.Y - Globals.BlockSize;
                 spawnCollectible = false;
             }
             else
-                trueYPosition += verticalMovementFactor / 16;
+                trueYPosition -= verticalMovementFactor / 16.0;
         }
     }
 }

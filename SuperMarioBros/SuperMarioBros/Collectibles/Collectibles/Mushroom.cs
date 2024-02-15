@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
-    public class Mushroom : AbstractCollectibles
+    public class Mushroom : AbstractCollectibles, IPowerUp
     {
         private int movement;
         public override int SpawnDist { get; } = 16;
@@ -15,7 +15,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateMushroomSprite();
             horizMovementFactor = 24;
-            verticalMovementFactor = 8;
+            verticalMovementFactor = 10;
         }
         public override void MoveLeft()
         {
@@ -27,13 +27,13 @@ namespace SuperMarioBros.Collectibles.Collectibles
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
-            if (trueYPosition <= orginalPosition.Y - SpawnDist * Globals.ScreenSizeMulti)
+            if (trueYPosition <= orginalPosition.Y - Globals.BlockSize)
             {
                 trueYPosition = orginalPosition.Y - Globals.BlockSize;
                 spawnCollectible = false;
             }
             else
-                trueYPosition += verticalMovementFactor / 16;
+                trueYPosition -= verticalMovementFactor / 16.0;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SuperMarioBros.Collectibles
     {
         public static List<ICollectibles> Collectibles = new List<ICollectibles>();
         protected ICollectiblesSprite sprite;
-        protected Vector2 position;
+        private Vector2 Position;
         protected int horizMovementFactor;
         protected int verticalMovementFactor;
         private double trueXPosition;
@@ -24,7 +24,7 @@ namespace SuperMarioBros.Collectibles
         private Vector2 originalPosition;
         public AbstractCollectibles(Vector2 position)
         {
-            this.position = position;
+            Position = position;
             originalPosition = position;
             trueXPosition = position.X;
             trueYPosition = position.Y;
@@ -41,20 +41,20 @@ namespace SuperMarioBros.Collectibles
             if (!spawnCollectible) 
             {
                 trueXPosition += horizMovementFactor / 16.0;
+                trueYPosition++;
             }
             else if(spawnCollectible)
             {
                 SpawnCollectible(originalPosition);
             }
-            position.X = (int)trueXPosition;
-            position.Y = (int)trueYPosition;
+            Position = new Vector2((int)trueXPosition, (int)trueYPosition);
             sprite.Update();
         }
         public virtual void MoveLeft() { }
         public virtual void MoveRight() { }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            sprite.Draw(spriteBatch, position, color);
+            sprite.Draw(spriteBatch, Position, color);
         }
         public static void DrawAllSprites(SpriteBatch spriteBatch, Color color)
         {
@@ -65,14 +65,29 @@ namespace SuperMarioBros.Collectibles
         }
         public static void UpdateAllSprites()
         {
-            foreach (ICollectibles collectibles in Collectibles)
+            for(int i = 0; i < Collectibles.Count; i++)
             {
-                collectibles.Update();
+                ICollectibles collectible = Collectibles[i];
+                collectible.Update();
             }
         }
         public virtual Rectangle GetHitBox()
         {
-            return new Rectangle((int)position.X, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            if (!spawnCollectible)
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            else
+                return Rectangle.Empty;
+        }
+        public Vector2 GetPosition()
+        {
+            return Position;
+        }
+        public void SetPosition(float x, float y)
+        {
+            Position.X = (int)x;
+            Position.Y = (int)y;
+            trueXPosition = (int)x;
+            trueYPosition = (int)y;
         }
     }
 }

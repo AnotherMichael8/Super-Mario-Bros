@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Collectibles;
+using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -39,14 +40,19 @@ namespace SuperMarioBros.Blocks.BlockType
             animateCounter++;
             if(bumpCounter > -6)
             {
-                position.Y -= (int)(bumpCounter * (Globals.BlockSize/32));
+                Position = new Vector2(Position.X, Position.Y - (int)(bumpCounter * (Globals.BlockSize / 32)));
                 bumpCounter--;
             }
         }
         public override void Bump()
         {
-            bumpCounter = 5;
-            AbstractCollectibles.Collectibles.Add(collectible);
+            Blocks.Remove(this);
+            CollisionManager.GameObjectList.Remove(this);
+            IBlock usedBlock = new UsedBlock(Position, collectible);
+            Blocks.Add(usedBlock);
+            CollisionManager.GameObjectList.Add(usedBlock);
+            usedBlock.Bump();
+
         }
     }
 }

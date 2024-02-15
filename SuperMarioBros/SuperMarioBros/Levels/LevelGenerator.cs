@@ -47,19 +47,34 @@ namespace SuperMarioBros.Levels
             IBlock block;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
-                block = new QuestionBlock(position);
+                block = new QuestionBlock(position, CreateCollectibleObject(blockDetails[4], position));
             }
             else if (blockDetails[1].Equals("BreakableBrickBlock"))
             {
-                block = new BreakableBrickBlock(position);
+                block = new BreakableBrickBlock(position, CreateCollectibleObject(blockDetails[4], position));
             }
             else
             {
-                block = new UsedBlock(position);
+                block = new QuestionBlock(position, CreateCollectibleObject(blockDetails[4], position));
             }
             AbstractBlock.Blocks.Add(block);
             CollisionManager.GameObjectList.Add(block);
 
+        }
+        public ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
+        {
+            if(collectible.Equals("POWERUP"))
+            {
+                return new Mushroom(position);
+            }
+            else if(collectible.Equals("COIN"))
+            {
+                return new Coin(new Vector2(position.X + (int)(4 * Globals.ScreenSizeMulti), (int)(position.Y - Globals.BlockSize)));
+            }
+            else
+            {
+                return null;
+            }
         }
         public void CreateFloor()
         {

@@ -11,22 +11,22 @@ namespace SuperMarioBros.Blocks
     public abstract class AbstractBlock : IBlock
     {
         protected Rectangle sourceRectangle;
-        protected Vector2 position;
+        public Vector2 Position { get; set; }
         protected BlockSprite sprite;
         public static List<IBlock> Blocks = new List<IBlock>();
         public AbstractBlock(Vector2 position)
         {
-            this.position = position;
+            Position = position;
         }
         public virtual void Bump() { }
         public virtual void Update() { }
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            sprite.Draw(spriteBatch, sourceRectangle, position, color);
+            sprite.Draw(spriteBatch, sourceRectangle, Position, color);
         }
         public virtual Rectangle GetHitBox()
         {
-            return new Rectangle((int)position.X, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
         }
         public static void UpdateAllBlocks()
         {

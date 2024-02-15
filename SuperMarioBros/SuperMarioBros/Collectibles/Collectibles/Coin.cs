@@ -13,7 +13,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         public Coin(Vector2 position) : base(position) 
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateCoinSprite();
-            verticalMovementFactor = 8;
+            verticalMovementFactor = 120;
         }
         public override Rectangle GetHitBox()
         {
@@ -21,13 +21,17 @@ namespace SuperMarioBros.Collectibles.Collectibles
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
-            if (trueYPosition <= orginalPosition.Y - SpawnDist * Globals.ScreenSizeMulti)
+            if (verticalMovementFactor < 0 && trueYPosition >= orginalPosition.Y)
             {
-                trueYPosition = orginalPosition.Y - Globals.BlockSize;
+                Collectibles.Remove(this);
                 spawnCollectible = false;
             }
             else
-                trueYPosition += verticalMovementFactor / 16;
+            {
+                trueYPosition -= verticalMovementFactor / 16.0;
+                verticalMovementFactor -= 5;
+            }
+
         }
     }
 }

@@ -49,7 +49,7 @@ namespace SuperMarioBros.Collision
                 }
             }
         }
-        public static void CheckEnemyCollision(IEnemy enemy, IGameObject obj, List<IGameObject> gameObjectList)
+        public static void CheckEnemyCollision(IEnemy enemy, IGameObject obj)
         {
             Rectangle enemyRectangle = enemy.GetHitBox();
             Rectangle collisionRectangle = obj.GetHitBox();
@@ -59,6 +59,19 @@ namespace SuperMarioBros.Collision
                 if (obj is IBlock block)
                 {
                     EnemyBlockHandler.HandleEnemyBlockCollision(enemy, block, side);
+                }
+            }
+        }
+        public static void CheckCollectibleCollision(ICollectibles collectible, IGameObject obj)
+        {
+            Rectangle collectibleRectangle = collectible.GetHitBox();
+            Rectangle collisionRectangle = obj.GetHitBox();
+            if (collisionRectangle.Intersects(collectibleRectangle))
+            {
+                ICollision side = SideDetector(collectibleRectangle, collisionRectangle);
+                if (obj is IBlock block)
+                {
+                    CollectibleBlockHandler.HandleCollectibleBlockCollision(collectible, block, side);
                 }
             }
         }

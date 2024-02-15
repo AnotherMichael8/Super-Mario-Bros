@@ -16,5 +16,7 @@ namespace SuperMarioBros.Collectibles
         public void MoveLeft();
         public void MoveRight();
         public void Collect();
+        public void SetPosition(float x, float y);
+        public Vector2 GetPosition();
     }
 }

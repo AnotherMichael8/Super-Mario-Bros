@@ -2,6 +2,7 @@
 using SuperMarioBros.Collision.CollisionHandlers;
 using SuperMarioBros.Enemies;
 using SuperMarioBros.PlayerCharacter;
+using SuperMarioBros.Collectibles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,21 @@ namespace SuperMarioBros.Collision
                     for (int c = 0; c < GameObjectList.Count; c++)
                     {
                         IGameObject obj = GameObjectList[c];
-                        CollisionDetector.CheckEnemyCollision(enemy, obj, GameObjectList);
+                        CollisionDetector.CheckEnemyCollision(enemy, obj);
+                    }
+                }
+            }
+        }
+        public void CheckCollectiblesCollsion()
+        {
+            for (int i = 0; i < GameObjectList.Count; i++)
+            {
+                if (GameObjectList[i] is ICollectibles collectible)
+                {
+                    for (int c = 0; c < GameObjectList.Count; c++)
+                    {
+                        IGameObject obj = GameObjectList[c];
+                        CollisionDetector.CheckCollectibleCollision(collectible, obj);
                     }
                 }
             }
@@ -53,7 +68,7 @@ namespace SuperMarioBros.Collision
         {
             CheckPlayerCollision();
             CheckEnemyCollsion();
+            CheckCollectiblesCollsion();
         }
-
     }
 }
