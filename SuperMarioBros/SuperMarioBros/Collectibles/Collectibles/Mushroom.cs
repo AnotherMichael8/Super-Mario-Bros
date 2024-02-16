@@ -15,7 +15,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateMushroomSprite();
             horizMovementFactor = 24;
-            verticalMovementFactor = 10;
+            verticalMovementFactor = (int)(10 * Globals.ScreenSizeMulti);
         }
         public override void MoveLeft()
         {
@@ -31,6 +31,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
             {
                 trueYPosition = orginalPosition.Y - Globals.BlockSize;
                 spawnCollectible = false;
+                verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
             }
             else
                 trueYPosition -= verticalMovementFactor / 16.0;

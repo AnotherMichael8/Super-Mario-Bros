@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collision;
+using SuperMarioBros.Collectibles.Collectibles;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -52,6 +53,11 @@ namespace SuperMarioBros.Blocks.BlockType
             Blocks.Add(usedBlock);
             CollisionManager.GameObjectList.Add(usedBlock);
             usedBlock.Bump();
+            if (collectible is Coin)
+            {
+                AbstractCollectibles.Collectibles.Add(collectible);
+                CollisionManager.GameObjectList.Add(collectible);
+            }
 
         }
     }

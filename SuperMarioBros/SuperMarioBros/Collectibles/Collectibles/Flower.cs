@@ -13,7 +13,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         public Flower(Vector2 position) : base(position)
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateFlowerSprite();
-            verticalMovementFactor = 16;
+            verticalMovementFactor = (int)(10 * Globals.ScreenSizeMulti);
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
@@ -21,6 +21,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
             {
                 trueYPosition = orginalPosition.Y - Globals.BlockSize;
                 spawnCollectible = false;
+                verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
             }
             else
                 trueYPosition -= verticalMovementFactor / 16.0;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collision;
+using SuperMarioBros.Collectibles.Collectibles;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -32,8 +33,11 @@ namespace SuperMarioBros.Blocks.BlockType
             }
             else if(bumpCounter == -6)
             {
-                AbstractCollectibles.Collectibles.Add(collectible);
-                CollisionManager.GameObjectList.Add(collectible);
+                if (collectible is not Coin)
+                {
+                    AbstractCollectibles.Collectibles.Add(collectible);
+                    CollisionManager.GameObjectList.Add(collectible);
+                }
                 bumpCounter--;
                 noBump = true;
             }

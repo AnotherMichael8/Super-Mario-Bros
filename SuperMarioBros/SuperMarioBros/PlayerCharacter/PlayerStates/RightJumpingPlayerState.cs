@@ -11,16 +11,17 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class RightJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState
     {
         private int fallingSpeed;
-        public RightJumpingPlayerState(Player player) : base(player)
+        public RightJumpingPlayerState(Player player, int jumpingSpeed = 140) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
-            JumpingSpeed = 140;
+            JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
             player.OnGround = false;
         }
         public override void MoveLeft()
         {
-            player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed);
+            //player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed);
+            player.State = new LeftMoveJumpingPlayerState(player, JumpingSpeed);
         }
 
         public override void MoveRight()

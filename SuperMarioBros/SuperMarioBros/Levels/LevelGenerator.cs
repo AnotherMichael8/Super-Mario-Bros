@@ -44,7 +44,7 @@ namespace SuperMarioBros.Levels
         public void CreateBlockObject(string[] blockDetails)
         {
             Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
-            IBlock block;
+            IBlock block = null;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
                 block = new QuestionBlock(position, CreateCollectibleObject(blockDetails[4], position));
@@ -53,9 +53,9 @@ namespace SuperMarioBros.Levels
             {
                 block = new BreakableBrickBlock(position, CreateCollectibleObject(blockDetails[4], position));
             }
-            else
+            else if (blockDetails[1].Equals("Pipe"))
             {
-                block = new QuestionBlock(position, CreateCollectibleObject(blockDetails[4], position));
+                block = new Pipe(position, int.Parse(blockDetails[4]));
             }
             AbstractBlock.Blocks.Add(block);
             CollisionManager.GameObjectList.Add(block);

@@ -32,5 +32,9 @@ namespace SuperMarioBros.Blocks
         {
             return new BlockSprite(blockTexture);
         }
+        public PipeSprite CreatePipeSprite()
+        {
+            return new PipeSprite(blockTexture);
+        }
     }
 }

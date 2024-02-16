@@ -11,6 +11,7 @@ namespace SuperMarioBros.Collectibles
     public interface ICollectibles : IGameObject
     {
         public int SpawnDist { get; }
+        public bool IsFalling { get; set; }
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color color);
         public void MoveLeft();

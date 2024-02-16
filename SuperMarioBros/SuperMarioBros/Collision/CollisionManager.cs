@@ -55,11 +55,13 @@ namespace SuperMarioBros.Collision
             {
                 if (GameObjectList[i] is ICollectibles collectible)
                 {
+                    CollectibleBlockHandler.SetFalling();
                     for (int c = 0; c < GameObjectList.Count; c++)
                     {
                         IGameObject obj = GameObjectList[c];
                         CollisionDetector.CheckCollectibleCollision(collectible, obj);
                     }
+                    CollectibleBlockHandler.SendFallingData(collectible);
                 }
             }
         }

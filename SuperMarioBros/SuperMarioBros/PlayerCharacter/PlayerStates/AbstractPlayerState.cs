@@ -25,6 +25,9 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             trueXPosition = player.Position.X;
             trueYPosition = player.Position.Y;
+            if (player.Position.Y < Globals.ScreenHeight - (int)(3 * Globals.BlockSize))
+            {
+            }
         }
         public virtual void BecomeIdle() { }
         public virtual void Crouch() { }
@@ -54,13 +57,14 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public void Update()
         {
-            //Speed = player.Speed;
             UpdateMovement();
             trueXPosition = player.Position.X + (Speed / 16.0) * Globals.ScreenSizeMulti;
             trueYPosition = player.Position.Y - (JumpingSpeed / 16.0) * Globals.ScreenSizeMulti;
             player.Position = new Vector2((int)trueXPosition, (int)trueYPosition);
-            //player.Position = new Vector2((int)(player.Position.X + (Speed/16.0) * (Globals.BlockSize / 32)), (int)(player.Position.Y - (JumpingSpeed/16.0) * (Globals.BlockSize / 32)));
             player.Speed = Speed/16;
+            if(player.Position.Y < Globals.ScreenHeight - (int)(8 * Globals.BlockSize))
+            { 
+            }
         }
         public virtual void UpdateMovement() {}
     }

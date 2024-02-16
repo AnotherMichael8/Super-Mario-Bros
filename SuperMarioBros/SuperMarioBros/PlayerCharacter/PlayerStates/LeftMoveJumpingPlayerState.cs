@@ -20,7 +20,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftMoveJumpingPlayerState(Player player) : base(player)
         {
             Initialize();
-            JumpingSpeed = 164 + (24 / (Speed / 16));
+            int speed = Speed;
+            if (speed > -16)
+                speed = -16;
+            JumpingSpeed = (int)(164 + (24 / (speed / 16.0)));
         }
         public void Initialize()
         {
@@ -38,12 +41,15 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public override void MoveLeft()
         {
-            //player.State = new LeftWalkJumpingPlayerState(player);
+            if (Speed > -2 * 16 * Globals.ScreenSizeMulti)
+            {
+                Speed -= (int)(10 * Globals.ScreenSizeMulti);
+            }
         }
 
         public override void MoveRight()
         {
-            player.State = new LeftFacingRightMoveJumpingPlayerState(player, JumpingSpeed, noRight);
+            player.State = new RightMoveJumpingPlayerState(player, JumpingSpeed);
         }
         public override void StopJumping()
         {
@@ -52,6 +58,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
+            if (Speed == 0)
+            {
+                player.State = new LeftJumpingPlayerState(player, JumpingSpeed);
+            }
             if (JumpingSpeed <= 16)
             {
                 player.State = new LeftMoveFallingPlayerState(player, JumpingSpeed);

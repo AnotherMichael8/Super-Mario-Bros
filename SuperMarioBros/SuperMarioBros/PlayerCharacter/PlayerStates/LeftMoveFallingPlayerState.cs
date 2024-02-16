@@ -17,17 +17,23 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public override void MoveLeft()
         {
-            //player.State = new LeftFacingRightMoveJumpingPlayerState(player, JumpingSpeed, true);
-            //player.State = new LeftFacingRightMoveJumpingPlayerState(player, JumpingSpeed, true);
+            if (Speed > -2 * 16 * Globals.ScreenSizeMulti)
+            {
+                Speed -= (int)(10 * Globals.ScreenSizeMulti);
+            }
         }
 
         public override void MoveRight()
         {
-            //Speed = 16;
+            player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);
         }
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
+            if (Speed == 0)
+            {
+                player.State = new LeftFallingPlayerState(player, JumpingSpeed);
+            }
             if (player.OnGround)
             {
                 player.State = new LeftMovingPlayerState(player, Speed);

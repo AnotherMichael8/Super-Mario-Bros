@@ -11,12 +11,15 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class LeftJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState
     {
         private int fallingSpeed;
-        public LeftJumpingPlayerState(Player player) : base(player)
+        public LeftJumpingPlayerState(Player player, int jumpingSpeed = 140) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
-            JumpingSpeed = 140;
+            JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
             player.OnGround = false;
+            if (player.Position.Y < Globals.ScreenHeight - (int)(3 * Globals.BlockSize))
+            {
+            }
         }
         public override void BecomeIdle()
         {
@@ -30,7 +33,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public override void MoveRight()
         {
-            player.State = new LeftFacingRightMoveJumpingPlayerState(player, JumpingSpeed);
+            player.State = new RightMoveJumpingPlayerState(player, JumpingSpeed);
         }
         public override void StopJumping()
         {

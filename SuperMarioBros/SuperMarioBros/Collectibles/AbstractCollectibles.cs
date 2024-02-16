@@ -22,6 +22,7 @@ namespace SuperMarioBros.Collectibles
         protected bool spawnCollectible;
         public abstract int SpawnDist { get; }
         private Vector2 originalPosition;
+        public bool IsFalling { get; set; }
         public AbstractCollectibles(Vector2 position)
         {
             Position = position;
@@ -41,7 +42,13 @@ namespace SuperMarioBros.Collectibles
             if (!spawnCollectible) 
             {
                 trueXPosition += horizMovementFactor / 16.0;
-                trueYPosition++;
+                if (IsFalling)
+                {
+                    verticalMovementFactor += (int)(3 * Globals.ScreenSizeMulti);
+                }
+                else
+                    verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
+                trueYPosition += verticalMovementFactor/16.0;
             }
             else if(spawnCollectible)
             {

@@ -18,12 +18,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public override void MoveLeft()
         {
-            player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed, true);
+            player.State = new LeftMoveFallingPlayerState(player, JumpingSpeed);
         }
 
         public override void MoveRight()
         {
-            //Speed = 16;
+            player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);
         }
         public override void UpdateMovement()
         {

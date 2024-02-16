@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
@@ -13,7 +14,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         public Coin(Vector2 position) : base(position) 
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateCoinSprite();
-            verticalMovementFactor = 120;
+            verticalMovementFactor = (int)(120 * Globals.ScreenSizeMulti);
         }
         public override Rectangle GetHitBox()
         {
@@ -24,6 +25,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
             if (verticalMovementFactor < 0 && trueYPosition >= orginalPosition.Y)
             {
                 Collectibles.Remove(this);
+                CollisionManager.GameObjectList.Remove(this);
                 spawnCollectible = false;
             }
             else

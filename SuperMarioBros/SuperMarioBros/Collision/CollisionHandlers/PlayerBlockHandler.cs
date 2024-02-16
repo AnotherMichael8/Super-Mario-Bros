@@ -14,13 +14,13 @@ namespace SuperMarioBros.Collision
 {
     public class PlayerBlockHandler
     {
-        public static bool IsFalling;
+        private static bool IsFalling;
         public static void HandlePlayerBlockCollision(IPlayer player, IBlock block, ICollision side)
         {
             Rectangle blockHitBox = block.GetHitBox();
             if (side is TopCollision)
             {
-                if (!(player.State is IJumpingPlayerState))
+                if (player.State is not IJumpingPlayerState)
                 {
                     player.Position = new Vector2(player.Position.X, (int)(blockHitBox.Y - Globals.BlockSize));
                     player.OnGround = true;
@@ -37,13 +37,13 @@ namespace SuperMarioBros.Collision
             }
             else if (side is LeftCollision)
             {
-                player.Position = new Vector2((int)(blockHitBox.X - Globals.BlockSize), player.Position.Y - 1);
+                player.Position = new Vector2((int)(blockHitBox.Left - Globals.BlockSize), player.Position.Y + 1);
                 if (AbstractPlayerState.Speed > 1)
                     AbstractPlayerState.Speed -= 3;
             }
             else if (side is RightCollision)
             {
-                player.Position = new Vector2((int)(blockHitBox.X + Globals.BlockSize), player.Position.Y - 1);
+                player.Position = new Vector2(blockHitBox.Right, player.Position.Y + 1);
                 if (AbstractPlayerState.Speed < -1)
                     AbstractPlayerState.Speed += 3;
             }
