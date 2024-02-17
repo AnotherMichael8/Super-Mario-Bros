@@ -1,0 +1,5 @@
+﻿Block,Pipe,4,11,2
+Block,BreakableBrickBlock,9,9,NONE
+Block,BreakableBrickBlock,10,9,NONE
+Block,QuestionBlock,11,9,COIN
+Block,BreakableBrickBlock,12,9,NONE

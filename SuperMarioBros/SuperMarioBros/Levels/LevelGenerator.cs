@@ -26,24 +26,38 @@ namespace SuperMarioBros.Levels
             for (int i = 0; i < numBlocks; i++)
             {
                 string fileName = Directory.GetCurrentDirectory();
-                fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/LevelCSV/1-1." + (i + 1) + ".csv";
+                fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/LevelCSV/1-1." + i + ".csv";
                 CSVLines.Add(File.ReadAllLines(fileName));
             }
         }
         public void LoadFile(int levelChunk)
         {
-            foreach (string gameObject in CSVLines[levelChunk - 1])
+            foreach (string gameObject in CSVLines[levelChunk])
             {
                 string[] objDetails = gameObject.Split(",");
                 if (objDetails[0].Equals("Block"))
                 {
-                    CreateBlockObject(objDetails);
+                    CreateBlockObject(objDetails, levelChunk);
                 }
             }
         }
-        public void CreateBlockObject(string[] blockDetails)
+        public void LoadAllFiles()
         {
-            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
+            for(int i = 0; i < CSVLines.Count; i++)
+            {
+                foreach (string gameObject in CSVLines[i])
+                {
+                    string[] objDetails = gameObject.Split(",");
+                    if (objDetails[0].Equals("Block"))
+                    {
+                        CreateBlockObject(objDetails, i);
+                    }
+                }
+            }
+        }
+        public void CreateBlockObject(string[] blockDetails, int levelChunck)
+        {
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunck),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
             IBlock block = null;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
@@ -56,6 +70,14 @@ namespace SuperMarioBros.Levels
             else if (blockDetails[1].Equals("Pipe"))
             {
                 block = new Pipe(position, int.Parse(blockDetails[4]));
+            }
+            else if (blockDetails[1].Equals("GroundBlock"))
+            {
+                block = new GroundBlock(position, int.Parse(blockDetails[4]), int.Parse(blockDetails[5]));
+            }
+            else if (blockDetails[1].Equals("DiamondBlock"))
+            {
+                block = new DiamondBlock(position);
             }
             AbstractBlock.Blocks.Add(block);
             CollisionManager.GameObjectList.Add(block);

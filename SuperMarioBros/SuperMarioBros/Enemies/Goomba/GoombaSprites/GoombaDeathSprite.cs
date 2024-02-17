@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros.Enemies.Goomba.GoombaSprites
 {
@@ -20,7 +21,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaSprites
         public void Update() {}
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
 
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0), SpriteEffects.None, 0.1f);
         }

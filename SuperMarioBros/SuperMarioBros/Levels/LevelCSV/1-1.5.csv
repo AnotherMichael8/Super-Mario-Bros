@@ -1,0 +1,14 @@
+﻿Block,BreakableBrickBlock,1,5,NONE
+Block,BreakableBrickBlock,2,5,NONE
+Block,BreakableBrickBlock,3,5,NONE
+Block,BreakableBrickBlock,4,5,NONE
+Block,BreakableBrickBlock,5,5,NONE
+Block,BreakableBrickBlock,6,5,NONE
+Block,BreakableBrickBlock,7,5,NONE
+Block,BreakableBrickBlock,8,5,NONE
+Block,GroundBlock,10,13,64,2
+Block,BreakableBrickBlock,12,5,NONE
+Block,BreakableBrickBlock,13,5,NONE
+Block,BreakableBrickBlock,14,5,NONE
+Block,BreakableBrickBlock,15,9,COINS
+Block,QuestionBlock,15,5,COIN

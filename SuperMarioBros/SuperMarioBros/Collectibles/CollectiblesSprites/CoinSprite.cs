@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using SuperMarioBros.Camera;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)Globals.BlockSize/2, (int)Globals.BlockSize);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize/2, (int)Globals.BlockSize);
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
         }
     }

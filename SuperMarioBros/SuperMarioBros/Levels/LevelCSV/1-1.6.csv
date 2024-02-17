@@ -1,0 +1,5 @@
+﻿Block,BreakableBrickBlock,5,9,NONE
+Block,BreakableBrickBlock,6,9,STAR
+Block,QuestionBlock,11,9,COIN
+Block,QuestionBlock,14,9,COIN
+Block,QuestionBlock,14,5,POWERUP

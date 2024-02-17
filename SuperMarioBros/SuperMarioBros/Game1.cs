@@ -12,6 +12,7 @@ using SuperMarioBros.Enemies.Goomba;
 using SuperMarioBros.Enemies.Koopa;
 using SuperMarioBros.Levels;
 using SuperMarioBros.Collectibles;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros
 {
@@ -24,6 +25,7 @@ namespace SuperMarioBros
         public LevelGenerator levelGenerator { get; set; }
         public CollisionManager collisionManager;
         public IEnemy goomba { get; set; }
+        private CameraController camera;
 
         Texture2D _texture;
         Texture2D texture2;
@@ -63,9 +65,16 @@ namespace SuperMarioBros
             goomba = new Koopa(new Vector2(400, 384));
             Controller = new GameplayController(this);
             levelGenerator = new LevelGenerator();
-            levelGenerator.CreateFloor();
-            levelGenerator.CreateAllFiles(1);
+           // levelGenerator.CreateFloor();
+            levelGenerator.CreateAllFiles(12);
+            levelGenerator.LoadAllFiles();
+            /*
+            levelGenerator.LoadFile(0);
             levelGenerator.LoadFile(1);
+            levelGenerator.LoadFile(2);
+            levelGenerator.LoadFile(3);
+            */
+            camera = new CameraController(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,6 +88,7 @@ namespace SuperMarioBros
             AbstractCollectibles.UpdateAllSprites();
             collisionManager.Update();
             Controller.Update(gameTime);
+            camera.Update();
 
             base.Update(gameTime);
         }
@@ -101,10 +111,13 @@ namespace SuperMarioBros
         {
             foreach (IGameObject obj in CollisionManager.GameObjectList)
             {
-                _spriteBatch.Draw(_texture, obj.GetHitBox(), Color.White);
+                Rectangle objHitBox = obj.GetHitBox();
+                objHitBox.X -= CameraController.CameraPosition;
+                _spriteBatch.Draw(_texture, objHitBox, Color.White);
             }
-            _spriteBatch.Draw(_texture, MarioPlayer.GetHitBox(), Color.White);
             Rectangle playerHitBox = MarioPlayer.GetHitBox();
+            playerHitBox.X -= CameraController.CameraPosition;
+            _spriteBatch.Draw(_texture, playerHitBox, Color.White);
             Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9 * (int)(Globals.BlockSize / 32), playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle((int)(playerHitBox.X - 9 * (Globals.BlockSize / 32)), playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height) };
             foreach (Rectangle rectangle in warnPlayerRectangles)
             {

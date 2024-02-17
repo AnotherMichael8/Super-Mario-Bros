@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SuperMarioBros.Camera;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using System;
@@ -25,9 +26,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             trueXPosition = player.Position.X;
             trueYPosition = player.Position.Y;
-            if (player.Position.Y < Globals.ScreenHeight - (int)(3 * Globals.BlockSize))
-            {
-            }
         }
         public virtual void BecomeIdle() { }
         public virtual void Crouch() { }
@@ -62,9 +60,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             trueYPosition = player.Position.Y - (JumpingSpeed / 16.0) * Globals.ScreenSizeMulti;
             player.Position = new Vector2((int)trueXPosition, (int)trueYPosition);
             player.Speed = Speed/16;
-            if(player.Position.Y < Globals.ScreenHeight - (int)(8 * Globals.BlockSize))
-            { 
-            }
         }
         public virtual void UpdateMovement() {}
     }
