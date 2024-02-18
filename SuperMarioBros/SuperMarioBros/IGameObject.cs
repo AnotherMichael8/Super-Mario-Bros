@@ -9,6 +9,7 @@ namespace SuperMarioBros
 {
     public interface IGameObject
     {
+        public int chunk { get; }
         public Rectangle GetHitBox();
     }
 }

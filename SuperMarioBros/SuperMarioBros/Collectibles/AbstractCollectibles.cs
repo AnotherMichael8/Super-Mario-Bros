@@ -23,6 +23,7 @@ namespace SuperMarioBros.Collectibles
         public abstract int SpawnDist { get; }
         private Vector2 originalPosition;
         public bool IsFalling { get; set; }
+        public int chunk { get; private set; }
         public AbstractCollectibles(Vector2 position)
         {
             Position = position;
@@ -30,6 +31,7 @@ namespace SuperMarioBros.Collectibles
             trueXPosition = position.X;
             trueYPosition = position.Y;
             spawnCollectible = true;
+            chunk = (int)(Position.X / Globals.ScreenWidth);
         }
         public void Collect()
         {
@@ -56,6 +58,7 @@ namespace SuperMarioBros.Collectibles
             }
             Position = new Vector2((int)trueXPosition, (int)trueYPosition);
             sprite.Update();
+            chunk = (int)(Position.X / Globals.ScreenWidth);
         }
         public virtual void MoveLeft() { }
         public virtual void MoveRight() { }

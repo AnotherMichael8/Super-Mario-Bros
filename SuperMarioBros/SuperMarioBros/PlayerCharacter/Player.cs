@@ -24,6 +24,7 @@ namespace SuperMarioBros.PlayerCharacter
         public bool OnGround { get; set; }
         public bool IsDead { get; set; }
         public bool IsFalling { get; set; }
+        public int chunk { get; private set; }
 
         public Player(Game1 game)
         {
@@ -32,6 +33,7 @@ namespace SuperMarioBros.PlayerCharacter
             previousY = 384;
             State = new RightIdlePlayerState(this);
             IsFalling = false;
+            chunk = (int)(Position.X / Globals.ScreenWidth);
         }
 
         public void BecomeIdle()
@@ -94,7 +96,8 @@ namespace SuperMarioBros.PlayerCharacter
                 Fall();
             State.Update();
             Position = new Vector2(Position.X, Position.Y + 1);
-            Sprite.Update(Math.Abs(Speed));          
+            Sprite.Update(Math.Abs(Speed));
+            chunk = (int)(Position.X / Globals.ScreenWidth);
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {

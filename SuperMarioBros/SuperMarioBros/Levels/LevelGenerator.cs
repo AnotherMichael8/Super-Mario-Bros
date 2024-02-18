@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.Collision;
-using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SuperMarioBros.Blocks;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collectibles.Collectibles;
@@ -52,13 +47,6 @@ namespace SuperMarioBros.Levels
                 }
                 if(gameObject != null)
                     CollisionManager.GameObjectList.Add(gameObject);
-                /*
-                string[] objDetails = gameObject.Split(",");
-                if (objDetails[0].Equals("Block"))
-                {
-                    CreateBlockObject(objDetails, levelChunk);
-                }
-                */
             }
         }
         public void UnloadFile(int levelChunk)
@@ -74,22 +62,6 @@ namespace SuperMarioBros.Levels
                     CollisionManager.GameObjectList.Remove(gameObject);
             }
         }
-        /*
-        public void LoadAllFiles()
-        {
-            for(int i = 0; i < CSVLines.Count; i++)
-            {
-                foreach (string gameObject in CSVLines[i])
-                {
-                    string[] objDetails = gameObject.Split(",");
-                    if (objDetails[0].Equals("Block"))
-                    {
-                        CreateBlockObject(objDetails, i);
-                    }
-                }
-            }
-        }
-        */
         private IBlock CreateBlockObject(string[] blockDetails, int levelChunck)
         {
             Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunck),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
@@ -114,9 +86,7 @@ namespace SuperMarioBros.Levels
             {
                 block = new DiamondBlock(position, int.Parse(blockDetails[4]));
             }
-
             return block;
-
         }
         private ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
         {
@@ -131,6 +101,22 @@ namespace SuperMarioBros.Levels
             else
             {
                 return null;
+            }
+        }
+        public void ReplaceObject(IGameObject obj)
+        {
+            for (int i = 0;  i < ChunkObjects.Count; i++) 
+            {
+                if (i == obj.chunk)
+                {
+                    for (int c = 0; c < ChunkObjects[i].Length; c++)
+                    {
+                        if(obj is QuestionBlock questionBlock)
+                        {
+                            ChunkObjects[i][c] = questionBlock.usedBlock;
+                        }
+                    }
+                }
             }
         }
         public void CreateFloor()

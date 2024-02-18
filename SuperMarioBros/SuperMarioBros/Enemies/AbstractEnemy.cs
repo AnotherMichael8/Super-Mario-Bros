@@ -16,12 +16,15 @@ namespace SuperMarioBros.Enemies
         public IEnemyState State { get; set; }
         public IEnemySprite Sprite { get; set; }
         public bool IsDead { get; protected set; }
+        public int chunk { get; private set; }
+
         public AbstractEnemy(Vector2 position)
         {
             Position = position;
             IsDead = false;
             Enemies.Add(this);
             CollisionManager.GameObjectList.Add(this);
+            chunk = (int)(Position.X / Globals.ScreenWidth);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -36,6 +39,7 @@ namespace SuperMarioBros.Enemies
             for (int i = 0; i < Enemies.Count; i++)
             {
                 Enemies[i].Position = new Vector2(Position.X, Position.Y + 1);
+                Enemies[i].chunk = (int)(Enemies[i].Position.X / Globals.ScreenWidth);
                 Enemies[i].Sprite.Update();
                 Enemies[i].State.Update();
             }

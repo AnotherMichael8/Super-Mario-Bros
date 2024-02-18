@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.Camera;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,13 @@ namespace SuperMarioBros.Blocks
         public Vector2 Position { get; set; }
         protected BlockSprite sprite;
         public static List<IBlock> Blocks = new List<IBlock>();
+        public static List<IBlock> ChangedBlocks = new List<IBlock>();
+        protected static int tempAnimateCounter;
+        public int chunk { get; private set; }
         public AbstractBlock(Vector2 position)
         {
             Position = position;
+            chunk = (int)(position.X / Globals.ScreenWidth);
         }
         public virtual void Bump() { }
         public virtual void Update() { }
@@ -39,6 +44,7 @@ namespace SuperMarioBros.Blocks
             {
                 block.Update();
             }
+            QuestionBlock.UpdateAnimationCounter();
         }
         public static void DrawAllBlocks(SpriteBatch spriteBatch, Color color)
         {
