@@ -22,7 +22,7 @@ namespace SuperMarioBros
         private SpriteBatch _spriteBatch;
         public IPlayer MarioPlayer { get; set; }
         public IController Controller { get; set; }
-        public LevelGenerator levelGenerator { get; set; }
+        //public LevelGenerator levelGenerator { get; set; }
         public CollisionManager collisionManager;
         public IEnemy goomba { get; set; }
         private CameraController camera;
@@ -64,17 +64,18 @@ namespace SuperMarioBros
             collisionManager = new CollisionManager(this, _spriteBatch);
             goomba = new Koopa(new Vector2(400, 384));
             Controller = new GameplayController(this);
-            levelGenerator = new LevelGenerator();
+            //levelGenerator = new LevelGenerator();
            // levelGenerator.CreateFloor();
-            levelGenerator.CreateAllFiles(12);
-            levelGenerator.LoadAllFiles();
+            //levelGenerator.CreateAllFiles(13);
+            //levelGenerator.LoadAllFiles();
             /*
             levelGenerator.LoadFile(0);
             levelGenerator.LoadFile(1);
             levelGenerator.LoadFile(2);
             levelGenerator.LoadFile(3);
             */
-            camera = new CameraController(this);
+            camera = new CameraController(MarioPlayer);
+            camera.LoadObjectsOnScreen();
         }
 
         protected override void Update(GameTime gameTime)

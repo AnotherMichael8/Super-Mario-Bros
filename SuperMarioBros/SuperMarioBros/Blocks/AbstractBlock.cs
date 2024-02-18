@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Camera;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,11 @@ namespace SuperMarioBros.Blocks
         }
         public virtual Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            Rectangle hitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            if (CameraController.CheckInFrame(hitBox))
+                return hitBox;
+            else
+                return Rectangle.Empty;
         }
         public static void UpdateAllBlocks()
         {

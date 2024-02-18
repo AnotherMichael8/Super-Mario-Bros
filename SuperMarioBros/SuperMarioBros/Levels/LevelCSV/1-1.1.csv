@@ -5,5 +5,4 @@ Block,BreakableBrickBlock,6,9,NONE
 Block,QuestionBlock,7,9,COIN
 Block,BreakableBrickBlock,8,9,NONE
 Block,QuestionBlock,6,5,COIN
-Enemy,Goomba,6,3
 Block,Pipe,12,11,2

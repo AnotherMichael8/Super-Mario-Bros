@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -24,7 +25,11 @@ namespace SuperMarioBros.Blocks.BlockType
         } 
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, (int)(Globals.BlockSize * 2), (int)(Globals.BlockSize * height));
+            Rectangle hitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(Globals.BlockSize * 2), (int)(Globals.BlockSize * height));
+            if (CameraController.CheckInFrame(hitBox))
+                return hitBox;
+            else
+                return Rectangle.Empty;
         }
     }
 }

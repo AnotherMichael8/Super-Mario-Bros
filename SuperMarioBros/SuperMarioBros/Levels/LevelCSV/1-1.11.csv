@@ -1,1 +1,12 @@
 ﻿Block,Pipe,4,11,2
+Block,DiamondBlock,6,12,1
+Block,DiamondBlock,7,11,2
+Block,DiamondBlock,8,10,3
+Block,DiamondBlock,9,9,4
+Block,DiamondBlock,10,8,5
+Block,DiamondBlock,11,7,6
+Block,DiamondBlock,12,6,7
+Block,DiamondBlock,13,5,8
+Block,DiamondBlock,14,5,8
+
+

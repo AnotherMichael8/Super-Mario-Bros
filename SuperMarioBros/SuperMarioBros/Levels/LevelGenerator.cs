@@ -16,10 +16,10 @@ namespace SuperMarioBros.Levels
 {
     public class LevelGenerator
     {
-        private List<string[]> CSVLines = new List<string[]>();
+        private List<IGameObject[]> ChunkObjects;
         public LevelGenerator()
         {
-            //blocks = new List<IBlock>();
+            ChunkObjects = new List<IGameObject[]>();
         }
         public void CreateAllFiles(int numBlocks)
         {
@@ -27,20 +27,54 @@ namespace SuperMarioBros.Levels
             {
                 string fileName = Directory.GetCurrentDirectory();
                 fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/LevelCSV/1-1." + i + ".csv";
-                CSVLines.Add(File.ReadAllLines(fileName));
+                string[] CSVLine = File.ReadAllLines(fileName);
+
+                IGameObject[] gameObjects = new IGameObject[CSVLine.Length];
+                for(int c = 0; c < CSVLine.Length; c++)
+                {
+                    string gameObject = CSVLine[c];
+                    string[] objDetails = gameObject.Split(",");
+                    if (objDetails[0].Equals("Block"))
+                    {
+                        gameObjects[c] = CreateBlockObject(objDetails, i);
+                    }
+                }
+                ChunkObjects.Add(gameObjects);
             }
         }
         public void LoadFile(int levelChunk)
         {
-            foreach (string gameObject in CSVLines[levelChunk])
+            foreach (IGameObject gameObject in ChunkObjects[levelChunk])
             {
+                if(gameObject is IBlock block)
+                {
+                    AbstractBlock.Blocks.Add(block);
+                }
+                if(gameObject != null)
+                    CollisionManager.GameObjectList.Add(gameObject);
+                /*
                 string[] objDetails = gameObject.Split(",");
                 if (objDetails[0].Equals("Block"))
                 {
                     CreateBlockObject(objDetails, levelChunk);
                 }
+                */
             }
         }
+        public void UnloadFile(int levelChunk)
+        {
+            foreach (IGameObject gameObject in ChunkObjects[levelChunk])
+            {
+                if (gameObject is IBlock block)
+                {
+                    if(block is not GroundBlock)
+                        AbstractBlock.Blocks.Remove(block);
+                }
+                if(gameObject != null && gameObject is not GroundBlock)
+                    CollisionManager.GameObjectList.Remove(gameObject);
+            }
+        }
+        /*
         public void LoadAllFiles()
         {
             for(int i = 0; i < CSVLines.Count; i++)
@@ -55,7 +89,8 @@ namespace SuperMarioBros.Levels
                 }
             }
         }
-        public void CreateBlockObject(string[] blockDetails, int levelChunck)
+        */
+        private IBlock CreateBlockObject(string[] blockDetails, int levelChunck)
         {
             Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunck),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
             IBlock block = null;
@@ -77,13 +112,13 @@ namespace SuperMarioBros.Levels
             }
             else if (blockDetails[1].Equals("DiamondBlock"))
             {
-                block = new DiamondBlock(position);
+                block = new DiamondBlock(position, int.Parse(blockDetails[4]));
             }
-            AbstractBlock.Blocks.Add(block);
-            CollisionManager.GameObjectList.Add(block);
+
+            return block;
 
         }
-        public ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
+        private ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
         {
             if(collectible.Equals("POWERUP"))
             {
