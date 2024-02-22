@@ -106,7 +106,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Rectangle GetHitBox()
         {
             if(!IsDead)
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize * 2);
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
             else
                 return Rectangle.Empty;
         }
