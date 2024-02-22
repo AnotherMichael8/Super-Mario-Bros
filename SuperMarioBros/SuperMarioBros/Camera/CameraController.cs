@@ -68,6 +68,5 @@ namespace SuperMarioBros.Camera
         {
             return !(position.Right < CameraPosition || position.Left > CameraPosition + Globals.ScreenWidth);
         }
-
     }
 }

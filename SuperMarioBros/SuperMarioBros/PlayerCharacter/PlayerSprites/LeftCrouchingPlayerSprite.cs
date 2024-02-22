@@ -10,25 +10,16 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
-    public class LeftCrouchingPlayerSprite : IPlayerSprite
+    public class LeftCrouchingPlayerSprite : AbstractPlayerSprite
     {
-        private Texture2D texture;
-        private readonly Rectangle sourceRectangle = new Rectangle(116, 40, 16, 24);
-        private int frameCounter;
-        public LeftCrouchingPlayerSprite(Texture2D texture)
+        private Rectangle sourceRectangle = new Rectangle(116, 40, 16, 24);
+        public LeftCrouchingPlayerSprite(Texture2D texture) : base(texture)
         {
-            this.texture = texture;
-            frameCounter = 0;
         }
 
-        public void Update(int currentSpeed)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            frameCounter++;
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
-        {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)(sourceRectangle.Width * 2 * Globals.ScreenSizeMulti), (int)(sourceRectangle.Height * 2 * Globals.ScreenSizeMulti));
 
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.FlipHorizontally, 0);
         }

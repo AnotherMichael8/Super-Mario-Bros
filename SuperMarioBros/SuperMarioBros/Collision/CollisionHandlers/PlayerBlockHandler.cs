@@ -22,7 +22,8 @@ namespace SuperMarioBros.Collision
             {
                 if (player.State is not IJumpingPlayerState)
                 {
-                    player.Position = new Vector2(player.Position.X, (int)(blockHitBox.Y - Globals.BlockSize));
+                    Rectangle playerHitBox = player.GetHitBox();
+                    player.Position = new Vector2(player.Position.X, block.Position.Y - playerHitBox.Height);
                     player.OnGround = true;
                     IsFalling = false;
                 }

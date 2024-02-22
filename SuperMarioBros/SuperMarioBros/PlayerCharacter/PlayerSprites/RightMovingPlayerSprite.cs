@@ -10,20 +10,21 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
-    public class RightMovingPlayerSprite : IPlayerSprite
+    public class RightMovingPlayerSprite : AbstractPlayerSprite
     {
-        private Texture2D texture;
         private Rectangle sourceRectangle;
-        private readonly Rectangle[] spriteAnimation = { new Rectangle(20, 8, 16, 16), new Rectangle(38, 8, 16, 16), new Rectangle(56, 8, 16, 16) };
-        private int frameCounter;
-        public RightMovingPlayerSprite(Texture2D texture)
+        private Rectangle[] spriteAnimation = { new Rectangle(20, 8, 16, 16), new Rectangle(38, 8, 16, 16), new Rectangle(56, 8, 16, 16) };
+        public RightMovingPlayerSprite(Texture2D texture) : base(texture)
         {
-            this.texture = texture;
-            frameCounter = 0;
+            for (int i = 0; i < spriteAnimation.Length; i++)
+            {
+                spriteAnimation[i].Y += updatePowerUpSprite;
+                spriteAnimation[i].Height *= heightMultiplier;
+            }
             sourceRectangle = spriteAnimation[0];
         }
 
-        public void Update(int currentSpeed)
+        public override void Update(int currentSpeed)
         {
             if(frameCounter >= 24 - 3 * currentSpeed)
             {
@@ -41,9 +42,9 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
             frameCounter++;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)(Globals.BlockSize * heightMultiplier));
 
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0);
         }

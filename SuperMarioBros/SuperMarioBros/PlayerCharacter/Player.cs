@@ -29,7 +29,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Player(Game1 game)
         {
             this.game = game;
-            Position = new Vector2(0, Globals.ScreenHeight - (int)(3 * Globals.BlockSize));
+            Position = new Vector2(0, Globals.ScreenHeight - (int)(4 * Globals.BlockSize));
             previousY = 384;
             State = new RightIdlePlayerState(this);
             IsFalling = false;
@@ -106,7 +106,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Rectangle GetHitBox()
         {
             if(!IsDead)
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize * 2);
             else
                 return Rectangle.Empty;
         }

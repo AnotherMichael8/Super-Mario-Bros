@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SuperMarioBros.Camera;
+using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using System;
@@ -12,20 +13,21 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public abstract class AbstractPlayerState : IPlayerState
     {
+        public enum PowerUps { NONE ,MUSHROOM, FIREFLOWER};
+        public PowerUps currentPowerUp { get; private set; }
         protected static int AccelerationCap = 3 * 16;
         protected static int JumpingSpeed = 0;
         private double trueXPosition;
         private double trueYPosition;
         public static int Speed { get;  set; } = 0;
         protected Player player;
-        private static bool dictionaryMade = false; 
-        protected static Dictionary<Type, IPlayerState> PlayerSpriteStateDict = new Dictionary<Type, IPlayerState>();
 
         public AbstractPlayerState(Player player)
         {
             this.player = player;
             trueXPosition = player.Position.X;
             trueYPosition = player.Position.Y;
+            currentPowerUp = PowerUps.NONE;
         }
         public virtual void BecomeIdle() { }
         public virtual void Crouch() { }
@@ -33,6 +35,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public virtual void MoveLeft() { }
         public virtual void MoveRight() { }
         public virtual void StopJumping() { }
+        public virtual void Fall() { }
         public virtual void Sprint() 
         {
             AccelerationCap = 6 * 16;
@@ -43,14 +46,36 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public virtual void Kill()
         {
-            player.State = new DeathPlayerState(player);
+            switch(currentPowerUp)
+            {
+                case (PowerUps.MUSHROOM):
+                case (PowerUps.FIREFLOWER):
+                    currentPowerUp = PowerUps.NONE;
+                    break;
+                default:
+                    player.State = new DeathPlayerState(player);
+                    break;
+            }
         }
         public virtual void StopUpwardMovement() 
         {
             JumpingSpeed = 16;
         }
-        public virtual void Fall() 
-        { 
+        public void PowerUpMushroom()
+        {
+            currentPowerUp = PowerUps.MUSHROOM;
+        }
+        public void PowerUpFlower()
+        {
+            currentPowerUp = PowerUps.FIREFLOWER;
+        }
+        public void PowerUpStar()
+        {
+            //currentPowerUp = PowerUps.STAR;
+        }
+        public void UseAbility()
+        {
+
         }
 
         public void Update()

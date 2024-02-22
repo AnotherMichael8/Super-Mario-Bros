@@ -10,25 +10,17 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
-    public class RightJumpingPlayerSprite : IPlayerSprite
+    public class RightJumpingPlayerSprite : AbstractPlayerSprite
     {
-        private Texture2D texture;
-        private readonly Rectangle sourceRectangle = new Rectangle(96, 8, 16, 16);
-        private int frameCounter;
-        public RightJumpingPlayerSprite(Texture2D texture)
+        private Rectangle sourceRectangle;
+        public RightJumpingPlayerSprite(Texture2D texture) : base(texture)
         {
-            this.texture = texture;
-            frameCounter = 0;
+            sourceRectangle = new Rectangle(96, 8 + updatePowerUpSprite, 16, 16 * heightMultiplier);
         }
 
-        public void Update(int currentSpeed)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            frameCounter++;
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
-        {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)(Globals.BlockSize * heightMultiplier));
 
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0);
         }
