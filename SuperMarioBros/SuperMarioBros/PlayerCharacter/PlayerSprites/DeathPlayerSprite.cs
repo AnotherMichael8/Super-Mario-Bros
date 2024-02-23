@@ -13,7 +13,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     public class DeathPlayerSprite : AbstractPlayerSprite
     {
         private Rectangle sourceRectangle;
-        public DeathPlayerSprite(Texture2D texture) : base(texture)
+        public DeathPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
             sourceRectangle = new Rectangle(116, 8 + updatePowerUpSprite, 16, 16 * heightMultiplier);
         }

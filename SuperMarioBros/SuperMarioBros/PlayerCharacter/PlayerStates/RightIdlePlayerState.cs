@@ -41,6 +41,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new RightCrouchingPlayerState(player);
         }
+        public override void PowerUpMushroom()
+        {
+            base.PowerUpMushroom();
+            player.State = new RightMushroomPowerUpAnimationState(player, this);
+        }
         public override void UpdateMovement()
         {
             if (Speed > 0)

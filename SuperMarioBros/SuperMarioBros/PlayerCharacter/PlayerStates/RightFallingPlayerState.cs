@@ -25,6 +25,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);
         }
+        public override void PowerUpMushroom()
+        {
+            base.PowerUpMushroom();
+            player.State = new RightMushroomPowerUpAnimationState(player, this);
+        }
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;

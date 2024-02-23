@@ -25,6 +25,7 @@ namespace SuperMarioBros.PlayerCharacter
         public bool IsDead { get; set; }
         public bool IsFalling { get; set; }
         public int chunk { get; private set; }
+        private int playerSizeMulti;
 
         public Player(Game1 game)
         {
@@ -34,6 +35,7 @@ namespace SuperMarioBros.PlayerCharacter
             State = new RightIdlePlayerState(this);
             IsFalling = false;
             chunk = (int)(Position.X / Globals.ScreenWidth);
+            playerSizeMulti = 1;
         }
 
         public void BecomeIdle()
@@ -77,10 +79,30 @@ namespace SuperMarioBros.PlayerCharacter
         public void Kill()
         {
             State.Kill();
+            playerSizeMulti = 1;
         }
         public void StopUpwardMovement()
         {
             State.StopUpwardMovement();
+        }
+        public void PowerUpMushroom()
+        {
+            State.PowerUpMushroom();
+            playerSizeMulti = 2;
+            Position = new Vector2(Position.X, (int)(Position.Y - Globals.BlockSize));
+        }
+        public void PowerUpFlower()
+        {
+            State.PowerUpFlower();
+            playerSizeMulti = 2;
+        }
+        public void PowerUpStar()
+        {
+            State.PowerUpStar();
+        }
+        public void UseAbility()
+        {
+            State.UseAbility();
         }
         public void SetDecorator(IPlayer decoLink)
         {
@@ -106,7 +128,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Rectangle GetHitBox()
         {
             if(!IsDead)
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize * playerSizeMulti);
             else
                 return Rectangle.Empty;
         }

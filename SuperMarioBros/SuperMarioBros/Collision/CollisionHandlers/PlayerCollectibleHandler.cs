@@ -1,6 +1,7 @@
 ﻿using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.PlayerCharacter;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,11 +18,13 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             collectible.Collect();
             if(collectible is Mushroom)
             {
-                //player.MakeBig();
+                player.PowerUpMushroom();
+                PlayerSpriteFactory.Instance.UpdatePowerUp(PowerUp.PowerUps.MUSHROOM);
             }
             else if(collectible is Flower)
             {
-                //player.MakeFire();
+                player.PowerUpFlower();
+                PlayerSpriteFactory.Instance.UpdatePowerUp(PowerUp.PowerUps.FIREFLOWER);
             }
             /*
             else if(collectible is Star)

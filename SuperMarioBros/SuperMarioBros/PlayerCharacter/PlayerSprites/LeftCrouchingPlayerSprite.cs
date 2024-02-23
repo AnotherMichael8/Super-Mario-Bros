@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Camera;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.PlayerCharacter.PlayerStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     public class LeftCrouchingPlayerSprite : AbstractPlayerSprite
     {
         private Rectangle sourceRectangle = new Rectangle(116, 40, 16, 24);
-        public LeftCrouchingPlayerSprite(Texture2D texture) : base(texture)
+        public LeftCrouchingPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
         }
 

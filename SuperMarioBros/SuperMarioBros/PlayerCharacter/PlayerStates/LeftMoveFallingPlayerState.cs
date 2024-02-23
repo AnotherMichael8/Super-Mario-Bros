@@ -22,7 +22,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                 Speed -= (int)(10 * Globals.ScreenSizeMulti);
             }
         }
-
+        public override void PowerUpMushroom()
+        {
+            base.PowerUpMushroom();
+            player.State = new LeftMushroomPowerUpAnimationState(player, this);
+        }
         public override void MoveRight()
         {
             player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);

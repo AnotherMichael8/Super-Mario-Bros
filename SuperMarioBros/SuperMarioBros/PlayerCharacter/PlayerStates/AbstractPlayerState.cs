@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public abstract class AbstractPlayerState : IPlayerState
+    public abstract class AbstractPlayerState : PowerUp, IPlayerState
     {
-        public enum PowerUps { NONE ,MUSHROOM, FIREFLOWER};
+        //public enum PowerUps { NONE ,MUSHROOM, FIREFLOWER};
         public PowerUps currentPowerUp { get; private set; }
         protected static int AccelerationCap = 3 * 16;
         protected static int JumpingSpeed = 0;
@@ -61,7 +61,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             JumpingSpeed = 16;
         }
-        public void PowerUpMushroom()
+        public virtual void PowerUpMushroom()
         {
             currentPowerUp = PowerUps.MUSHROOM;
         }
@@ -78,7 +78,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         }
 
-        public void Update()
+        public virtual void Update()
         {
             UpdateMovement();
             trueXPosition = player.Position.X + (Speed / 16.0) * Globals.ScreenSizeMulti;

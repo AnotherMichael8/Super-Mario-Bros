@@ -20,6 +20,10 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
         public void Fall();
         public void Jump();
         public void Crouch();
+        public void PowerUpMushroom();
+        public void PowerUpFlower();
+        public void PowerUpStar();
+        public void UseAbility();
         public void Update();
 
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SuperMarioBros.PlayerCharacter.PlayerStates.AbstractPlayerState;
 
 namespace SuperMarioBros.PlayerCharacter
 {
@@ -27,6 +28,10 @@ namespace SuperMarioBros.PlayerCharacter
         public void StopJumping();
         public void Kill();
         public void StopUpwardMovement();
+        public void PowerUpMushroom();
+        public void PowerUpFlower();
+        public void PowerUpStar();
+        public void UseAbility();
         public void SetDecorator(IPlayer player);
         public void RemoveDecorator();
         public void Update();

@@ -14,7 +14,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     {
         private Rectangle sourceRectangle;
         private Rectangle[] spriteAnimation = { new Rectangle(20, 8, 16, 16), new Rectangle(38, 8, 16, 16), new Rectangle(56, 8, 16, 16) };
-        public RightMovingPlayerSprite(Texture2D texture) : base(texture)
+        public RightMovingPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
             for (int i = 0; i < spriteAnimation.Length; i++)
             {

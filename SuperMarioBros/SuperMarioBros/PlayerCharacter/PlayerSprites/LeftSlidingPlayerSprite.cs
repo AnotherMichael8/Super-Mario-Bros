@@ -13,7 +13,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     public class LeftSlidingPlayerSprite : AbstractPlayerSprite
     {
         private Rectangle sourceRectangle = new Rectangle(76, 8, 16, 16);
-        public LeftSlidingPlayerSprite(Texture2D texture) : base(texture)
+        public LeftSlidingPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
             sourceRectangle = new Rectangle(76, 8 + updatePowerUpSprite, 16, 16 * heightMultiplier);
         }

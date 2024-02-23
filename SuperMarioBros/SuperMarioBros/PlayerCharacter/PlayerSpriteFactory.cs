@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
+using SuperMarioBros.PlayerCharacter.PlayerStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter
 {
-    public class PlayerSpriteFactory
+    public class PlayerSpriteFactory : PowerUp
     {
         private static Texture2D playerTexture;
         private static PlayerSpriteFactory instance = new PlayerSpriteFactory();
+        private PowerUps powerUp = PowerUps.NONE;
         public static PlayerSpriteFactory Instance
         {
             get
@@ -27,50 +29,66 @@ namespace SuperMarioBros.PlayerCharacter
         {
             playerTexture = content.Load<Texture2D>("MarioChracters");
         }
-
+        public void UpdatePowerUp(PowerUps powerUp)
+        {
+            this.powerUp = powerUp;
+        }
+        public IPlayerSprite CreateNewPlayerSprite(IPlayerSprite playerSprite)
+        {
+            Type playerSpriteType = playerSprite.GetType();
+            return (IPlayerSprite)Activator.CreateInstance(playerSpriteType, playerTexture, powerUp);
+        }
         public IPlayerSprite CreateLeftIdlePlayerSprite()
         {
-            return new LeftIdlePlayerSprite(playerTexture);
+            return new LeftIdlePlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateRightIdlePlayerSprite()
         {
-            return new RightIdlePlayerSprite(playerTexture);
+            return new RightIdlePlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateLeftMovingPlayerSprite()
         {
-            return new LeftMovingPlayerSprite(playerTexture);
+            return new LeftMovingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateRightMovingPlayerSprite()
         {
-            return new RightMovingPlayerSprite(playerTexture);
+            return new RightMovingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateRightJumpingPlayerSprite()
         {
-            return new RightJumpingPlayerSprite(playerTexture);
+            return new RightJumpingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateLeftJumpingPlayerSprite()
         {
-            return new LeftJumpingPlayerSprite(playerTexture);
+            return new LeftJumpingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateLeftCrouchingPlayerSprite()
         {
-            return new LeftCrouchingPlayerSprite(playerTexture);
+            return new LeftCrouchingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateRightCrouchingPlayerSprite()
         {
-            return new RightCrouchingPlayerSprite(playerTexture);
+            return new RightCrouchingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateRightSlidingPlayerSprite()
         {
-            return new RightSlidingPlayerSprite(playerTexture);
+            return new RightSlidingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateLeftSlidingPlayerSprite()
         {
-            return new LeftSlidingPlayerSprite(playerTexture);
+            return new LeftSlidingPlayerSprite(playerTexture, powerUp);
         }
         public IPlayerSprite CreateDeathPlayerSprite()
         {
-            return new DeathPlayerSprite(playerTexture);
+            return new DeathPlayerSprite(playerTexture, powerUp);
+        }
+        public IPlayerSprite CreateRightAnimationMushroomSprite()
+        {
+            return new RightAnimationMushroomSprite(playerTexture, powerUp);
+        }
+        public IPlayerSprite CreateLeftAnimationMushroomSprite()
+        {
+            return new LeftAnimationMushroomSprite(playerTexture, powerUp);
         }
     }
 }
