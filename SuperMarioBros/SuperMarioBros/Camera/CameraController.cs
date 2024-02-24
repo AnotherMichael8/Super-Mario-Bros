@@ -46,18 +46,21 @@ namespace SuperMarioBros.Camera
         {
             levelGenerator.CreateAllFiles(NUMBER_CHUNKS);
             levelGenerator.LoadFile(0);
+            chuncksLoaded.Add(0);
             levelGenerator.LoadFile(1);
+            chuncksLoaded.Add(1);
         }   
         private void LoadAndUnloadChunks(int currentChunk)
         {
-            if(currentChunck + 1 < NUMBER_CHUNKS)
+            if(!chuncksLoaded.Contains(currentChunck + 1) && currentChunck + 1 < NUMBER_CHUNKS)
             {
                 levelGenerator.LoadFile(currentChunck + 1);
                 chuncksLoaded.Add(currentChunck + 1);
             }
-            if(currentChunk - 2 >= 0)
+            if(chuncksLoaded.Contains(currentChunck - 2) && currentChunk - 2 >= 0)
             {
                 levelGenerator.UnloadFile(currentChunk - 2);
+                chuncksLoaded.Remove(currentChunck - 2);
             }
         }
         public static void UpdateSavedObjects()
