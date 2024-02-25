@@ -65,7 +65,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             currentPowerUp = PowerUps.MUSHROOM;
         }
-        public void PowerUpFlower()
+        public virtual void PowerUpFlower()
         {
             currentPowerUp = PowerUps.FIREFLOWER;
         }

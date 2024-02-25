@@ -18,7 +18,6 @@ namespace SuperMarioBros.Camera
         private LevelGenerator levelGenerator;
         private const int NUMBER_CHUNKS = 13;
         public static List<IGameObject> UpdateObjectQueue;
-        private static bool updateObjects;
         public CameraController(IPlayer player)
         {
             this.player = player;
@@ -62,10 +61,6 @@ namespace SuperMarioBros.Camera
                 levelGenerator.UnloadFile(currentChunk - 2);
                 chuncksLoaded.Remove(currentChunck - 2);
             }
-        }
-        public static void UpdateSavedObjects()
-        {
-            updateObjects = true;
         }
         public static bool CheckInFrame(Rectangle position)
         {

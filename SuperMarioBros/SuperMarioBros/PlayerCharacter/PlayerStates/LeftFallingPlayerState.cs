@@ -33,7 +33,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             base.PowerUpMushroom();
             player.State = new LeftMushroomPowerUpAnimationState(player, this);
         }
-
+        public override void PowerUpFlower()
+        {
+            base.PowerUpFlower();
+            player.State = new LeftFlowerPowerUpAnimationState(player, this);
+        }
         public override void MoveRight()
         {
             player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);

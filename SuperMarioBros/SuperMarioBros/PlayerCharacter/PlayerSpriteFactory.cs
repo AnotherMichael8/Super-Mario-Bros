@@ -90,5 +90,13 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new LeftAnimationMushroomSprite(playerTexture, powerUp);
         }
+        public IPlayerSprite CreateRightAnimationFlowerSprite()
+        {
+            return new RightAnimationFlowerSprite(playerTexture, powerUp);
+        }
+        public IPlayerSprite CreateLeftAnimationFlowerSprite()
+        {
+            return new LeftAnimationFlowerSprite(playerTexture, powerUp);
+        }
     }
 }

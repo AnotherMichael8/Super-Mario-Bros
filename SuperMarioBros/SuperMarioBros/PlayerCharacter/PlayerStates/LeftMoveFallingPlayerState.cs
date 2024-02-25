@@ -31,6 +31,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new RightMoveFallingPlayerState(player, JumpingSpeed);
         }
+        public override void PowerUpFlower()
+        {
+            base.PowerUpFlower();
+            player.State = new LeftFlowerPowerUpAnimationState(player, this);
+        }
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
