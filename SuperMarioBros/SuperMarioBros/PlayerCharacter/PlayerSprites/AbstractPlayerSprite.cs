@@ -14,16 +14,26 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
     public abstract class AbstractPlayerSprite : PowerUp, IPlayerSprite
     {
-        //private readonly Rectangle sourceRectangle = new Rectangle(0, 8, 16, 16);
         protected Texture2D texture;
-        protected int frameCounter;
-        protected int updatePowerUpSprite;
-        protected int heightMultiplier;
+        private int frameCounter;
+        protected static int updatePowerUpSprite;
+        protected static int heightMultiplier;
         protected Rectangle destinationRectangle;
+        protected PowerUps powerUp;
+        protected int animationCounter;
+        public Rectangle sourceRectangle { get; protected set; }
+        protected readonly Color[] MarioColors = { new Color(181, 49, 32), new Color(234, 158, 34), new Color(107, 109, 0)};
+        protected readonly Color[][] FlowerColors = 
+        {
+            new Color[] { new Color(12, 147, 0), new Color(255, 254, 255), new Color(234, 158, 34) },
+            new Color[] { new Color(181, 49, 32), new Color(255, 254, 255), new Color(234, 158, 34) },
+            new Color[] { Color.Black, new Color(254, 204, 197), new Color(153, 78, 0) }
+        };
         public AbstractPlayerSprite(Texture2D texture, PowerUps powerUp = PowerUps.NONE)
         {
             this.texture = texture;
-            frameCounter = 0;
+            animationCounter = 0;
+            this.powerUp = powerUp;
             switch(powerUp)
             {
                 case (PowerUps.MUSHROOM):
@@ -43,8 +53,31 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
             }
         }
 
-        public virtual void Update(int currentSpeed) { }
+        public virtual void Update(int currentSpeed)
+        {
 
+        }
         public abstract void Draw(SpriteBatch spriteBatch, Vector2 position, Color color);
+        protected void UpdatePlayersColor(Color[] currentColors, Color[] newColors)
+        {
+            Color[] data = new Color[texture.Width * texture.Height];
+            texture.GetData(data);
+            for(int i = 0; i < data.Length; i++)
+            {
+                if (data[i].Equals(currentColors[0]))
+                {
+                    data[i] = newColors[0];
+                }
+                else if (data[i].Equals(currentColors[1]))
+                {
+                    data[i] = newColors[1];
+                }
+                else if (data[i].Equals(currentColors[2]))
+                {
+                    data[i] = newColors[2];
+                }
+            }
+            texture.SetData(data);
+        }
     }
 }

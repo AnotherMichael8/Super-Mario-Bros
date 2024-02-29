@@ -11,7 +11,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
     public class LeftAnimationMushroomSprite : AbstractPlayerSprite
     {
-        private Rectangle sourceRectangle;
         private Rectangle[] spriteAnimation = { new Rectangle(0, 88, 16, 16), new Rectangle(18, 80, 16, 24), new Rectangle(36, 72, 16, 32) };
         public LeftAnimationMushroomSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
@@ -20,23 +19,23 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 
         public override void Update(int currentSpeed)
         {
-            if (frameCounter >= 60)
+            if (animationCounter >= 60)
             {
-                frameCounter = 60;
+                animationCounter = 60;
             }
-            else if (frameCounter == 36 || frameCounter == 54)
+            else if (animationCounter == 36 || animationCounter == 54)
             {
                 sourceRectangle = spriteAnimation[2];
             }
-            else if (frameCounter == 6 || frameCounter == 18 || frameCounter == 30 || frameCounter == 48)
+            else if (animationCounter == 6 || animationCounter == 18 || animationCounter == 30 || animationCounter == 48)
             {
                 sourceRectangle = spriteAnimation[1];
             }
-            else if (frameCounter == 0 || frameCounter == 12 || frameCounter == 24 || frameCounter == 42)
+            else if (animationCounter == 0 || animationCounter == 12 || animationCounter == 24 || animationCounter == 42)
             {
                 sourceRectangle = spriteAnimation[0];
             }
-            frameCounter++;
+            animationCounter++;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)

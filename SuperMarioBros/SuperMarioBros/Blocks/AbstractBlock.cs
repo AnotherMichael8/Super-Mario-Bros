@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.Camera;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.Blocks
 {
-    public abstract class AbstractBlock : IBlock
+    public abstract class AbstractBlock : PowerUp, IBlock
     {
         protected Rectangle sourceRectangle;
         public Vector2 Position { get; set; }

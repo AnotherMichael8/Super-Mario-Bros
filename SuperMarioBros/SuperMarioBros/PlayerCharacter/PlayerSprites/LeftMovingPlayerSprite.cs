@@ -12,7 +12,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
     public class LeftMovingPlayerSprite : AbstractPlayerSprite
     {
-        private Rectangle sourceRectangle;
         private Rectangle[] spriteAnimation = { new Rectangle(20, 8, 16, 16), new Rectangle(38, 8, 16, 16), new Rectangle(56, 8, 16, 16) };
         public LeftMovingPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
@@ -26,20 +25,21 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 
         public override void Update(int currentSpeed)
         {
-            if (frameCounter >= 24 - 3 * currentSpeed)
+            base.Update(currentSpeed);
+            if (animationCounter >= 24 - 3 * currentSpeed)
             {
-                frameCounter = 0;
+                animationCounter = 0;
                 sourceRectangle = spriteAnimation[0];
             }
-            else if (frameCounter >= 16 - 2 * currentSpeed)
+            else if (animationCounter >= 16 - 2 * currentSpeed)
             {
                 sourceRectangle = spriteAnimation[1];
             }
-            else if (frameCounter >= 8 - currentSpeed)
+            else if (animationCounter >= 8 - currentSpeed)
             {
                 sourceRectangle = spriteAnimation[2];
             }
-            frameCounter++;
+            animationCounter++;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
@@ -16,6 +17,7 @@ namespace SuperMarioBros.PlayerCharacter
         private static Texture2D playerTexture;
         private static PlayerSpriteFactory instance = new PlayerSpriteFactory();
         private PowerUps powerUp = PowerUps.NONE;
+        private Color[] textureData;
         public static PlayerSpriteFactory Instance
         {
             get
@@ -28,10 +30,16 @@ namespace SuperMarioBros.PlayerCharacter
         public void LoadAllTextures(ContentManager content)
         {
             playerTexture = content.Load<Texture2D>("MarioChracters");
+            textureData = new Color[playerTexture.Width * playerTexture.Height];
+            playerTexture.GetData(textureData);
         }
         public void UpdatePowerUp(PowerUps powerUp)
         {
             this.powerUp = powerUp;
+        }
+        public void RevertTextureData()
+        {
+            playerTexture.SetData(textureData);
         }
         public IPlayerSprite CreateNewPlayerSprite(IPlayerSprite playerSprite)
         {
@@ -90,13 +98,13 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new LeftAnimationMushroomSprite(playerTexture, powerUp);
         }
-        public IPlayerSprite CreateRightAnimationFlowerSprite()
+        public IPlayerSprite CreateRightAnimationFlowerSprite(IPlayerSprite previousSprite)
         {
-            return new RightAnimationFlowerSprite(playerTexture, powerUp);
+            return new RightAnimationFlowerSprite(playerTexture, powerUp, previousSprite);
         }
-        public IPlayerSprite CreateLeftAnimationFlowerSprite()
+        public IPlayerSprite CreateLeftAnimationFlowerSprite(IPlayerSprite previousSprite)
         {
-            return new LeftAnimationFlowerSprite(playerTexture, powerUp);
+            return new LeftAnimationFlowerSprite(playerTexture, powerUp, previousSprite);
         }
     }
 }

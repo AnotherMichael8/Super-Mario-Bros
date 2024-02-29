@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collision;
 using SuperMarioBros.Collectibles.Collectibles;
+using SuperMarioBros.PlayerCharacter;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -35,6 +36,14 @@ namespace SuperMarioBros.Blocks.BlockType
             {
                 if (collectible is not Coin)
                 {
+                    if (Player.CurrentPowerUp.Equals(PowerUps.NONE))
+                    {
+                        collectible = new Mushroom(collectible.GetPosition());
+                    }
+                    if (Player.CurrentPowerUp.Equals(PowerUps.MUSHROOM))
+                    {
+                        collectible = new Flower(collectible.GetPosition());
+                    }
                     AbstractCollectibles.Collectibles.Add(collectible);
                     CollisionManager.GameObjectList.Add(collectible);
                 }

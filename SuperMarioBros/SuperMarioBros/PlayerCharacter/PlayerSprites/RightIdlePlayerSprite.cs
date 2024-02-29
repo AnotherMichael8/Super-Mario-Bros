@@ -12,7 +12,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
     public class RightIdlePlayerSprite : AbstractPlayerSprite
     {
-        private Rectangle sourceRectangle = new Rectangle(0, 8, 16, 16);
         public RightIdlePlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
             sourceRectangle = new Rectangle(0, 8 + updatePowerUpSprite, 16, 16 * heightMultiplier);

@@ -12,7 +12,7 @@ using SuperMarioBros.PlayerCharacter.PlayerStates;
 
 namespace SuperMarioBros.PlayerCharacter
 {
-    public class Player : IPlayer
+    public class Player : PowerUp, IPlayer
     {
         private Game1 game;
         public Vector2 Position { get; set; }
@@ -25,6 +25,7 @@ namespace SuperMarioBros.PlayerCharacter
         public bool IsDead { get; set; }
         public bool IsFalling { get; set; }
         public int chunk { get; private set; }
+        public static PowerUps CurrentPowerUp { get; private set; }
         private int playerSizeMulti;
 
         public Player(Game1 game)
@@ -36,18 +37,17 @@ namespace SuperMarioBros.PlayerCharacter
             IsFalling = false;
             chunk = (int)(Position.X / Globals.ScreenWidth);
             playerSizeMulti = 1;
+            CurrentPowerUp = PowerUps.NONE;
         }
 
         public void BecomeIdle()
         {
             State.BecomeIdle();
         }
-
         public void MoveLeft()
         {
             State.MoveLeft();
         }
-
         public void MoveRight()
         {
             State.MoveRight();
@@ -80,6 +80,7 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Kill();
             playerSizeMulti = 1;
+            CurrentPowerUp = PowerUps.NONE;
         }
         public void StopUpwardMovement()
         {
@@ -90,11 +91,16 @@ namespace SuperMarioBros.PlayerCharacter
             State.PowerUpMushroom();
             playerSizeMulti = 2;
             Position = new Vector2(Position.X, (int)(Position.Y - Globals.BlockSize));
+            CurrentPowerUp = PowerUps.MUSHROOM;
         }
         public void PowerUpFlower()
         {
-            State.PowerUpFlower();
-            playerSizeMulti = 2;
+            if (!(CurrentPowerUp.Equals(PowerUps.FIREFLOWER)))
+            {
+                State.PowerUpFlower();
+                playerSizeMulti = 2;
+                CurrentPowerUp = PowerUps.FIREFLOWER;
+            }
         }
         public void PowerUpStar()
         {

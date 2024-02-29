@@ -12,7 +12,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
     public class LeftJumpingPlayerSprite : AbstractPlayerSprite
     {
-        private Rectangle sourceRectangle;
         public LeftJumpingPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
             sourceRectangle = new Rectangle(96, 8 + updatePowerUpSprite, 16, 16 * heightMultiplier);

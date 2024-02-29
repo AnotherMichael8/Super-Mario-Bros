@@ -12,9 +12,9 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
     public class RightCrouchingPlayerSprite : AbstractPlayerSprite
     {
-        private readonly Rectangle sourceRectangle = new Rectangle(116, 40, 16, 24);
         public RightCrouchingPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
+            sourceRectangle = new Rectangle(116, 40, 16, 24);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)

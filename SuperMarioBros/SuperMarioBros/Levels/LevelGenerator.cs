@@ -92,7 +92,7 @@ namespace SuperMarioBros.Levels
         {
             if(collectible.Equals("POWERUP"))
             {
-                return new Mushroom(position);
+                return new Flower(position);
             }
             else if(collectible.Equals("COIN"))
             {

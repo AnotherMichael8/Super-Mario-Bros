@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.PlayerCharacter.PlayerSprites;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
@@ -16,7 +17,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftFlowerPowerUpAnimationState(Player player, AbstractPlayerState state) : base(player)
         {
             previousSprite = player.Sprite;
-            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftAnimationFlowerSprite();
+            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftAnimationFlowerSprite(previousSprite);
             //Speed = 0;
             //JumpingSpeed = 0;
             if (JumpingSpeed > 64)
