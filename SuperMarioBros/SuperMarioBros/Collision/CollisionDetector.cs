@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collision.CollisionHandlers;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 
 namespace SuperMarioBros.Collision
 {
@@ -72,6 +73,19 @@ namespace SuperMarioBros.Collision
                 if (obj is IBlock block)
                 {
                     CollectibleBlockHandler.HandleCollectibleBlockCollision(collectible, block, side);
+                }
+            }
+        }
+        public static void CheckPowerUpAbilityCollision(IPowerUpAbility powerUpAbility, IGameObject obj)
+        {
+            Rectangle collectibleRectangle = powerUpAbility.GetHitBox();
+            Rectangle collisionRectangle = obj.GetHitBox();
+            if (collisionRectangle.Intersects(collectibleRectangle))
+            {
+                ICollision side = SideDetector(collectibleRectangle, collisionRectangle);
+                if (obj is IBlock block)
+                {
+                    PowerUpAbilityBlockHandler.HandlePowerUpAbilityBlockCollision(powerUpAbility, block, side);
                 }
             }
         }

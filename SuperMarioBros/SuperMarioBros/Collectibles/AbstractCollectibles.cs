@@ -88,16 +88,20 @@ namespace SuperMarioBros.Collectibles
             else
                 return Rectangle.Empty;
         }
-        public Vector2 GetPosition()
+        public double GetPositionX()
         {
-            return Position;
+            return trueXPosition;
         }
-        public void SetPosition(float x, float y)
+        public double GetPositionY()
+        {
+            return trueYPosition;
+        }
+        public void SetPosition(double x, double y)
         {
             Position.X = (int)x;
             Position.Y = (int)y;
-            trueXPosition = (int)x;
-            trueYPosition = (int)y;
+            trueXPosition = x;
+            trueYPosition = y;
         }
     }
 }

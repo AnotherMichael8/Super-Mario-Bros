@@ -18,8 +18,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             previousSprite = player.Sprite;
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftAnimationFlowerSprite(previousSprite);
-            //Speed = 0;
-            //JumpingSpeed = 0;
             if (JumpingSpeed > 64)
                 JumpingSpeed = 64;
             previousState = state;

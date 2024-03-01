@@ -11,7 +11,7 @@ namespace SuperMarioBros.Enemies
 {
     public abstract class AbstractEnemy : IEnemy
     {
-        public static List<AbstractEnemy> Enemies = new List<AbstractEnemy>();
+        public static List<IEnemy> Enemies = new List<IEnemy>();
         public Vector2 Position { get; set; }
         public IEnemyState State { get; set; }
         public IEnemySprite Sprite { get; set; }
@@ -29,19 +29,27 @@ namespace SuperMarioBros.Enemies
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for(int i = 0; i < Enemies.Count; i++)
-            {
-                Enemies[i].Sprite.Draw(spriteBatch, Position);
-            }
+            Sprite.Draw(spriteBatch, Position);
         }
         public void Update()
         {
+            Position = new Vector2(Position.X, Position.Y + 1);
+            chunk = (int)(Position.X / Globals.ScreenWidth);
+            Sprite.Update();
+            State.Update();
+        }
+        public static void UpdateAllEnemies()
+        {
             for (int i = 0; i < Enemies.Count; i++)
             {
-                Enemies[i].Position = new Vector2(Position.X, Position.Y + 1);
-                Enemies[i].chunk = (int)(Enemies[i].Position.X / Globals.ScreenWidth);
-                Enemies[i].Sprite.Update();
-                Enemies[i].State.Update();
+                Enemies[i].Update();
+            }
+        }
+        public static void DrawAllEnemies(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < Enemies.Count; i++)
+            {
+                Enemies[i].Draw(spriteBatch);
             }
         }
         public abstract Rectangle GetHitBox();

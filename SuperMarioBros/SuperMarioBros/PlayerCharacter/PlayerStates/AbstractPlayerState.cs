@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using SuperMarioBros.Camera;
 using SuperMarioBros.Collectibles.Collectibles;
+using SuperMarioBros.Collision;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
+using SuperMarioBros.PlayerCharacter.PowerUpAbilites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public abstract class AbstractPlayerState : PowerUp, IPlayerState
     {
         //public enum PowerUps { NONE ,MUSHROOM, FIREFLOWER};
-        public PowerUps currentPowerUp { get; private set; }
+        public static PowerUps currentPowerUp { get; private set; } = PowerUps.NONE;
         protected static int AccelerationCap = 3 * 16;
         protected static int JumpingSpeed = 0;
         private double trueXPosition;
@@ -27,7 +29,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             this.player = player;
             trueXPosition = player.Position.X;
             trueYPosition = player.Position.Y;
-            currentPowerUp = PowerUps.NONE;
         }
         public virtual void BecomeIdle() { }
         public virtual void Crouch() { }
@@ -75,7 +76,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public void UseAbility()
         {
-
+            if(currentPowerUp == PowerUps.FIREFLOWER)
+            {
+                Fireball fireball = new Fireball(player);
+                Player.Abilities.Add(fireball);
+                CollisionManager.GameObjectList.Add(fireball);
+            }
         }
 
         public virtual void Update()

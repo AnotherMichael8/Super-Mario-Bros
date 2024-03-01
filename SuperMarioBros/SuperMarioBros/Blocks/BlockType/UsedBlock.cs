@@ -38,11 +38,11 @@ namespace SuperMarioBros.Blocks.BlockType
                 {
                     if (Player.CurrentPowerUp.Equals(PowerUps.NONE))
                     {
-                        collectible = new Mushroom(collectible.GetPosition());
+                        collectible = new Mushroom(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
                     }
                     if (Player.CurrentPowerUp.Equals(PowerUps.MUSHROOM))
                     {
-                        collectible = new Flower(collectible.GetPosition());
+                        collectible = new Flower(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
                     }
                     AbstractCollectibles.Collectibles.Add(collectible);
                     CollisionManager.GameObjectList.Add(collectible);

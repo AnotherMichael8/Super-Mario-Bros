@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace SuperMarioBros.Enemies
 {
@@ -12,6 +13,8 @@ namespace SuperMarioBros.Enemies
     {
         public Vector2 Position { get; set; }
         public bool IsDead { get; }
+        public IEnemyState State { get; set; }
+        public IEnemySprite Sprite { get; set; }
         public void MoveLeft();
         public void MoveRight();
         public void Kill();

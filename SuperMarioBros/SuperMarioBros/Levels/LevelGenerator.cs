@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using SuperMarioBros.Blocks;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collectibles.Collectibles;
+using SuperMarioBros.Enemies;
+using SuperMarioBros.Enemies.Goomba;
+using SuperMarioBros.Enemies.Koopa;
 
 namespace SuperMarioBros.Levels
 {
@@ -33,6 +36,10 @@ namespace SuperMarioBros.Levels
                     {
                         gameObjects[c] = CreateBlockObject(objDetails, i);
                     }
+                    if (objDetails[0].Equals("Enemy"))
+                    {
+                        gameObjects[c] = CreateEnemyObjects(objDetails, i);
+                    }
                 }
                 ChunkObjects.Add(gameObjects);
             }
@@ -44,6 +51,10 @@ namespace SuperMarioBros.Levels
                 if(gameObject is IBlock block)
                 {
                     AbstractBlock.Blocks.Add(block);
+                }
+                if(gameObject is IEnemy enemy)
+                {
+                    AbstractEnemy.Enemies.Add(enemy);
                 }
                 if(gameObject != null)
                     CollisionManager.GameObjectList.Add(gameObject);
@@ -62,9 +73,9 @@ namespace SuperMarioBros.Levels
                     CollisionManager.GameObjectList.Remove(gameObject);
             }
         }
-        private IBlock CreateBlockObject(string[] blockDetails, int levelChunck)
+        private IBlock CreateBlockObject(string[] blockDetails, int levelChunk)
         {
-            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunck),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
             IBlock block = null;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
@@ -102,6 +113,20 @@ namespace SuperMarioBros.Levels
             {
                 return null;
             }
+        }
+        private IEnemy CreateEnemyObjects(string[] blockDetails, int levelChunk)
+        {
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
+            IEnemy enemy = null;
+            if (blockDetails[1].Equals("Goomba"))
+            {
+                enemy = new Goomba(position);
+            }
+            else if (blockDetails[1].Equals("Koopa"))
+            {
+                enemy = new Koopa(position);
+            }
+            return enemy;
         }
         public void ReplaceObject(IGameObject obj)
         {

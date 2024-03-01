@@ -31,6 +31,7 @@ namespace SuperMarioBros.Controllers
             commandMapping.Add(Keys.Right, new MoveRightCommand(game));
             commandMapping.Add(Keys.LeftControl, new SprintCommand(game));
             commandMapping.Add(Keys.None, new BecomeIdleCommand(game));
+            commandMapping.Add(Keys.R, new UseAbilityCommand(game));
 
             moveKeys.Add(Keys.Left);
             moveKeys.Add(Keys.Right);

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
+using SuperMarioBros.PlayerCharacter.PowerUpAbilites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace SuperMarioBros.PlayerCharacter
         private PlayerSpriteFactory() { }
         public void LoadAllTextures(ContentManager content)
         {
-            playerTexture = content.Load<Texture2D>("MarioChracters");
+            playerTexture = content.Load<Texture2D>("TrueMarioCharacters");
             textureData = new Color[playerTexture.Width * playerTexture.Height];
             playerTexture.GetData(textureData);
         }
@@ -105,6 +106,10 @@ namespace SuperMarioBros.PlayerCharacter
         public IPlayerSprite CreateLeftAnimationFlowerSprite(IPlayerSprite previousSprite)
         {
             return new LeftAnimationFlowerSprite(playerTexture, powerUp, previousSprite);
+        }
+        public IPowerAbilitySprite CreateFireballSprite()
+        {
+            return new FireballSprite(playerTexture);
         }
     }
 }

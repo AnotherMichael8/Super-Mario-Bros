@@ -18,8 +18,16 @@ namespace SuperMarioBros.Collision.CollisionHandlers
         {
             if(side is TopCollision)
             {
-                collectible.SetPosition(collectible.GetPosition().X, (int)(block.Position.Y - Globals.BlockSize));
+                collectible.SetPosition(collectible.GetPositionX(), (int)(block.Position.Y - Globals.BlockSize));
                 IsFalling = false;
+            }
+            else if (side is LeftCollision)
+            {
+                collectible.MoveLeft();
+            }
+            else if (side is RightCollision)
+            {
+                collectible.MoveRight();
             }
         }
         public static void SetFalling()

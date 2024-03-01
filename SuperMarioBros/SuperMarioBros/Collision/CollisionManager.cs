@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 
 namespace SuperMarioBros.Collision
 {
@@ -35,7 +36,7 @@ namespace SuperMarioBros.Collision
             }
             PlayerBlockHandler.SendFallingData(player);
         }
-        public void CheckEnemyCollsion()
+        public void CheckEnemyCollision()
         {
             for (int i = 0; i < GameObjectList.Count; i++)
             {
@@ -49,7 +50,7 @@ namespace SuperMarioBros.Collision
                 }
             }
         }
-        public void CheckCollectiblesCollsion()
+        public void CheckCollectiblesCollision()
         {
             for (int i = 0; i < GameObjectList.Count; i++)
             {
@@ -65,12 +66,27 @@ namespace SuperMarioBros.Collision
                 }
             }
         }
+        public void CheckPowerUpAbiltiesCollision()
+        {
+            for (int i = 0; i < GameObjectList.Count; i++)
+            {
+                if (GameObjectList[i] is IPowerUpAbility ability)
+                {
+                    for (int c = 0; c < GameObjectList.Count; c++)
+                    {
+                        IGameObject obj = GameObjectList[c];
+                        CollisionDetector.CheckPowerUpAbilityCollision(ability, obj);
+                    }
+                }
+            }
+        }
 
         public void Update()
         {
             CheckPlayerCollision();
-            CheckEnemyCollsion();
-            CheckCollectiblesCollsion();
+            CheckEnemyCollision();
+            CheckCollectiblesCollision();
+            CheckPowerUpAbiltiesCollision();
         }
     }
 }

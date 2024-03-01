@@ -84,7 +84,8 @@ namespace SuperMarioBros
                 Exit();
 
             MarioPlayer.Update();
-            goomba.Update();
+            AbstractEnemy.UpdateAllEnemies();
+            //goomba.Update();
             AbstractBlock.UpdateAllBlocks();
             AbstractCollectibles.UpdateAllSprites();
             collisionManager.Update();
@@ -100,7 +101,8 @@ namespace SuperMarioBros
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
             MarioPlayer.Draw(_spriteBatch, Color.White);
-            goomba.Draw(_spriteBatch);
+            AbstractEnemy.DrawAllEnemies(_spriteBatch);
+            //goomba.Draw(_spriteBatch);
             AbstractBlock.DrawAllBlocks(_spriteBatch,Color.White);
             AbstractCollectibles.DrawAllSprites(_spriteBatch,Color.White);
             //DrawCollisionBox();

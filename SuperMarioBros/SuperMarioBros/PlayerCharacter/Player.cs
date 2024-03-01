@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
-using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 
 namespace SuperMarioBros.PlayerCharacter
@@ -15,12 +10,11 @@ namespace SuperMarioBros.PlayerCharacter
     public class Player : PowerUp, IPlayer
     {
         private Game1 game;
+        public static List<IPowerUpAbility> Abilities;
         public Vector2 Position { get; set; }
-        public static int previousY;
         public IPlayerSprite Sprite { get; set; }
         public IPlayerState State { get; set; }
         public int Speed { get; set; }
-        public int JumpingSpeed { get; set; }
         public bool OnGround { get; set; }
         public bool IsDead { get; set; }
         public bool IsFalling { get; set; }
@@ -32,12 +26,12 @@ namespace SuperMarioBros.PlayerCharacter
         {
             this.game = game;
             Position = new Vector2(0, Globals.ScreenHeight - (int)(4 * Globals.BlockSize));
-            previousY = 384;
             State = new RightIdlePlayerState(this);
             IsFalling = false;
             chunk = (int)(Position.X / Globals.ScreenWidth);
             playerSizeMulti = 1;
             CurrentPowerUp = PowerUps.NONE;
+            Abilities = new List<IPowerUpAbility>();
         }
 
         public void BecomeIdle()
@@ -126,10 +120,14 @@ namespace SuperMarioBros.PlayerCharacter
             Position = new Vector2(Position.X, Position.Y + 1);
             Sprite.Update(Math.Abs(Speed));
             chunk = (int)(Position.X / Globals.ScreenWidth);
+            foreach(IPowerUpAbility ability in Abilities)
+                ability.Update();
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-             Sprite.Draw(spriteBatch, Position, color);
+            Sprite.Draw(spriteBatch, Position, color);
+            foreach (IPowerUpAbility ability in Abilities)
+                ability.Draw(spriteBatch);
         }
         public Rectangle GetHitBox()
         {

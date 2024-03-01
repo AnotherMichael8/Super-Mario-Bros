@@ -9,7 +9,6 @@ namespace SuperMarioBros.Collectibles.Collectibles
 {
     public class Mushroom : AbstractCollectibles, IPowerUp
     {
-        private int movement;
         public override int SpawnDist { get; } = 16;
         public Mushroom(Vector2 position) : base(position)
         {
@@ -19,11 +18,11 @@ namespace SuperMarioBros.Collectibles.Collectibles
         }
         public override void MoveLeft()
         {
-            movement = 2;
+            horizMovementFactor = -24;
         }
         public override void MoveRight()
         {
-            movement = -2;
+            horizMovementFactor = 24;
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {

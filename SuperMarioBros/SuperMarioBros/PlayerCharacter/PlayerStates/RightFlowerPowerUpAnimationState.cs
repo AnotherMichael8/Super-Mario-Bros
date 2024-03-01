@@ -16,8 +16,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public RightFlowerPowerUpAnimationState(Player player, AbstractPlayerState state) : base(player)
         {
             previousSprite = player.Sprite;
-            //Speed = 0;
-            //JumpingSpeed = 0;
+            player.Sprite = PlayerSpriteFactory.Instance.CreateRightAnimationFlowerSprite(previousSprite);
             if (JumpingSpeed > 64)
                 JumpingSpeed = 64;
             previousState = state;
