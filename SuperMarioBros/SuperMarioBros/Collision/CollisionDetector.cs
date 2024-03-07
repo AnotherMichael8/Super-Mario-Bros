@@ -20,6 +20,7 @@ namespace SuperMarioBros.Collision
     public class CollisionDetector
     {
         //private static List<Tuple<ICollision, IGameObject, int>> collisionWarning = new List<Tuple<ICollision, IGameObject, int>>();
+        private static List<IBlock> bottomCollidedBlocks = new List<IBlock>();
         private static readonly ICollision[] warnRectSides = { new BottomCollision(), new TopCollision(), new RightCollision(), new LeftCollision() };
         public static void CheckPlayerCollision(IPlayer player, IGameObject obj, Game1 game)
         {
@@ -35,7 +36,10 @@ namespace SuperMarioBros.Collision
                 ICollision side = WarnSideDetector(playerHitBox, objHitBox);
                 if (obj is IBlock block)
                 {
-                    PlayerBlockHandler.HandlePlayerBlockCollision(player, block, side);
+                    if(side is BottomCollision)
+                        bottomCollidedBlocks.Add(block);
+                    else
+                        PlayerBlockHandler.HandlePlayerBlockCollision(player, block, side);
                 }
                 else if(obj is IEnemy enemy)
                 {
@@ -53,6 +57,30 @@ namespace SuperMarioBros.Collision
                     PlayerCollectibleHandler.HandlePlayerCollectibleCollision(player, item, side);
                 }
             }
+        }
+        public static void CheckBottomBlockCollision(IPlayer player)
+        {
+            if (bottomCollidedBlocks.Count > 0)
+            {
+                IBlock interactedBlock = bottomCollidedBlocks[0];
+                int biggestArea = 0;
+                Rectangle playerHitBox = player.GetBlockHitBox();
+                Rectangle warnPlayerRectangle = new Rectangle(playerHitBox.X, playerHitBox.Y - 9 * (int)(Globals.BlockSize / 32), playerHitBox.Width, (int)(9 * Globals.BlockSize / 32));
+                foreach (IBlock block in bottomCollidedBlocks)
+                {
+                    Rectangle blockHitBox = block.GetHitBox();
+                    Rectangle intersectionRect = Rectangle.Intersect(blockHitBox, warnPlayerRectangle);
+                    int area = intersectionRect.Width * intersectionRect.Height;
+                    if (area > biggestArea)
+                    {
+                        biggestArea = area;
+                        interactedBlock = block;
+                    }
+                }
+                PlayerBlockHandler.HandlePlayerBlockCollision(player, interactedBlock, new BottomCollision());
+                bottomCollidedBlocks = new List<IBlock>();
+            }
+
         }
         public static void CheckEnemyCollision(IEnemy enemy, IGameObject obj)
         {

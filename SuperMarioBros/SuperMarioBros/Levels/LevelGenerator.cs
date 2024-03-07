@@ -101,6 +101,10 @@ namespace SuperMarioBros.Levels
             {
                 block = new InvisibleBlock(position, CreateCollectibleObject(blockDetails[4], position));
             }
+            else if (blockDetails[1].Equals("CoinBox"))
+            {
+                block = new CoinBox(position);
+            }
             return block;
         }
         private ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
@@ -115,7 +119,11 @@ namespace SuperMarioBros.Levels
             }
             else if(collectible.Equals("1UP"))
             {
-                return new Flower(position);
+                return new OneUp(position);
+            }
+            else if(collectible.Equals("STAR"))
+            {
+                return new Star(position);
             }
             else
             {

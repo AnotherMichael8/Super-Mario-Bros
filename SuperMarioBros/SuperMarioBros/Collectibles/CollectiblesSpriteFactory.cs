@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.Collectibles.CollectiblesSprites;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,14 @@ namespace SuperMarioBros.Collectibles
         public ICollectiblesSprite CreateCoinSprite()
         {
             return new CoinSprite(collectiblesTexture);
+        }
+        public ICollectiblesSprite Create1UPSprite()
+        {
+            return new OneUpSprite(collectiblesTexture);
+        }
+        public ICollectiblesSprite CreateStarSprite()
+        {
+            return new StarSprite(collectiblesTexture);
         }
     }
 }

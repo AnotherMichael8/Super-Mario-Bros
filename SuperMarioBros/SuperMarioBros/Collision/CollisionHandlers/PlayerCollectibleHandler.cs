@@ -26,6 +26,10 @@ namespace SuperMarioBros.Collision.CollisionHandlers
                 player.PowerUpFlower();
                 //PlayerSpriteFactory.Instance.UpdatePowerUp(PowerUp.PowerUps.FIREFLOWER);
             }
+            else if (collectible is OneUp)
+            {
+                player.Jump();
+            }
             /*
             else if(collectible is Star)
             {
@@ -35,10 +39,7 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             {
                 AddCoin
             }
-            else if(collectible is 1Up)
-            {
-                IncrementLives
-            }
+\\
             */
         }
     }

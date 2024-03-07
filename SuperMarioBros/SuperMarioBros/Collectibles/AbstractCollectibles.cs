@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks;
+using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.Collision;
+using SuperMarioBros.PlayerCharacter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SuperMarioBros.PlayerCharacter.Interfaces.PowerUp;
 
 namespace SuperMarioBros.Collectibles
 {
@@ -106,6 +109,18 @@ namespace SuperMarioBros.Collectibles
             Position.Y = (int)y;
             trueXPosition = x;
             trueYPosition = y;
+        }
+        public void StartSpawningCollectible(ICollectibles collectible)
+        {
+            if(collectible is IPowerUp)
+            {
+                if (Player.CurrentPowerUp.Equals(PowerUps.NONE))
+                {
+                    collectible = new Mushroom(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
+                }
+            }
+            Collectibles.Add(collectible);
+            CollisionManager.GameObjectList.Add(collectible);
         }
     }
 }

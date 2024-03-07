@@ -26,7 +26,7 @@ namespace SuperMarioBros.Enemies
             Position = position;
             IsDead = false;
             //Enemies.Add(this);
-            CollisionManager.GameObjectList.Add(this);
+            //CollisionManager.GameObjectList.Add(this);
             chunk = (int)(Position.X / Globals.ScreenWidth);
             truePositionX = position.X;
             truePositionY = position.Y;

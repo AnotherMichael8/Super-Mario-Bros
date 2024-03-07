@@ -10,5 +10,5 @@ Block,GroundBlock,10,13,64,2
 Block,BreakableBrickBlock,12,5,NONE
 Block,BreakableBrickBlock,13,5,NONE
 Block,BreakableBrickBlock,14,5,NONE
-Block,BreakableBrickBlock,15,9,COINS
+Block,CoinBox,15,9,
 Block,QuestionBlock,15,5,COIN

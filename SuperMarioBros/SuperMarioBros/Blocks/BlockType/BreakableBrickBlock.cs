@@ -13,8 +13,8 @@ namespace SuperMarioBros.Blocks.BlockType
 {
     public class BreakableBrickBlock : AbstractBlock
     {
-        private int bumpCounter;
-        private ICollectibles collectible;
+        protected int bumpCounter;
+        protected ICollectibles collectible;
         public BreakableBrickBlock(Vector2 position, ICollectibles collectible) : base(position)
         {
             sourceRectangle = new Rectangle(17, 16, 16, 16);
@@ -33,16 +33,14 @@ namespace SuperMarioBros.Blocks.BlockType
         public override void Bump(PowerUps powerUp)
         {
             bumpCounter = 5;
-            if (!powerUp.Equals(PowerUps.NONE))
+            if (collectible == null)
             {
-                if (collectible == null)
-                {
+                if (!powerUp.Equals(PowerUps.NONE))
                     BreakBlock();
-                }
-                else
-                {
-                    SpawnCollectible(collectible);
-                }
+            }
+            else
+            {
+                SpawnCollectible(collectible);
             }
         }
         private void BreakBlock()

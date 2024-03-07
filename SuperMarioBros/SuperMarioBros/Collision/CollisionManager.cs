@@ -35,6 +35,7 @@ namespace SuperMarioBros.Collision
                 CollisionDetector.CheckPlayerCollision(player, obj, game);
             }
             PlayerBlockHandler.SendFallingData(player);
+            CollisionDetector.CheckBottomBlockCollision(player);
         }
         public void CheckEnemyCollision()
         {

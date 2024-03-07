@@ -20,5 +20,6 @@ namespace SuperMarioBros.Collectibles
         public void SetPosition(double x, double y);
         public double GetPositionX();
         public double GetPositionY();
+        public void StartSpawningCollectible(ICollectibles collectible);
     }
 }

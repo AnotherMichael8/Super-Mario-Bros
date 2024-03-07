@@ -36,16 +36,7 @@ namespace SuperMarioBros.Blocks.BlockType
             {
                 if (collectible is not Coin)
                 {
-                    if (Player.CurrentPowerUp.Equals(PowerUps.NONE))
-                    {
-                        collectible = new Mushroom(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
-                    }
-                    if (Player.CurrentPowerUp.Equals(PowerUps.MUSHROOM))
-                    {
-                        collectible = new Flower(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
-                    }
-                    AbstractCollectibles.Collectibles.Add(collectible);
-                    CollisionManager.GameObjectList.Add(collectible);
+                    collectible.StartSpawningCollectible(collectible);
                 }
                 bumpCounter--;
                 noBump = true;

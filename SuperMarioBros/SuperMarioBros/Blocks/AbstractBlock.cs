@@ -72,8 +72,7 @@ namespace SuperMarioBros.Blocks
             usedBlock.Bump(PowerUps.NONE);
             if (collectible is Coin)
             {
-                AbstractCollectibles.Collectibles.Add(collectible);
-                CollisionManager.GameObjectList.Add(collectible);
+                collectible.StartSpawningCollectible(collectible);
             }
         }
     }

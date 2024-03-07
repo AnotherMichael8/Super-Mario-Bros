@@ -26,7 +26,6 @@ namespace SuperMarioBros.Enemies.Goomba
         public override void Kill()
         {
             State.Kill();
-
             IsDead = true;
         }
         public override int GetHeight()
@@ -39,7 +38,7 @@ namespace SuperMarioBros.Enemies.Goomba
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X + 2, (int)Position.Y + 5, 28, (int)Globals.BlockSize);
+            return new Rectangle((int)Position.X + 4, (int)Position.Y + 10, 24, (int)(Globals.BlockSize - 20));
         }
         public override Rectangle GetBlockHitBox()
         {
