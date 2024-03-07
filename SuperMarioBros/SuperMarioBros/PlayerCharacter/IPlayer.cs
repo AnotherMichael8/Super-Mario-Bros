@@ -24,6 +24,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void Sprint();
         public void StopSprinting();
         public void Jump();
+        public void Hop();
         public void Crouch();
         public void StopJumping();
         public void Kill();

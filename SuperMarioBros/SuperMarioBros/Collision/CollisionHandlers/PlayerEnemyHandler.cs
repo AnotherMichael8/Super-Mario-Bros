@@ -22,7 +22,7 @@ namespace SuperMarioBros.Collision
                 {
                     enemy.Kill();
                     player.OnGround = true;
-                    player.Jump();
+                    player.Hop();
                 }
                 else
                 {
@@ -36,7 +36,7 @@ namespace SuperMarioBros.Collision
             {
                 koopa.Kill();
                 player.OnGround = true;
-                player.Jump();
+                player.Hop();
             }
             else if (side is LeftCollision)
             {

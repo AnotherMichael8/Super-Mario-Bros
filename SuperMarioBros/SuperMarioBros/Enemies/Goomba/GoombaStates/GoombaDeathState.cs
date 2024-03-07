@@ -28,13 +28,13 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
         public void MoveRight()
         {
         }
-
+        
         public void Update()
         {
             if(deathCounter == 30)
             {
                 AbstractEnemy.Enemies.Remove(goomba);
-                //CollisionManager.GameObjectList.Remove(goomba);
+                CollisionManager.GameObjectList.Remove(goomba);
             }
             deathCounter++;
 

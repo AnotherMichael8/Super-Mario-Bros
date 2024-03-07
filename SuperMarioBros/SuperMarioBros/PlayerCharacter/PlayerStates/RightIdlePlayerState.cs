@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightIdlePlayerState : AbstractPlayerState
+    public class RightIdlePlayerState : AbstractPlayerState, IRightFacing
     {
         private int decelerationRate;
         public RightIdlePlayerState(Player player) : base(player)

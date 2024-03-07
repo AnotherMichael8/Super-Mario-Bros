@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState
+    public class RightJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState, IRightFacing
     {
         private int fallingSpeed;
         public RightJumpingPlayerState(Player player, int jumpingSpeed = 140) : base(player)

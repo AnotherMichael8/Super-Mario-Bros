@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
@@ -23,6 +24,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         private double trueYPosition;
         public static int Speed { get;  set; } = 0;
         protected Player player;
+        private static int invincibleTimer = 0;
 
         public AbstractPlayerState(Player player)
         {
@@ -33,6 +35,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public virtual void BecomeIdle() { }
         public virtual void Crouch() { }
         public virtual void Jump() { }
+        public virtual void Hop() { }
         public virtual void MoveLeft() { }
         public virtual void MoveRight() { }
         public virtual void StopJumping() { }
@@ -52,9 +55,13 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                 case (PowerUps.MUSHROOM):
                 case (PowerUps.FIREFLOWER):
                     currentPowerUp = PowerUps.NONE;
+                    player.Position = new Vector2(player.Position.X, (int)(player.Position.Y + Globals.BlockSize));
+                    invincibleTimer = 120;
+                    player.Invincible = true;
                     break;
                 default:
-                    player.State = new DeathPlayerState(player);
+                    if(invincibleTimer <= 0)
+                        player.State = new DeathPlayerState(player);
                     break;
             }
         }
@@ -78,7 +85,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             if(currentPowerUp == PowerUps.FIREFLOWER)
             {
-                Fireball fireball = new Fireball(player);
+                Fireball fireball;
+                if (this is ILeftFacing)
+                    fireball = new Fireball(player, -1);
+                else
+                    fireball = new Fireball(player, 1);
                 Player.Abilities.Add(fireball);
                 CollisionManager.GameObjectList.Add(fireball);
             }
@@ -91,6 +102,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             trueYPosition = player.Position.Y - (JumpingSpeed / 16.0) * Globals.ScreenSizeMulti;
             player.Position = new Vector2((int)trueXPosition, (int)trueYPosition);
             player.Speed = Speed/16;
+            if (invincibleTimer > 0)
+                invincibleTimer--;
+            else
+                player.Invincible = false;
         }
         public virtual void UpdateMovement() {}
     }

@@ -23,7 +23,11 @@ namespace SuperMarioBros.Collision
         private static readonly ICollision[] warnRectSides = { new BottomCollision(), new TopCollision(), new RightCollision(), new LeftCollision() };
         public static void CheckPlayerCollision(IPlayer player, IGameObject obj, Game1 game)
         {
-            Rectangle playerHitBox = player.GetHitBox();
+            Rectangle playerHitBox;
+            if (obj is IBlock)
+                playerHitBox = player.GetBlockHitBox();
+            else
+                playerHitBox = player.GetHitBox();
             Rectangle objHitBox = obj.GetHitBox();
             
             if (playerHitBox.Intersects(objHitBox))
@@ -52,7 +56,11 @@ namespace SuperMarioBros.Collision
         }
         public static void CheckEnemyCollision(IEnemy enemy, IGameObject obj)
         {
-            Rectangle enemyRectangle = enemy.GetHitBox();
+            Rectangle enemyRectangle;
+            if (obj is IBlock)
+                enemyRectangle = enemy.GetBlockHitBox();
+            else
+                enemyRectangle = enemy.GetHitBox();
             Rectangle collisionRectangle = obj.GetHitBox();
             if (collisionRectangle.Intersects(enemyRectangle))
             {
@@ -65,7 +73,11 @@ namespace SuperMarioBros.Collision
         }
         public static void CheckCollectibleCollision(ICollectibles collectible, IGameObject obj)
         {
-            Rectangle collectibleRectangle = collectible.GetHitBox();
+            Rectangle collectibleRectangle;
+            if(obj is IBlock)
+                collectibleRectangle = collectible.GetBlockHitBox();
+            else
+                collectibleRectangle = collectible.GetHitBox();
             Rectangle collisionRectangle = obj.GetHitBox();
             if (collisionRectangle.Intersects(collectibleRectangle))
             {
@@ -78,14 +90,22 @@ namespace SuperMarioBros.Collision
         }
         public static void CheckPowerUpAbilityCollision(IPowerUpAbility powerUpAbility, IGameObject obj)
         {
-            Rectangle collectibleRectangle = powerUpAbility.GetHitBox();
+            Rectangle collectibleRectangle;
+            if (obj is IBlock)
+                collectibleRectangle = powerUpAbility.GetBlockHitBox();
+            else
+                collectibleRectangle = powerUpAbility.GetHitBox();
             Rectangle collisionRectangle = obj.GetHitBox();
             if (collisionRectangle.Intersects(collectibleRectangle))
             {
                 ICollision side = SideDetector(collectibleRectangle, collisionRectangle);
                 if (obj is IBlock block)
                 {
-                    PowerUpAbilityBlockHandler.HandlePowerUpAbilityBlockCollision(powerUpAbility, block, side);
+                    PowerUpAbilityHandler.HandlePowerUpAbilityBlockCollision(powerUpAbility, block, side);
+                }
+                if(obj is IEnemy enemy)
+                {
+                    PowerUpAbilityHandler.HandlePowerUpAbilityEnemyCollision(powerUpAbility, enemy, side);
                 }
             }
         }
@@ -147,11 +167,10 @@ namespace SuperMarioBros.Collision
                     }
                 }
             }
-            return collisionWarning[0].Item1;
-        }
-        public void DrawHitBox(Rectangle hitBox)
-        {
-            //CollisionManager.spriteBatch.Draw(
+            if (collisionWarning.Count > 0)
+                return collisionWarning[0].Item1;
+            else
+                return null;
         }
     }
 }

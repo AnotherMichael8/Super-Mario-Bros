@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightMovingPlayerState : AbstractPlayerState
+    public class RightMovingPlayerState : AbstractPlayerState, IRightFacing
     {
         private bool stop;
 

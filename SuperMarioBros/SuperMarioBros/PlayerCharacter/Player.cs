@@ -17,6 +17,7 @@ namespace SuperMarioBros.PlayerCharacter
         public int Speed { get; set; }
         public bool OnGround { get; set; }
         public bool IsDead { get; set; }
+        public bool Invincible { get; set; }
         public bool IsFalling { get; set; }
         public int chunk { get; private set; }
         public static PowerUps CurrentPowerUp { get; private set; }
@@ -62,6 +63,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.Jump();
         }
+        public void Hop()
+        {
+            State.Hop();
+        }
         public void Crouch()
         {
             State.Crouch();
@@ -75,6 +80,7 @@ namespace SuperMarioBros.PlayerCharacter
             State.Kill();
             playerSizeMulti = 1;
             CurrentPowerUp = PowerUps.NONE;
+            PlayerSpriteFactory.Instance.UpdatePowerUp(CurrentPowerUp);
         }
         public void StopUpwardMovement()
         {
@@ -86,6 +92,7 @@ namespace SuperMarioBros.PlayerCharacter
             playerSizeMulti = 2;
             Position = new Vector2(Position.X, (int)(Position.Y - Globals.BlockSize));
             CurrentPowerUp = PowerUps.MUSHROOM;
+            PlayerSpriteFactory.Instance.UpdatePowerUp(CurrentPowerUp);
         }
         public void PowerUpFlower()
         {
@@ -94,6 +101,7 @@ namespace SuperMarioBros.PlayerCharacter
                 State.PowerUpFlower();
                 playerSizeMulti = 2;
                 CurrentPowerUp = PowerUps.FIREFLOWER;
+                PlayerSpriteFactory.Instance.UpdatePowerUp(CurrentPowerUp);
             }
         }
         public void PowerUpStar()
@@ -122,6 +130,7 @@ namespace SuperMarioBros.PlayerCharacter
             chunk = (int)(Position.X / Globals.ScreenWidth);
             foreach(IPowerUpAbility ability in Abilities)
                 ability.Update();
+
         }
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
@@ -132,7 +141,14 @@ namespace SuperMarioBros.PlayerCharacter
         public Rectangle GetHitBox()
         {
             if(!IsDead)
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize * playerSizeMulti);
+                return new Rectangle((int)Position.X + 4, (int)Position.Y, (int)Globals.BlockSize - 8, (int)(Globals.BlockSize * playerSizeMulti));
+            else
+                return Rectangle.Empty;
+        }
+        public Rectangle GetBlockHitBox()
+        {
+            if (!IsDead)
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)(Globals.BlockSize * playerSizeMulti));
             else
                 return Rectangle.Empty;
         }

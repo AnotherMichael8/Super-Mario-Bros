@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.Camera;
+using SuperMarioBros.Collectibles;
+using SuperMarioBros.Collectibles.Collectibles;
+using SuperMarioBros.Collision;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,7 +28,7 @@ namespace SuperMarioBros.Blocks
             Position = position;
             chunk = (int)(position.X / Globals.ScreenWidth);
         }
-        public virtual void Bump() { }
+        public virtual void Bump(PowerUps powerUp) { }
         public virtual void Update() { }
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
@@ -39,11 +42,15 @@ namespace SuperMarioBros.Blocks
             else
                 return Rectangle.Empty;
         }
+        public Rectangle GetBlockHitBox()
+        {
+            return GetHitBox();
+        }
         public static void UpdateAllBlocks()
         {
-            foreach (IBlock block in Blocks)
+            for (int i = 0; i < Blocks.Count; i++) 
             {
-                block.Update();
+                Blocks[i].Update();
             }
             QuestionBlock.UpdateAnimationCounter();
         }
@@ -52,6 +59,21 @@ namespace SuperMarioBros.Blocks
             foreach(IBlock block in Blocks)
             {
                 block.Draw(spriteBatch, color);
+            }
+        }
+        protected void SpawnCollectible(ICollectibles collectible)
+        {
+            IBlock usedBlock = new UsedBlock(Position, collectible);
+            Blocks.Remove(this);
+            CollisionManager.GameObjectList.Remove(this);
+            CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, usedBlock));
+            Blocks.Add(usedBlock);
+            CollisionManager.GameObjectList.Add(usedBlock);
+            usedBlock.Bump(PowerUps.NONE);
+            if (collectible is Coin)
+            {
+                AbstractCollectibles.Collectibles.Add(collectible);
+                CollisionManager.GameObjectList.Add(collectible);
             }
         }
     }

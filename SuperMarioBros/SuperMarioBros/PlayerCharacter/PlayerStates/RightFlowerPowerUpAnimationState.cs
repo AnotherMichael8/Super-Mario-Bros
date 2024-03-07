@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightFlowerPowerUpAnimationState : AbstractPlayerState
+    public class RightFlowerPowerUpAnimationState : AbstractPlayerState, IRightFacing
     {
         private AbstractPlayerState previousState;
         private IPlayerSprite previousSprite;

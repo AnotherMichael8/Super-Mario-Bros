@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    internal class LeftMoveFallingPlayerState : AbstractPlayerState
+    internal class LeftMoveFallingPlayerState : AbstractPlayerState, ILeftFacing
     {
         private int fallingSpeed;
         public LeftMoveFallingPlayerState(Player player, int jumpingSpeed = -16) : base(player)

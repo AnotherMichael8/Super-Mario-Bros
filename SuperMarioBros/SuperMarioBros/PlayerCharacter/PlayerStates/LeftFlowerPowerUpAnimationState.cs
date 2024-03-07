@@ -9,7 +9,7 @@ using SuperMarioBros.PlayerCharacter.PlayerSprites;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftFlowerPowerUpAnimationState : AbstractPlayerState
+    public class LeftFlowerPowerUpAnimationState : AbstractPlayerState, ILeftFacing
     {
         private AbstractPlayerState previousState;
         private IPlayerSprite previousSprite;

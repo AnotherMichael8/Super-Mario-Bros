@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftSlidingPlayerState : AbstractPlayerState
+    public class LeftSlidingPlayerState : AbstractPlayerState, ILeftFacing
     {
         public LeftSlidingPlayerState(Player player) : base(player) 
         {

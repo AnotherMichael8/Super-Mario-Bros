@@ -88,6 +88,10 @@ namespace SuperMarioBros.Collectibles
             else
                 return Rectangle.Empty;
         }
+        public Rectangle GetBlockHitBox()
+        {
+            return GetHitBox();
+        }
         public double GetPositionX()
         {
             return trueXPosition;

@@ -2,13 +2,9 @@
 using SuperMarioBros.Collision.SideCollisionHandlers;
 using SuperMarioBros.PlayerCharacter;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
+using SuperMarioBros.Blocks.BlockType;
 
 namespace SuperMarioBros.Collision
 {
@@ -18,12 +14,12 @@ namespace SuperMarioBros.Collision
         public static void HandlePlayerBlockCollision(IPlayer player, IBlock block, ICollision side)
         {
             Rectangle blockHitBox = block.GetHitBox();
-            if (side is TopCollision)
+            if (side is TopCollision && block is not InvisibleBlock)
             {
                 if (player.State is not IJumpingPlayerState)
                 {
                     Rectangle playerHitBox = player.GetHitBox();
-                    player.Position = new Vector2(player.Position.X, block.Position.Y - playerHitBox.Height);
+                    player.Position = new Vector2(player.Position.X, player.Position.Y + (blockHitBox.Top - playerHitBox.Bottom));
                     player.OnGround = true;
                     IsFalling = false;
                 }
@@ -32,17 +28,17 @@ namespace SuperMarioBros.Collision
             {
                 if (player.State is IJumpingPlayerState)
                 {
-                    block.Bump();
+                    block.Bump(Player.CurrentPowerUp);
                     player.StopUpwardMovement();
                 }
             }
-            else if (side is LeftCollision)
+            else if (side is LeftCollision && block is not InvisibleBlock)
             {
                 player.Position = new Vector2((int)(blockHitBox.Left - Globals.BlockSize), player.Position.Y + 1);
                 if (AbstractPlayerState.Speed > 1)
                     AbstractPlayerState.Speed -= 3;
             }
-            else if (side is RightCollision)
+            else if (side is RightCollision && block is not InvisibleBlock)
             {
                 player.Position = new Vector2(blockHitBox.Right, player.Position.Y + 1);
                 if (AbstractPlayerState.Speed < -1)

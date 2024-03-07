@@ -13,6 +13,7 @@ namespace SuperMarioBros.Blocks
     public class BlockSpriteFactory
     {
         private static Texture2D blockTexture;
+        private static Texture2D debrisTexture;
         private static BlockSpriteFactory instance = new BlockSpriteFactory();
         public static BlockSpriteFactory Instance
         {
@@ -26,6 +27,7 @@ namespace SuperMarioBros.Blocks
         public void LoadAllTextures(ContentManager content)
         {
             blockTexture = content.Load<Texture2D>("AllBlocks");
+            debrisTexture = content.Load<Texture2D>("blocks");
         }
 
         public BlockSprite CreateBlockSprite()
@@ -35,6 +37,10 @@ namespace SuperMarioBros.Blocks
         public PipeSprite CreatePipeSprite()
         {
             return new PipeSprite(blockTexture);
+        }
+        public DebrisSprite CreateDebrisSprite(SpriteEffects spriteEffect)
+        {
+            return new DebrisSprite(debrisTexture, spriteEffect);
         }
     }
 }

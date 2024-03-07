@@ -11,5 +11,6 @@ namespace SuperMarioBros
     {
         public int chunk { get; }
         public Rectangle GetHitBox();
+        public Rectangle GetBlockHitBox();
     }
 }

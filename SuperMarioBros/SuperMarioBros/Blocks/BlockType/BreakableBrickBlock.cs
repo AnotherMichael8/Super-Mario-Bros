@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Collectibles;
+using SuperMarioBros.Camera;
+using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
@@ -28,9 +30,28 @@ namespace SuperMarioBros.Blocks.BlockType
                 bumpCounter--;
             }
         }
-        public override void Bump()
+        public override void Bump(PowerUps powerUp)
         {
             bumpCounter = 5;
+            if (!powerUp.Equals(PowerUps.NONE))
+            {
+                if (collectible == null)
+                {
+                    BreakBlock();
+                }
+                else
+                {
+                    SpawnCollectible(collectible);
+                }
+            }
         }
+        private void BreakBlock()
+        {
+            Blocks.Remove(this);
+            CollisionManager.GameObjectList.Remove(this);
+            CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, null));
+            Blocks.Add(new BrickDebris(Position));
+        }
+
     }
 }

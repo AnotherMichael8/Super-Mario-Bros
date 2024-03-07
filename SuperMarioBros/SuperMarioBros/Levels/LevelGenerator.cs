@@ -97,6 +97,10 @@ namespace SuperMarioBros.Levels
             {
                 block = new DiamondBlock(position, int.Parse(blockDetails[4]));
             }
+            else if (blockDetails[1].Equals("InvisibleBlock"))
+            {
+                block = new InvisibleBlock(position, CreateCollectibleObject(blockDetails[4], position));
+            }
             return block;
         }
         private ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
@@ -108,6 +112,10 @@ namespace SuperMarioBros.Levels
             else if(collectible.Equals("COIN"))
             {
                 return new Coin(new Vector2(position.X + (int)(4 * Globals.ScreenSizeMulti), (int)(position.Y - Globals.BlockSize)));
+            }
+            else if(collectible.Equals("1UP"))
+            {
+                return new Flower(position);
             }
             else
             {
@@ -128,30 +136,21 @@ namespace SuperMarioBros.Levels
             }
             return enemy;
         }
-        public void ReplaceObject(IGameObject obj)
+        public void ReplaceObject(IGameObject orginalObj, IGameObject newObj)
         {
             for (int i = 0;  i < ChunkObjects.Count; i++) 
             {
-                if (i == obj.chunk)
+                if (i == orginalObj.chunk)
                 {
                     for (int c = 0; c < ChunkObjects[i].Length; c++)
                     {
-                        if(obj is QuestionBlock questionBlock)
+                        if(ChunkObjects[i][c] != null && ChunkObjects[i][c].Equals(orginalObj))
                         {
-                            ChunkObjects[i][c] = questionBlock.usedBlock;
+                            ChunkObjects[i][c] = newObj;
                         }
                     }
                 }
             }
-        }
-        public void CreateFloor()
-        {
-            IBlock groundBlock = new GroundBlock(new Vector2(0, (int)(480 * (Globals.BlockSize/32) - 64 * (Globals.BlockSize/32))), 16, 2);
-            ICollectibles mushroom = new Coin(new Vector2(64, Globals.ScreenHeight - (int)(3 * Globals.BlockSize)));
-            AbstractBlock.Blocks.Add(groundBlock);
-            AbstractCollectibles.Collectibles.Add(mushroom);
-            CollisionManager.GameObjectList.Add(mushroom);
-            CollisionManager.GameObjectList.Add(groundBlock);
         }
     }
 }

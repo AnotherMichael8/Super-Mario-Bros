@@ -32,6 +32,9 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             else if (player.OnGround)
                 player.State = new RightMovingPlayerState(player, Speed);
         }
+        public override void Hop()
+        {
+        }
         public override void StopJumping()
         {
             fallingSpeed = 8;

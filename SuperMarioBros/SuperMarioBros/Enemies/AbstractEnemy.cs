@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Camera;
 using SuperMarioBros.Collision;
 using System;
 using System.Collections.Generic;
@@ -17,26 +18,34 @@ namespace SuperMarioBros.Enemies
         public IEnemySprite Sprite { get; set; }
         public bool IsDead { get; protected set; }
         public int chunk { get; private set; }
+        public double truePositionX { get; set; }
+        public double truePositionY { get; set; }
 
         public AbstractEnemy(Vector2 position)
         {
             Position = position;
             IsDead = false;
-            Enemies.Add(this);
+            //Enemies.Add(this);
             CollisionManager.GameObjectList.Add(this);
             chunk = (int)(Position.X / Globals.ScreenWidth);
+            truePositionX = position.X;
+            truePositionY = position.Y;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, Position);
+            if (CameraController.CheckInFrame(new Rectangle((int)Position.X, (int)Position.Y, GetWidth(), 1)))
+                Sprite.Draw(spriteBatch, Position);
         }
         public void Update()
         {
-            Position = new Vector2(Position.X, Position.Y + 1);
-            chunk = (int)(Position.X / Globals.ScreenWidth);
-            Sprite.Update();
-            State.Update();
+            if (CameraController.CheckInFrame(new Rectangle((int)Position.X, (int)Position.Y, GetWidth(), 1)))
+            {
+                Position = new Vector2(Position.X, Position.Y + 1);
+                chunk = (int)(Position.X / Globals.ScreenWidth);
+                Sprite.Update();
+                State.Update();
+            }
         }
         public static void UpdateAllEnemies()
         {
@@ -53,6 +62,7 @@ namespace SuperMarioBros.Enemies
             }
         }
         public abstract Rectangle GetHitBox();
+        public abstract Rectangle GetBlockHitBox();
         public abstract void Kill();
         public abstract void MoveLeft();
         public abstract void MoveRight();

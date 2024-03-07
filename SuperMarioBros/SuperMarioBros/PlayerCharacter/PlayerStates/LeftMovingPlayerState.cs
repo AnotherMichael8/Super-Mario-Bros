@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftMovingPlayerState : AbstractPlayerState
+    public class LeftMovingPlayerState : AbstractPlayerState, ILeftFacing
     {
         private bool stop;
         public LeftMovingPlayerState(Player player, int speed = -20) : base(player)

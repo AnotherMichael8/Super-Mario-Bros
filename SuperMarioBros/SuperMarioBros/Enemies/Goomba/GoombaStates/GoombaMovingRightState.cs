@@ -29,7 +29,8 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 
         public void Update()
         {
-            goomba.Position = new Vector2(goomba.Position.X + 1, goomba.Position.Y);
+            goomba.truePositionX += 16 / 16.0;
+            goomba.Position = new Vector2((int)goomba.truePositionX, goomba.Position.Y);
         }
     }
 }

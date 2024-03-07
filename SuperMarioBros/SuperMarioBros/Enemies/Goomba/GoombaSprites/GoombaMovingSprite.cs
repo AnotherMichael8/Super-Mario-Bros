@@ -19,11 +19,11 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaSprites
 
         public void Update()
         {
-            if(frameCounter == 10)
+            if(frameCounter == 15)
             {
                 sourceRectangle = spriteAnimation[1];
             }
-            else if(frameCounter == 20) 
+            else if(frameCounter == 30) 
             {
                 sourceRectangle = spriteAnimation[0];
                 frameCounter = 0;

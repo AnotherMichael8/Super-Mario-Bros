@@ -62,7 +62,7 @@ namespace SuperMarioBros
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             collisionManager = new CollisionManager(this, _spriteBatch);
-            goomba = new Koopa(new Vector2(400, 384));
+            //goomba = new Koopa(new Vector2(400, 384));
             Controller = new GameplayController(this);
             //levelGenerator = new LevelGenerator();
            // levelGenerator.CreateFloor();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightFallingPlayerState : AbstractPlayerState
+    public class RightFallingPlayerState : AbstractPlayerState, IRightFacing
     {
         private int fallingSpeed;
         public RightFallingPlayerState(Player player, int jumpingSpeed = 16) : base(player)
@@ -34,6 +35,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             base.PowerUpFlower();
             player.State = new RightFlowerPowerUpAnimationState(player, this);
+        }
+        public override void Hop()
+        {
+            player.State = new RightJumpingPlayerState(player, 40);
         }
         public override void UpdateMovement()
         {

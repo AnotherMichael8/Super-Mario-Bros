@@ -51,7 +51,7 @@ namespace SuperMarioBros.Blocks.BlockType
                 noBump = true;
             }
         }
-        public override void Bump()
+        public override void Bump(PowerUps powerUp)
         {
             bumpCounter = 5;
         }

@@ -19,6 +19,7 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
         public void Kill();
         public void Fall();
         public void Jump();
+        public void Hop();
         public void Crouch();
         public void PowerUpMushroom();
         public void PowerUpFlower();

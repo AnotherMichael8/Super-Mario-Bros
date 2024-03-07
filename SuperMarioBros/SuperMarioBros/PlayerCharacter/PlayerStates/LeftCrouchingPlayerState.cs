@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftCrouchingPlayerState : AbstractPlayerState
+    public class LeftCrouchingPlayerState : AbstractPlayerState, ILeftFacing
     {
         public LeftCrouchingPlayerState(Player player) : base(player)
         {

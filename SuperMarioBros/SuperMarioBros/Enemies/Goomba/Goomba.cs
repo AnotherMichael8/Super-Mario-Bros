@@ -41,5 +41,9 @@ namespace SuperMarioBros.Enemies.Goomba
         {
             return new Rectangle((int)Position.X + 2, (int)Position.Y + 5, 28, (int)Globals.BlockSize);
         }
+        public override Rectangle GetBlockHitBox()
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+        }
     }
 }

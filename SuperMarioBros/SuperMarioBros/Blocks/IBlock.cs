@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace SuperMarioBros.Blocks
         public Vector2 Position { get; set; }
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color color);
-        public void Bump();
+        public void Bump(PowerUp.PowerUps powerUp);
     }
 }

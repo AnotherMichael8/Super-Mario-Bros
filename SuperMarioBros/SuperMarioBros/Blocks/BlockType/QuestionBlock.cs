@@ -18,7 +18,7 @@ namespace SuperMarioBros.Blocks.BlockType
         private static int animateCounter;
         private int bumpCounter;
         private ICollectibles collectible;
-        public IBlock usedBlock { get; private set; }
+       // public IBlock usedBlock { get; private set; }
         private static Rectangle animateSourceRectangle;
         public QuestionBlock(Vector2 position, ICollectibles collectible) : base(position)
         {
@@ -28,7 +28,7 @@ namespace SuperMarioBros.Blocks.BlockType
             tempAnimateCounter = animateCounter;
             bumpCounter = -6;
             this.collectible = collectible;
-            usedBlock = new UsedBlock(Position, collectible);
+            //usedBlock = new UsedBlock(Position, collectible);
         }
         public override void Update() 
         {
@@ -53,19 +53,9 @@ namespace SuperMarioBros.Blocks.BlockType
                 bumpCounter--;
             }
         }
-        public override void Bump()
+        public override void Bump(PowerUps powerUp)
         {
-            Blocks.Remove(this);
-            CollisionManager.GameObjectList.Remove(this);
-            CameraController.UpdateObjectQueue.Add(this);
-            Blocks.Add(usedBlock);
-            CollisionManager.GameObjectList.Add(usedBlock);
-            usedBlock.Bump();
-            if (collectible is Coin)
-            {
-                AbstractCollectibles.Collectibles.Add(collectible);
-                CollisionManager.GameObjectList.Add(collectible);
-            }
+            SpawnCollectible(collectible);
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {

@@ -19,12 +19,12 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             if(collectible is Mushroom)
             {
                 player.PowerUpMushroom();
-                PlayerSpriteFactory.Instance.UpdatePowerUp(PowerUp.PowerUps.MUSHROOM);
+                //PlayerSpriteFactory.Instance. UpdatePowerUp(PowerUp.PowerUps.MUSHROOM);
             }
             else if(collectible is Flower)
             {
                 player.PowerUpFlower();
-                PlayerSpriteFactory.Instance.UpdatePowerUp(PowerUp.PowerUps.FIREFLOWER);
+                //PlayerSpriteFactory.Instance.UpdatePowerUp(PowerUp.PowerUps.FIREFLOWER);
             }
             /*
             else if(collectible is Star)
