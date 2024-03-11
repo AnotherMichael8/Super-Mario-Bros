@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Blocks.BlockSprites;
 
 namespace SuperMarioBros.Blocks.BlockType
 {

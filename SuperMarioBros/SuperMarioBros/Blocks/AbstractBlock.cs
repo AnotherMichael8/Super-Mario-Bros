@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockSprites;
 using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.Camera;
 using SuperMarioBros.Collectibles;

@@ -16,7 +16,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             player.Sprite = PlayerSpriteFactory.Instance.CreateDeathPlayerSprite();
             Speed = 0;
             JumpingSpeed = 155;
-            player.IsDead = true;
+            player.HitBoxOff = true;
             moveTimer = 5;
             moveSpeed = 17;
         }

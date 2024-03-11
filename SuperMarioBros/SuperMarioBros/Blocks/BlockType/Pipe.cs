@@ -6,30 +6,63 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Camera;
+using SuperMarioBros.Collision;
+using SuperMarioBros.Collision.SideCollisionHandlers;
+using SuperMarioBros.Blocks.BlockSprites;
+using System.Runtime.CompilerServices;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
-    public class Pipe : AbstractBlock
+    public class Pipe : AbstractBlock, IPipe
     {
         private int height;
-        private PipeSprite pipeSprite;
-        public Pipe(Vector2 position, int height) : base(position)
+        private IPipeSprite pipeSprite;
+        public Pipe connectedPipe { get; private set; }
+        public ICollision enterableSide { get; private set; }
+        public Vector2 EnterExitPosition { get; private set; }
+        public Pipe(Vector2 position, int height, ICollision enterableSide, Pipe connectedPipe = null) : base(position)
         {
             sourceRectangle = new Rectangle(0, 16, 16, 16);
-            pipeSprite = BlockSpriteFactory.Instance.CreatePipeSprite();
+            if (enterableSide is RightCollision || enterableSide is LeftCollision)
+            {
+                pipeSprite = BlockSpriteFactory.Instance.CreateHorizontalPipeSprite();
+                if (enterableSide is LeftCollision)
+                    EnterExitPosition = new Vector2((int)position.X, (int)(position.Y + Globals.BlockSize / 2));
+                else
+                    EnterExitPosition = new Vector2((int)position.X, (int)(position.Y + Globals.BlockSize / 2));
+            }
+            else
+            {
+                pipeSprite = BlockSpriteFactory.Instance.CreateVerticalPipeSprite();
+                if (enterableSide is TopCollision)
+                    EnterExitPosition = new Vector2((int)(position.X + Globals.BlockSize / 2), (int)position.Y);
+                else
+                    EnterExitPosition = new Vector2((int)(position.X + Globals.BlockSize / 2), (int)position.Y);
+            }
             this.height = height;
+            this.connectedPipe = connectedPipe;
+            this.enterableSide = enterableSide;
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            pipeSprite.Draw(spriteBatch, Position, color, height);
+            pipeSprite.Draw(spriteBatch, Position, color, height, enterableSide);
         } 
         public override Rectangle GetHitBox()
         {
-            Rectangle hitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(Globals.BlockSize * 2), (int)(Globals.BlockSize * height));
+            Rectangle hitBox;
+            if (enterableSide is RightCollision ||  enterableSide is LeftCollision)
+                hitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(Globals.BlockSize * height), (int)(Globals.BlockSize * 2));
+            else
+                hitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(Globals.BlockSize * 2), (int)(Globals.BlockSize * height));
             if (CameraController.CheckInFrame(hitBox))
                 return hitBox;
             else
                 return Rectangle.Empty;
+        }
+        public Rectangle GetEnterPipeHitBox()
+        {
+            Rectangle hitBox = GetHitBox();
+            return new Rectangle((int)(hitBox.X + 28 * Globals.ScreenSizeMulti), hitBox.Y, (int)(8 * Globals.ScreenSizeMulti), hitBox.Y);
         }
     }
 }

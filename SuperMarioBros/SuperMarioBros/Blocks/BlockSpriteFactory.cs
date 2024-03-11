@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockSprites;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using System;
@@ -34,13 +35,21 @@ namespace SuperMarioBros.Blocks
         {
             return new BlockSprite(blockTexture);
         }
-        public PipeSprite CreatePipeSprite()
+        public IPipeSprite CreateVerticalPipeSprite()
         {
-            return new PipeSprite(blockTexture);
+            return new VerticalPipeSprite(blockTexture);
+        }
+        public IPipeSprite CreateHorizontalPipeSprite()
+        {
+            return new HorizontalPipeSprite(blockTexture);
         }
         public DebrisSprite CreateDebrisSprite(SpriteEffects spriteEffect)
         {
             return new DebrisSprite(debrisTexture, spriteEffect);
+        }
+        public FlagPoleSprite CreateFlagPoleSprite()
+        {
+            return new FlagPoleSprite(blockTexture);
         }
     }
 }

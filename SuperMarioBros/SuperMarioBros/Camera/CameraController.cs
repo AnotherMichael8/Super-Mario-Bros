@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.PlayerCharacter;
 using SuperMarioBros.Levels;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SuperMarioBros.Camera
 {
@@ -51,15 +52,33 @@ namespace SuperMarioBros.Camera
         }   
         private void LoadAndUnloadChunks(int currentChunk)
         {
-            if(!chuncksLoaded.Contains(currentChunck + 1) && currentChunck + 1 < NUMBER_CHUNKS)
+            if (chuncksLoaded.Contains(currentChunk))
             {
-                levelGenerator.LoadFile(currentChunck + 1);
-                chuncksLoaded.Add(currentChunck + 1);
+                if (!chuncksLoaded.Contains(currentChunck + 1) && currentChunck + 1 < NUMBER_CHUNKS)
+                {
+                    levelGenerator.LoadFile(currentChunck + 1);
+                    chuncksLoaded.Add(currentChunck + 1);
+                }
+                if (chuncksLoaded.Contains(currentChunck - 2) && currentChunk - 2 >= 0)
+                {
+                    levelGenerator.UnloadFile(currentChunk - 2);
+                    chuncksLoaded.Remove(currentChunck - 2);
+                }
             }
-            if(chuncksLoaded.Contains(currentChunck - 2) && currentChunk - 2 >= 0)
+            else
+                ResetChunks(currentChunk);
+        }
+        private void ResetChunks(int currentChunk)
+        {
+            foreach(int chunk in chuncksLoaded) 
             {
-                levelGenerator.UnloadFile(currentChunk - 2);
-                chuncksLoaded.Remove(currentChunck - 2);
+                levelGenerator.UnloadFile(chunk);
+            }
+            chuncksLoaded = new HashSet<int>();
+            for(int i = currentChunk - 1; i <= currentChunk + 1; i++)
+            {
+                levelGenerator.LoadFile(i);
+                chuncksLoaded.Add(i);
             }
         }
         public static bool CheckInFrame(Rectangle position)

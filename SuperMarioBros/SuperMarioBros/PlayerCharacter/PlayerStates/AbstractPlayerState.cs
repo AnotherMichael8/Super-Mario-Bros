@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.Camera;
 using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.Collision;
@@ -48,6 +49,14 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             AccelerationCap = 3 * 16;
         }
+        public void GrabPole()
+        {
+            player.State = new GrabPolePlayerState(player);
+        }
+        public void EnterPipe(Pipe pipe)
+        {
+            player.State = new EnterPipePlayerState(player, pipe);
+        }
         public virtual void Kill()
         {
             switch(currentPowerUp)
@@ -94,7 +103,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                 CollisionManager.GameObjectList.Add(fireball);
             }
         }
-
         public virtual void Update()
         {
             UpdateMovement();

@@ -44,7 +44,16 @@ namespace SuperMarioBros.Collision
                 if (AbstractPlayerState.Speed < -1)
                     AbstractPlayerState.Speed += 3;
             }
+        }
+        public static void HandleFlagPoleCollision(IPlayer player, IBlock block)
+        {
+            player.Position = new Vector2(block.Position.X - (int)(16 * Globals.ScreenSizeMulti), player.Position.Y);
+            player.GrabPole();
 
+        }
+        public static void HandleEnteringPipe(IPlayer player, Pipe pipe)
+        {
+            player.EnterPipe(pipe);
         }
         public static void SetFalling()
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Collectibles.CollectiblesSprites;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
@@ -107,9 +108,14 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new LeftAnimationFlowerSprite(playerTexture, powerUp, previousSprite);
         }
+        public IPlayerSprite CreateGrabPoleSprite()
+        {
+            return new GrabPolePlayerSprite(playerTexture, powerUp);
+        }
         public IPowerAbilitySprite CreateFireballSprite()
         {
             return new FireballSprite(playerTexture);
         }
+        
     }
 }

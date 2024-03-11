@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.Blocks;
+using SuperMarioBros.Blocks.BlockType;
 
 namespace SuperMarioBros.Collision
 {
@@ -81,7 +83,18 @@ namespace SuperMarioBros.Collision
                 }
             }
         }
-
+        public static bool IsPipeEnterAble(IPlayer player)
+        {
+            for (int c = 0; c < GameObjectList.Count; c++)
+            {
+                IGameObject obj = GameObjectList[c];
+                if(obj is Pipe pipe && CollisionDetector.CollidingWithTopOfPipe(player, pipe))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public void Update()
         {
             CheckPlayerCollision();

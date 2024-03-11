@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using SuperMarioBros.Blocks.BlockType;
 
 namespace SuperMarioBros.PlayerCharacter.Interfaces
 {
@@ -14,6 +16,8 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
         public void MoveRight();
         public void Sprint();
         public void StopSprinting();
+        public void GrabPole();
+        public void EnterPipe(Pipe pipe);
         public void StopJumping();
         public void StopUpwardMovement();
         public void Kill();

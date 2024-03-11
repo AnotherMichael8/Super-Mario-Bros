@@ -9,46 +9,52 @@ using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.Enemies;
 using SuperMarioBros.Enemies.Goomba;
 using SuperMarioBros.Enemies.Koopa;
+using SuperMarioBros.Collision.SideCollisionHandlers;
+using System.Linq;
+using System.ComponentModel;
 
 namespace SuperMarioBros.Levels
 {
     public class LevelGenerator
     {
-        private List<IGameObject[]> ChunkObjects;
+        private List<List<IGameObject>> ChunkObjects;
         public LevelGenerator()
         {
-            ChunkObjects = new List<IGameObject[]>();
+            ChunkObjects = new List<List<IGameObject>>();
         }
         public void CreateAllFiles(int numBlocks)
         {
+            for(int i = 0;  i < numBlocks; i++)
+            {
+                ChunkObjects.Add(new List<IGameObject>());
+            }
             for (int i = 0; i < numBlocks; i++)
             {
                 string fileName = Directory.GetCurrentDirectory();
                 fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/LevelCSV/1-1." + i + ".csv";
                 string[] CSVLine = File.ReadAllLines(fileName);
-
-                IGameObject[] gameObjects = new IGameObject[CSVLine.Length];
+                //List<IGameObject> gameObjects = new List<IGameObject>();
                 for(int c = 0; c < CSVLine.Length; c++)
                 {
                     string gameObject = CSVLine[c];
                     string[] objDetails = gameObject.Split(",");
                     if (objDetails[0].Equals("Block"))
                     {
-                        gameObjects[c] = CreateBlockObject(objDetails, i);
+                        ChunkObjects[i].Add(CreateBlockObject(objDetails, i));
                     }
                     if (objDetails[0].Equals("Enemy"))
                     {
-                        gameObjects[c] = CreateEnemyObjects(objDetails, i);
+                        ChunkObjects[i].Add(CreateEnemyObjects(objDetails, i));
                     }
                 }
-                ChunkObjects.Add(gameObjects);
+                //ChunkObjects.Add(gameObjects);
             }
         }
         public void LoadFile(int levelChunk)
         {
             foreach (IGameObject gameObject in ChunkObjects[levelChunk])
             {
-                if(gameObject is IBlock block)
+                if(gameObject is IBlock block && gameObject is not GroundBlock)
                 {
                     AbstractBlock.Blocks.Add(block);
                 }
@@ -56,7 +62,7 @@ namespace SuperMarioBros.Levels
                 {
                     AbstractEnemy.Enemies.Add(enemy);
                 }
-                if(gameObject != null)
+                if(gameObject != null && gameObject is not GroundBlock)
                     CollisionManager.GameObjectList.Add(gameObject);
             }
         }
@@ -87,15 +93,38 @@ namespace SuperMarioBros.Levels
             }
             else if (blockDetails[1].Equals("Pipe"))
             {
-                block = new Pipe(position, int.Parse(blockDetails[4]));
+                ICollision enterableSide = new BottomCollision();
+                if (blockDetails[5].Equals("TOP"))
+                    enterableSide = new TopCollision();
+                else if (blockDetails[5].Equals("LEFT"))
+                    enterableSide = new LeftCollision();
+                else if (blockDetails[5].Equals("RIGHT"))
+                    enterableSide = new RightCollision();
+                if(blockDetails.Length > 6)
+                {
+                    string[] temp = new string[6];
+                    for(int i = 0; i < temp.Length; i++)
+                        temp[i] = blockDetails[6 + i];
+                    Pipe connectedPipe = (Pipe)CreateBlockObject(temp, int.Parse(temp[0]));
+                    ChunkObjects[int.Parse(temp[0])].Add(connectedPipe);
+                    block = new Pipe(position, int.Parse(blockDetails[4]), enterableSide, connectedPipe);
+                }
+                else
+                    block = new Pipe(position, int.Parse(blockDetails[4]), enterableSide);
             }
             else if (blockDetails[1].Equals("GroundBlock"))
             {
                 block = new GroundBlock(position, int.Parse(blockDetails[4]), int.Parse(blockDetails[5]));
+                AbstractBlock.Blocks.Add(block);
+                CollisionManager.GameObjectList.Add(block);
             }
             else if (blockDetails[1].Equals("DiamondBlock"))
             {
                 block = new DiamondBlock(position, int.Parse(blockDetails[4]));
+            }
+            else if (blockDetails[1].Equals("FlagPole"))
+            {
+                block = new FlagPole(position);
             }
             else if (blockDetails[1].Equals("InvisibleBlock"))
             {
@@ -150,7 +179,7 @@ namespace SuperMarioBros.Levels
             {
                 if (i == orginalObj.chunk)
                 {
-                    for (int c = 0; c < ChunkObjects[i].Length; c++)
+                    for (int c = 0; c < ChunkObjects[i].Count; c++)
                     {
                         if(ChunkObjects[i][c] != null && ChunkObjects[i][c].Equals(orginalObj))
                         {

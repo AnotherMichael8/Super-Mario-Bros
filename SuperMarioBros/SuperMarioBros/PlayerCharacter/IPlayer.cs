@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace SuperMarioBros.PlayerCharacter
         public void Hop();
         public void Crouch();
         public void StopJumping();
+        public void GrabPole();
+        public void EnterPipe(Pipe pipe);
         public void Kill();
         public void StopUpwardMovement();
         public void PowerUpMushroom();

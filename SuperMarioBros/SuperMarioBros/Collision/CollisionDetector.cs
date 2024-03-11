@@ -14,6 +14,7 @@ using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collision.CollisionHandlers;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.PlayerCharacter.Interfaces;
+using SuperMarioBros.Blocks.BlockType;
 
 namespace SuperMarioBros.Collision
 {
@@ -36,7 +37,9 @@ namespace SuperMarioBros.Collision
                 ICollision side = WarnSideDetector(playerHitBox, objHitBox);
                 if (obj is IBlock block)
                 {
-                    if(side is BottomCollision)
+                    if (block is FlagPole)
+                        PlayerBlockHandler.HandleFlagPoleCollision(player, block);
+                    else if (side is BottomCollision)
                         bottomCollidedBlocks.Add(block);
                     else
                         PlayerBlockHandler.HandlePlayerBlockCollision(player, block, side);
@@ -199,6 +202,14 @@ namespace SuperMarioBros.Collision
                 return collisionWarning[0].Item1;
             else
                 return null;
+        }
+        public static bool CollidingWithTopOfPipe(IPlayer player, Pipe pipe)
+        {
+            Rectangle playerHitBox = player.GetBlockHitBox();
+            Rectangle pipeHitBox = pipe.GetEnterPipeHitBox();
+            if(playerHitBox.Intersects(pipeHitBox) && WarnSideDetector(playerHitBox, pipeHitBox) is TopCollision && pipe.connectedPipe != null)
+                PlayerBlockHandler.HandleEnteringPipe(player, pipe);
+            return playerHitBox.Intersects(pipeHitBox) && WarnSideDetector(playerHitBox, pipeHitBox) is TopCollision;
         }
     }
 }

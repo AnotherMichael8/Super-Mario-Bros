@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 
@@ -16,7 +17,7 @@ namespace SuperMarioBros.PlayerCharacter
         public IPlayerState State { get; set; }
         public int Speed { get; set; }
         public bool OnGround { get; set; }
-        public bool IsDead { get; set; }
+        public bool HitBoxOff { get; set; }
         public bool Invincible { get; set; }
         public bool IsFalling { get; set; }
         public int chunk { get; private set; }
@@ -74,6 +75,14 @@ namespace SuperMarioBros.PlayerCharacter
         public void StopJumping()
         {
             State.StopJumping();
+        }
+        public void GrabPole()
+        {
+            State.GrabPole();
+        }
+        public void EnterPipe(Pipe pipe)
+        {
+            State.EnterPipe(pipe);
         }
         public void Kill()
         {
@@ -140,14 +149,14 @@ namespace SuperMarioBros.PlayerCharacter
         }
         public Rectangle GetHitBox()
         {
-            if(!IsDead)
+            if(!HitBoxOff)
                 return new Rectangle((int)Position.X + 4, (int)Position.Y, (int)Globals.BlockSize - 8, (int)(Globals.BlockSize * playerSizeMulti));
             else
                 return Rectangle.Empty;
         }
         public Rectangle GetBlockHitBox()
         {
-            if (!IsDead)
+            if (!HitBoxOff)
                 return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)(Globals.BlockSize * playerSizeMulti));
             else
                 return Rectangle.Empty;

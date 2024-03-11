@@ -88,8 +88,8 @@ namespace SuperMarioBros
             //goomba.Update();
             AbstractBlock.UpdateAllBlocks();
             AbstractCollectibles.UpdateAllSprites();
-            collisionManager.Update();
             Controller.Update(gameTime);
+            collisionManager.Update();
             camera.Update();
 
             base.Update(gameTime);

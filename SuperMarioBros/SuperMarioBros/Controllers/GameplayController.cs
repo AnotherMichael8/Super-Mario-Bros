@@ -22,7 +22,7 @@ namespace SuperMarioBros.Controllers
             base.RegisterCommands();
 
             commandMapping.Add(Keys.W, new JumpCommand(game));
-            commandMapping.Add(Keys.S, new CrouchCommand(game));
+            commandMapping.Add(Keys.S, new EnterPipeCommand(game));
             commandMapping.Add(Keys.A, new MoveLeftCommand(game));
             commandMapping.Add(Keys.D, new MoveRightCommand(game));
             commandMapping.Add(Keys.Up, new JumpCommand(game));
