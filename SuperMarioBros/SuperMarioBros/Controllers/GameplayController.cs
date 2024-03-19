@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SuperMarioBros.Collision.SideCollisionHandlers;
 using SuperMarioBros.Commands;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 using System;
@@ -14,6 +15,7 @@ namespace SuperMarioBros.Controllers
     public class GameplayController : KeyboardController
     {
         private List<Keys> moveKeys = new List<Keys>();
+        private Dictionary<Keys, ICommand> doubleCommandMapping = new Dictionary<Keys, ICommand>();
 
         public GameplayController(Game1 game) : base(game) { }
 
@@ -22,7 +24,7 @@ namespace SuperMarioBros.Controllers
             base.RegisterCommands();
 
             commandMapping.Add(Keys.W, new JumpCommand(game));
-            commandMapping.Add(Keys.S, new EnterPipeCommand(game));
+            commandMapping.Add(Keys.S, new CrouchCommand(game));
             commandMapping.Add(Keys.A, new MoveLeftCommand(game));
             commandMapping.Add(Keys.D, new MoveRightCommand(game));
             commandMapping.Add(Keys.Up, new JumpCommand(game));
@@ -31,7 +33,13 @@ namespace SuperMarioBros.Controllers
             commandMapping.Add(Keys.Right, new MoveRightCommand(game));
             commandMapping.Add(Keys.LeftControl, new SprintCommand(game));
             commandMapping.Add(Keys.None, new BecomeIdleCommand(game));
-            commandMapping.Add(Keys.R, new UseAbilityCommand(game));
+            //commandMapping.Add(Keys.R, new UseAbilityCommand(game));
+
+            doubleCommandMapping.Add(Keys.W, new EnterPipeCommand(game, new BottomCollision()));
+            doubleCommandMapping.Add(Keys.A, new EnterPipeCommand(game, new RightCollision()));
+            doubleCommandMapping.Add(Keys.S, new EnterPipeCommand(game, new TopCollision()));
+            doubleCommandMapping.Add(Keys.D, new EnterPipeCommand(game, new LeftCollision()));
+            doubleCommandMapping.Add(Keys.LeftControl, new UseAbilityCommand(game));
 
             moveKeys.Add(Keys.Left);
             moveKeys.Add(Keys.Right);
@@ -63,6 +71,10 @@ namespace SuperMarioBros.Controllers
             {
                 foreach (Keys key in pressedKeys)
                 {
+                    if (doubleCommandMapping.ContainsKey(key))
+                    {
+                        doubleCommandMapping[key].Execute();
+                    }
                     if (commandMapping.ContainsKey(key) && !heldKeys.Contains(key))
                     {
                         commandMapping[key].Execute();

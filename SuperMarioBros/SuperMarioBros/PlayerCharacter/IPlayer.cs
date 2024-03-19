@@ -36,6 +36,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void PowerUpFlower();
         public void PowerUpStar();
         public void UseAbility();
+        public Rectangle GetRectanglePosition();
         public void SetDecorator(IPlayer player);
         public void RemoveDecorator();
         public void Update();

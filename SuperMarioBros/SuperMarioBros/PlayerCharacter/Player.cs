@@ -161,5 +161,9 @@ namespace SuperMarioBros.PlayerCharacter
             else
                 return Rectangle.Empty;
         }
+        public Rectangle GetRectanglePosition()
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)(Globals.BlockSize * playerSizeMulti));
+        }
     }
 }

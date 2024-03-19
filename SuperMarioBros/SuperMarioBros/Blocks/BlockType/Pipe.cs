@@ -27,9 +27,9 @@ namespace SuperMarioBros.Blocks.BlockType
             {
                 pipeSprite = BlockSpriteFactory.Instance.CreateHorizontalPipeSprite();
                 if (enterableSide is LeftCollision)
-                    EnterExitPosition = new Vector2((int)position.X, (int)(position.Y + Globals.BlockSize / 2));
+                    EnterExitPosition = new Vector2((int)(position.X - Globals.BlockSize), (int)(position.Y + Globals.BlockSize / 2));
                 else
-                    EnterExitPosition = new Vector2((int)position.X, (int)(position.Y + Globals.BlockSize / 2));
+                    EnterExitPosition = new Vector2((int)(position.X + Globals.BlockSize * height), (int)(position.Y + Globals.BlockSize / 2));
             }
             else
             {
@@ -37,7 +37,7 @@ namespace SuperMarioBros.Blocks.BlockType
                 if (enterableSide is TopCollision)
                     EnterExitPosition = new Vector2((int)(position.X + Globals.BlockSize / 2), (int)position.Y);
                 else
-                    EnterExitPosition = new Vector2((int)(position.X + Globals.BlockSize / 2), (int)position.Y);
+                    EnterExitPosition = new Vector2((int)(position.X + Globals.BlockSize / 2), (int)(position.Y + Globals.BlockSize * height));
             }
             this.height = height;
             this.connectedPipe = connectedPipe;
@@ -62,7 +62,18 @@ namespace SuperMarioBros.Blocks.BlockType
         public Rectangle GetEnterPipeHitBox()
         {
             Rectangle hitBox = GetHitBox();
-            return new Rectangle((int)(hitBox.X + 28 * Globals.ScreenSizeMulti), hitBox.Y, (int)(8 * Globals.ScreenSizeMulti), hitBox.Y);
+            Rectangle enterPipeRectangle;
+            if(enterableSide is LeftCollision)
+            {
+                enterPipeRectangle = new Rectangle(hitBox.X, (int)(hitBox.Bottom - 16 * Globals.ScreenSizeMulti), (int)Globals.BlockSize, (int)(16 * Globals.ScreenSizeMulti));
+            }
+            else if(enterableSide is RightCollision)
+            {
+                enterPipeRectangle = new Rectangle((int)(hitBox.Right - Globals.BlockSize), (int)(hitBox.Bottom - 16 * Globals.ScreenSizeMulti), (int)Globals.BlockSize, (int)(16 * Globals.ScreenSizeMulti));
+            }
+            else
+                enterPipeRectangle = new Rectangle((int)(hitBox.X + 28 * Globals.ScreenSizeMulti), hitBox.Y, (int)(8 * Globals.ScreenSizeMulti), hitBox.Height);
+            return enterPipeRectangle;
         }
     }
 }

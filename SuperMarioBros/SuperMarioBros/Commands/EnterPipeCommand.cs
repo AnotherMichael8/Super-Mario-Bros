@@ -10,14 +10,16 @@ namespace SuperMarioBros.Commands
     public class EnterPipeCommand : ICommand
     {
         private Game1 game;
-        public EnterPipeCommand(Game1 game)
+        private ICollision side;
+        public EnterPipeCommand(Game1 game, ICollision side)
         {
             this.game = game;
+            this.side = side;
         }
 
         public void Execute()
         {
-            if (CollisionManager.IsPipeEnterAble(game.MarioPlayer))
+            if (CollisionManager.IsPipeEnterAble(game.MarioPlayer, side))
             {
                 //game.MarioPlayer
             }

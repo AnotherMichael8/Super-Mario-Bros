@@ -13,6 +13,7 @@ using SuperMarioBros.Enemies.Koopa;
 using SuperMarioBros.Levels;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Camera;
+using SuperMarioBros.Blocks.BlockType;
 
 namespace SuperMarioBros
 {
@@ -117,6 +118,12 @@ namespace SuperMarioBros
                 Rectangle objHitBox = obj.GetHitBox();
                 objHitBox.X -= CameraController.CameraPosition;
                 _spriteBatch.Draw(_texture, objHitBox, Color.White);
+                if (obj is Pipe pipe && pipe.connectedPipe != null)
+                {
+                    objHitBox = pipe.GetEnterPipeHitBox();
+                    objHitBox.X -= CameraController.CameraPosition;
+                    _spriteBatch.Draw(texture2, objHitBox, Color.White);
+                }
             }
             Rectangle playerHitBox = MarioPlayer.GetHitBox();
             playerHitBox.X -= CameraController.CameraPosition;

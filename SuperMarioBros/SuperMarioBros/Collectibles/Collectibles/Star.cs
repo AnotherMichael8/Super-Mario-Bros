@@ -24,13 +24,29 @@ namespace SuperMarioBros.Collectibles.Collectibles
         {
             horizMovementFactor = 24;
         }
+        public override void StopUpwardMovement()
+        {
+            verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
+        }
+        public override void Update()
+        {
+            if (!spawnCollectible)
+            {
+                if(!IsFalling)
+                {
+                    verticalMovementFactor = (int)(-80 * Globals.ScreenSizeMulti);
+                    IsFalling = true;
+                }
+            }
+            base.Update();
+        }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
             if (trueYPosition <= orginalPosition.Y - Globals.BlockSize)
             {
                 trueYPosition = orginalPosition.Y - Globals.BlockSize;
                 spawnCollectible = false;
-                verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
+                verticalMovementFactor = (int)(-80 * Globals.ScreenSizeMulti);
             }
             else
                 trueYPosition -= verticalMovementFactor / 16.0;

@@ -14,10 +14,10 @@ namespace SuperMarioBros.Blocks
     public class VerticalPipeSprite : IPipeSprite
     {
         private Texture2D texture;
-        private readonly Rectangle VerticalTopLeftPipe = new Rectangle(119, 196, 16, 16);
-        private readonly Rectangle VertcialTopRightPipe = new Rectangle(136, 196, 16, 16);
-        private readonly Rectangle VerticalBottomLeftPipe = new Rectangle(119, 213, 16, 16);
-        private readonly Rectangle VerticalBottomRightPipe = new Rectangle(136, 213, 16, 16);
+        private readonly Rectangle VerticalTopLeftPipe = new Rectangle(119, 196, 15, 16);
+        private readonly Rectangle VertcialTopRightPipe = new Rectangle(137, 196, 15, 16);
+        private readonly Rectangle VerticalBottomLeftPipe = new Rectangle(119, 214, 15, 14);
+        private readonly Rectangle VerticalBottomRightPipe = new Rectangle(137, 214, 15, 14);
         public VerticalPipeSprite(Texture2D texture)
         {
             this.texture = texture;
@@ -35,18 +35,18 @@ namespace SuperMarioBros.Blocks
             if (left || right)
             {
                 destinationRectangle.X -= (int)Globals.BlockSize + CameraController.CameraPosition;
-                spriteBatch.Draw(texture, destinationRectangle, VerticalTopLeftPipe, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
+                spriteBatch.Draw(texture, destinationRectangle, VerticalTopLeftPipe, color, 0, new Vector2(0), SpriteEffects.None, .01f);
                 destinationRectangle.X += (int)Globals.BlockSize;
-                spriteBatch.Draw(texture, destinationRectangle, VertcialTopRightPipe, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
+                spriteBatch.Draw(texture, destinationRectangle, VertcialTopRightPipe, color, 0, new Vector2(0), SpriteEffects.None, .01f);
                 destinationRectangle.Y += (int)Globals.BlockSize;
                 for (int i = 0; i < pipeHeight - 1; i++)
                 {
                     destinationRectangle.X -= (int)Globals.BlockSize;
                     if(left)
-                        spriteBatch.Draw(texture, destinationRectangle, VerticalBottomLeftPipe, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
+                        spriteBatch.Draw(texture, destinationRectangle, VerticalBottomLeftPipe, color, 0, new Vector2(0), SpriteEffects.None, .01f);
                     destinationRectangle.X += (int)Globals.BlockSize;
                     if(right)
-                        spriteBatch.Draw(texture, destinationRectangle, VerticalBottomRightPipe, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
+                        spriteBatch.Draw(texture, destinationRectangle, VerticalBottomRightPipe, color, 0, new Vector2(0), SpriteEffects.None, .01f);
                     destinationRectangle.Y += (int)Globals.BlockSize;
 
                 }

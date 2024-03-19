@@ -203,11 +203,12 @@ namespace SuperMarioBros.Collision
             else
                 return null;
         }
-        public static bool CollidingWithTopOfPipe(IPlayer player, Pipe pipe)
+        public static bool CollidingWithTopOfPipe(IPlayer player, Pipe pipe, ICollision side)
         {
+            Type pipeSide = side.GetType();
             Rectangle playerHitBox = player.GetBlockHitBox();
             Rectangle pipeHitBox = pipe.GetEnterPipeHitBox();
-            if(playerHitBox.Intersects(pipeHitBox) && WarnSideDetector(playerHitBox, pipeHitBox) is TopCollision && pipe.connectedPipe != null)
+            if(playerHitBox.Intersects(pipeHitBox) && pipeSide.Equals(WarnSideDetector(playerHitBox, pipeHitBox).GetType()) && pipe.connectedPipe != null)
                 PlayerBlockHandler.HandleEnteringPipe(player, pipe);
             return playerHitBox.Intersects(pipeHitBox) && WarnSideDetector(playerHitBox, pipeHitBox) is TopCollision;
         }

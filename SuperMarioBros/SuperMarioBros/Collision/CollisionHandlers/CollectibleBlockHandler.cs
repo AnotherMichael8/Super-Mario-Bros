@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SuperMarioBros.PlayerCharacter;
+using SuperMarioBros.Collectibles.Collectibles;
 
 namespace SuperMarioBros.Collision.CollisionHandlers
 {
@@ -28,6 +29,10 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             else if (side is RightCollision)
             {
                 collectible.MoveRight();
+            }
+            else if (side is BottomCollision)
+            {
+                collectible.StopUpwardMovement();
             }
         }
         public static void SetFalling()

@@ -16,6 +16,7 @@ namespace SuperMarioBros.Collectibles
         public void Draw(SpriteBatch spriteBatch, Color color);
         public void MoveLeft();
         public void MoveRight();
+        public void StopUpwardMovement();
         public void Collect();
         public void SetPosition(double x, double y);
         public double GetPositionX();

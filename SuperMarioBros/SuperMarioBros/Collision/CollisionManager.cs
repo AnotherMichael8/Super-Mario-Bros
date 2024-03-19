@@ -83,12 +83,12 @@ namespace SuperMarioBros.Collision
                 }
             }
         }
-        public static bool IsPipeEnterAble(IPlayer player)
+        public static bool IsPipeEnterAble(IPlayer player, ICollision side)
         {
             for (int c = 0; c < GameObjectList.Count; c++)
             {
                 IGameObject obj = GameObjectList[c];
-                if(obj is Pipe pipe && CollisionDetector.CollidingWithTopOfPipe(player, pipe))
+                if(obj is Pipe pipe && CollisionDetector.CollidingWithTopOfPipe(player, pipe, side))
                 {
                     return true;
                 }

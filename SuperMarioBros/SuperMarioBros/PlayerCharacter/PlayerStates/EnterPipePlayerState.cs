@@ -15,14 +15,17 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         private int frameCounter;
         private Vector2 teleportPosition;
+        private ICollision enterSide;
         private ICollision exitSide;
+        private Rectangle pipeHitBox;
         public EnterPipePlayerState(Player player, Pipe pipe) : base(player)
         {
             frameCounter = 0;
-            Rectangle hitBox = player.GetBlockHitBox();
-            teleportPosition = pipe.enterableSide.UpdateDirectionPosition(hitBox.Width, hitBox.Height, pipe.connectedPipe.EnterExitPosition);
+            Rectangle playerHitBox = player.GetBlockHitBox();
+            pipeHitBox = pipe.GetHitBox();
+            teleportPosition = pipe.connectedPipe.enterableSide.UpdateDirectionPosition(playerHitBox.Width, playerHitBox.Height, pipe.connectedPipe.EnterExitPosition);
             player.HitBoxOff = true;
-            ICollision enterSide = pipe.enterableSide;
+            enterSide = pipe.enterableSide;
             exitSide = pipe.connectedPipe.enterableSide;
             if (enterSide is TopCollision)
             {
@@ -32,12 +35,14 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             else if (enterSide is RightCollision)
             {
                 Speed = -32;
-                JumpingSpeed = 0;
+                JumpingSpeed = 16;
+                player.Position = new Vector2(player.Position.X, player.Position.Y - (int)(3 * Globals.ScreenSizeMulti));
             }
             else if (enterSide is LeftCollision)
             {
                 Speed = 32;
-                JumpingSpeed = 0;
+                JumpingSpeed = 16;
+                player.Position = new Vector2(player.Position.X, player.Position.Y - (int)(3 * Globals.ScreenSizeMulti));
             }
             else
             {
@@ -48,38 +53,78 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void UpdateMovement()
         {
             frameCounter++;
-            if(frameCounter == 120)
+            Rectangle playerRectPosition = player.GetRectanglePosition();
+            if (frameCounter == 120)
             {
-                player.Position = new Vector2(teleportPosition.X, teleportPosition.Y + 120);
                 if (exitSide is TopCollision)
                 {
+                    player.Position = new Vector2(teleportPosition.X, teleportPosition.Y + 120);
                     player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
                     Speed = 0;
                     JumpingSpeed = 48;
                 }
-                else if(exitSide is RightCollision)
+                else if (exitSide is RightCollision)
                 {
+                    player.Position = new Vector2(teleportPosition.X - 120, teleportPosition.Y);
                     player.Sprite = PlayerSpriteFactory.Instance.CreateRightMovingPlayerSprite();
                     Speed = 32;
-                    JumpingSpeed = 0;
+                    JumpingSpeed = 16;
                 }
                 else if (exitSide is LeftCollision)
                 {
+                    player.Position = new Vector2(teleportPosition.X + 120, teleportPosition.Y);
                     player.Sprite = PlayerSpriteFactory.Instance.CreateLeftMovingPlayerSprite();
                     Speed = -32;
-                    JumpingSpeed = 0;
+                    JumpingSpeed = 16;
                 }
                 else
                 {
+                    player.Position = new Vector2(teleportPosition.X, teleportPosition.Y - 120);
                     player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
                     Speed = 0;
-                    JumpingSpeed = -16;
+                    JumpingSpeed = 6;
                 }
             }
-            else if(player.Position.Y <= teleportPosition.Y)
+            else if (frameCounter > 120)
             {
-                player.State = new RightIdlePlayerState(player);
-                player.HitBoxOff = false;
+                if (Speed == 0 && JumpingSpeed > 16 && player.Position.Y <= teleportPosition.Y)
+                {
+                    player.State = new RightIdlePlayerState(player);
+                    player.HitBoxOff = false;
+                }
+                else if (Speed == 0 && JumpingSpeed < 0 && player.Position.Y >= teleportPosition.Y)
+                {
+                    player.State = new RightIdlePlayerState(player);
+                    player.HitBoxOff = false;
+                }
+                else if (Speed == 32 && player.Position.X >= teleportPosition.X)
+                {
+                    player.State = new RightIdlePlayerState(player);
+                    player.HitBoxOff = false;
+                }
+                else if (Speed == -32 && player.Position.X <= teleportPosition.X)
+                {
+                    player.State = new LeftIdlePlayerState(player);
+                    player.HitBoxOff = false;
+                }
+            }
+            else
+            {
+                if (enterSide is TopCollision && playerRectPosition.Bottom >= pipeHitBox.Bottom)
+                {
+                    JumpingSpeed = 16;
+                    player.Position = new Vector2(player.Position.X, player.Position.Y - (playerRectPosition.Bottom - pipeHitBox.Bottom));
+                }
+                else if (enterSide is LeftCollision && playerRectPosition.Right >= pipeHitBox.Right)
+                {
+                    Speed = 0;
+                    player.Position = new Vector2(player.Position.X - (playerRectPosition.Right - pipeHitBox.Right), player.Position.Y);
+                }
+                else if (enterSide is RightCollision && playerRectPosition.Left <= pipeHitBox.Left)
+                {
+                    Speed = 0;
+                    player.Position = new Vector2(player.Position.X - (playerRectPosition.Left - pipeHitBox.Left), player.Position.Y);
+                }
             }
         }
     }
