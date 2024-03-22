@@ -51,5 +51,9 @@ namespace SuperMarioBros.Blocks
         {
             return new FlagPoleSprite(blockTexture);
         }
+        public GroundBlockSprite CreateGroundBlockSprite()
+        {
+            return new GroundBlockSprite(blockTexture);
+        }
     }
 }

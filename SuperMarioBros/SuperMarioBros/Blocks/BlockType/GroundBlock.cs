@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Blocks.BlockSprites;
 using SuperMarioBros.Camera;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace SuperMarioBros.Blocks
     {
         private int width;
         private int height;
+        private GroundBlockSprite groundBlockSprite;
         public GroundBlock(Vector2 position, int width, int height) : base(position)
         {
             sourceRectangle = new Rectangle(0, 16, 16, 16);
-            sprite = BlockSpriteFactory.Instance.CreateBlockSprite();
+            groundBlockSprite = BlockSpriteFactory.Instance.CreateGroundBlockSprite();
             this.width = width;
             this.height = height;
         }
@@ -26,7 +28,7 @@ namespace SuperMarioBros.Blocks
             {
                 for (int h = 0; h < height; h++)
                 {
-                    sprite.Draw(spriteBatch, sourceRectangle, new Vector2((int)Position.X + (int)(Globals.BlockSize * w), (int)Position.Y + (int)(Globals.BlockSize * h)), color);
+                    groundBlockSprite.Draw(spriteBatch, sourceRectangle, new Vector2((int)Position.X + (int)(Globals.BlockSize * w), (int)Position.Y + (int)(Globals.BlockSize * h)), color);
                 }
             }
         }
