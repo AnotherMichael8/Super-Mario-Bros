@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SuperMarioBros.PlayerCharacter;
 using SuperMarioBros.Levels;
 using Microsoft.Xna.Framework.Graphics;
+using System.Text.Json.Serialization;
 
 namespace SuperMarioBros.Camera
 {
@@ -28,14 +29,19 @@ namespace SuperMarioBros.Camera
         }
         public void Update()
         {
-            int tempChunck = currentChunck;
+            int previousChunk = currentChunck;
             if(player.Position.X - CameraPosition > Globals.ScreenWidth / 2)
             {
-                CameraPosition += (int)(player.Position.X - CameraPosition - Globals.ScreenWidth/2);
+                CameraPosition += (int)(player.Position.X - CameraPosition - Globals.ScreenWidth / 2);
+            }
+            else if(player.Position.X - CameraPosition < Globals.ScreenWidth / 3 && CameraPosition > 0)
+            {
+                CameraPosition += (int)(player.Position.X - CameraPosition - Globals.ScreenWidth / 3);
+                if (CameraPosition < 0)
+                    CameraPosition = 0;
             }
             currentChunck = (int)(player.Position.X / Globals.ScreenWidth);
-            if (tempChunck != currentChunck)
-                LoadAndUnloadChunks(currentChunck);
+            LoadAndUnloadChunks(currentChunck, previousChunk);
             if(UpdateObjectQueue.Count > 0)
             {
                 levelGenerator.ReplaceObject(UpdateObjectQueue[0].Item1, UpdateObjectQueue[0].Item2);
@@ -50,22 +56,35 @@ namespace SuperMarioBros.Camera
             levelGenerator.LoadFile(1);
             chuncksLoaded.Add(1);
         }   
-        private void LoadAndUnloadChunks(int currentChunk)
+        private void LoadAndUnloadChunks(int currentChunk, int previousChunk)
         {
-            if (chuncksLoaded.Contains(currentChunk))
+            int direction = 0;
+            bool endPoint = currentChunck + 1 < NUMBER_CHUNKS;
+            bool startPoint = currentChunck - 2 >= 0;
+            if (currentChunk > previousChunk)
+                direction = 1;
+            else if (currentChunk < previousChunk)
             {
-                if (!chuncksLoaded.Contains(currentChunck + 1) && currentChunck + 1 < NUMBER_CHUNKS)
+                direction = -1;
+                endPoint = currentChunck + 1 * direction >= 0;
+                startPoint = currentChunck - 2 * direction < NUMBER_CHUNKS;
+            }
+
+            if (direction != 0 && chuncksLoaded.Contains(currentChunk))
+            {
+                //Fix last part of if statement
+                if (!chuncksLoaded.Contains(currentChunck + 1 * direction) && endPoint)
                 {
-                    levelGenerator.LoadFile(currentChunck + 1);
-                    chuncksLoaded.Add(currentChunck + 1);
+                    levelGenerator.LoadFile(currentChunck + 1 * direction);
+                    chuncksLoaded.Add(currentChunck + 1 * direction);
                 }
-                if (chuncksLoaded.Contains(currentChunck - 2) && currentChunk - 2 >= 0)
+                if (chuncksLoaded.Contains(currentChunck - 2 * direction) && startPoint)
                 {
-                    levelGenerator.UnloadFile(currentChunk - 2);
-                    chuncksLoaded.Remove(currentChunck - 2);
+                    levelGenerator.UnloadFile(currentChunk - 2 * direction);
+                    chuncksLoaded.Remove(currentChunck - 2 * direction);
                 }
             }
-            else
+            else if (!chuncksLoaded.Contains(currentChunk))
                 ResetChunks(currentChunk);
         }
         private void ResetChunks(int currentChunk)

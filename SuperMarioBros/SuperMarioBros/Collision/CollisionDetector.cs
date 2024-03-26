@@ -60,6 +60,10 @@ namespace SuperMarioBros.Collision
                     PlayerCollectibleHandler.HandlePlayerCollectibleCollision(player, item, side);
                 }
             }
+            if (player.Position.X < 0)
+            {
+                PlayerBlockHandler.HandleEdgeOfMapCollision(player);
+            }
         }
         public static void CheckBottomBlockCollision(IPlayer player)
         {

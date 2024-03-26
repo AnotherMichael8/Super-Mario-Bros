@@ -55,6 +55,12 @@ namespace SuperMarioBros.Collision
         {
             player.EnterPipe(pipe);
         }
+        public static void HandleEdgeOfMapCollision(IPlayer player)
+        {
+            player.Position = new Vector2(0, player.Position.Y);
+            if (AbstractPlayerState.Speed < -1)
+                AbstractPlayerState.Speed += 3;
+        }
         public static void SetFalling()
         {
             IsFalling = true;
