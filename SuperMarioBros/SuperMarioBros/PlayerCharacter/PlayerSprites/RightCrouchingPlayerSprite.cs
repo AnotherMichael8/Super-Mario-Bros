@@ -17,11 +17,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
             sourceRectangle = new Rectangle(116, 40, 16, 24);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color[] color)
         {
+            base.Draw(spriteBatch, position, color);
             Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)(sourceRectangle.Width * 2 * Globals.ScreenSizeMulti), (int)(sourceRectangle.Height * 2 * Globals.ScreenSizeMulti));
-
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, .02f);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0), SpriteEffects.None, .02f);
         }
     }
 }

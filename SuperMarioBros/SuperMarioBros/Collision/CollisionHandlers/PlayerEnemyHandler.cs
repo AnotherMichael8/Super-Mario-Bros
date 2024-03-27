@@ -16,7 +16,7 @@ namespace SuperMarioBros.Collision
     {
         public static void HandlePlayerEnemyCollision(IPlayer player, IEnemy enemy, ICollision side)
         {
-            if (!enemy.IsDead)
+            if (!enemy.IsDead && player is not StarMario)
             {
                 if (side is TopCollision)
                 {
@@ -29,36 +29,47 @@ namespace SuperMarioBros.Collision
                     player.Kill();
                 }
             }
+            else if (player is StarMario)
+            {
+                enemy.Kill();
+            }
         }
         public static void HandlePlayerKoopaCollision(IPlayer player, Koopa koopa, ICollision side)
         {
-            if (side is TopCollision && !koopa.InShell)
+            if (player is not StarMario)
+            {
+                if (side is TopCollision && !koopa.InShell)
+                {
+                    koopa.Kill();
+                    player.OnGround = true;
+                    player.Hop();
+                }
+                else if (side is LeftCollision)
+                {
+                    if (koopa.InShell)
+                    {
+                        koopa.MoveRight();
+                    }
+                    else
+                    {
+                        player.Kill();
+                    }
+                }
+                else if (side is RightCollision)
+                {
+                    if (koopa.InShell)
+                    {
+                        koopa.MoveLeft();
+                    }
+                    else
+                    {
+                        player.Kill();
+                    }
+                }
+            }
+            else
             {
                 koopa.Kill();
-                player.OnGround = true;
-                player.Hop();
-            }
-            else if (side is LeftCollision)
-            {
-                if(koopa.InShell)
-                {
-                    koopa.MoveRight();
-                }
-                else
-                {
-                    player.Kill();
-                }
-            }
-            else if (side is RightCollision)
-            {
-                if (koopa.InShell)
-                {
-                    koopa.MoveLeft();
-                }
-                else
-                {
-                    player.Kill();
-                }
             }
         }
     }

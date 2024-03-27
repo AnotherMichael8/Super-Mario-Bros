@@ -12,6 +12,6 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
     {
         public Rectangle sourceRectangle { get; }
         public void Update(int currentSpeed);
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color);
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color[] color);
     }
 }

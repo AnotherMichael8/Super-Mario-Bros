@@ -30,16 +30,17 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             {
                 player.Jump();
             }
-            /*
+            
             else if(collectible is Star)
             {
-                player.BecomeStar()
+                player.PowerUpStar();
             }
+            /*
             else if(collectible is Coin)
             {
                 AddCoin
             }
-\\
+
             */
         }
     }

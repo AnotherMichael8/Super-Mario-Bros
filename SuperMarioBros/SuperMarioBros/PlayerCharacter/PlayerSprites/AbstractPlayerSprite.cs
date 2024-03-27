@@ -15,7 +15,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     public abstract class AbstractPlayerSprite : PowerUp, IPlayerSprite
     {
         protected Texture2D texture;
-        private int frameCounter;
         protected static int updatePowerUpSprite;
         protected static int heightMultiplier;
         protected Rectangle destinationRectangle;
@@ -23,12 +22,14 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
         protected int animationCounter;
         public Rectangle sourceRectangle { get; protected set; }
         protected readonly Color[] MarioColors = { new Color(181, 49, 32), new Color(234, 158, 34), new Color(107, 109, 0)};
-        protected readonly Color[][] FlowerColors = 
+        protected readonly Color[] FlowerColors = { new Color(247, 216, 165), new Color(234, 158, 34), new Color(181, 49, 32) };
+        protected readonly Color[][] FlowerAnimColors = 
         {
             new Color[] { new Color(12, 147, 0), new Color(255, 254, 255), new Color(234, 158, 34) },
             new Color[] { new Color(181, 49, 32), new Color(255, 254, 255), new Color(234, 158, 34) },
             new Color[] { Color.Black, new Color(254, 204, 197), new Color(153, 78, 0) }
         };
+        private static Dictionary<Color[], Color[]> savedColorChangeData = new Dictionary<Color[], Color[]>();
         public AbstractPlayerSprite(Texture2D texture, PowerUps powerUp = PowerUps.NONE)
         {
             this.texture = texture;
@@ -57,26 +58,45 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
         {
 
         }
-        public abstract void Draw(SpriteBatch spriteBatch, Vector2 position, Color color);
-        protected void UpdatePlayersColor(Color[] currentColors, Color[] newColors)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color[] color)
         {
-            Color[] data = new Color[texture.Width * texture.Height];
-            texture.GetData(data);
-            for(int i = 0; i < data.Length; i++)
+            if(color != null)
             {
-                if (data[i].Equals(currentColors[0]))
-                {
-                    data[i] = newColors[0];
-                }
-                else if (data[i].Equals(currentColors[1]))
-                {
-                    data[i] = newColors[1];
-                }
-                else if (data[i].Equals(currentColors[2]))
-                {
-                    data[i] = newColors[2];
-                }
+                UpdatePlayersColor(color);
             }
+        }
+        protected void UpdatePlayersColor(Color[] newColors)
+        {
+            PlayerSpriteFactory.Instance.RevertTextureData();
+            Color[] data = new Color[texture.Width * texture.Height];
+            /*
+            if (savedColorChangeData.ContainsKey(newColors))
+            {
+                data = savedColorChangeData[newColors];
+            }
+            else
+            {
+             */
+                texture.GetData(data);
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i].Equals(MarioColors[0]) || data[i].Equals(FlowerColors[0]))
+                    {
+                        data[i] = newColors[0];
+                    }
+                    else if (data[i].Equals(MarioColors[1]) || data[i].Equals(FlowerColors[1]))
+                    {
+                        data[i] = newColors[1];
+                    }
+                    else if (data[i].Equals(MarioColors[2]) || data[i].Equals(FlowerColors[2]))
+                    {
+                        data[i] = newColors[2];
+                    }
+                }
+                /*
+                savedColorChangeData.Add(newColors, data);
+            }
+                */
             texture.SetData(data);
         }
     }

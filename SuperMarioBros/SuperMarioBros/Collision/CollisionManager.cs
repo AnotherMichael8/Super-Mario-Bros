@@ -30,6 +30,7 @@ namespace SuperMarioBros.Collision
 
         public void CheckPlayerCollision()
         {
+            player = game.MarioPlayer;
             PlayerBlockHandler.SetFalling();
             for (int c = 0; c < GameObjectList.Count; c++)
             {

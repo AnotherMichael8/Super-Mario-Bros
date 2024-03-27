@@ -48,5 +48,9 @@ namespace SuperMarioBros.Collectibles
         {
             return new StarSprite(collectiblesTexture);
         }
+        public ICollectiblesSprite CreateWonderFlowerSprite()
+        {
+            return new WonderFlowerSprite(collectiblesTexture);
+        }
     }
 }

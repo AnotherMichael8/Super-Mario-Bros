@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks.BlockType;
+using SuperMarioBros.Commands;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 
@@ -115,7 +116,7 @@ namespace SuperMarioBros.PlayerCharacter
         }
         public void PowerUpStar()
         {
-            State.PowerUpStar();
+            new CollectStar(game).Execute();
         }
         public void UseAbility()
         {
@@ -141,7 +142,7 @@ namespace SuperMarioBros.PlayerCharacter
                 ability.Update();
 
         }
-        public void Draw(SpriteBatch spriteBatch, Color color)
+        public void Draw(SpriteBatch spriteBatch, Color[] color)
         {
             Sprite.Draw(spriteBatch, Position, color);
             foreach (IPowerUpAbility ability in Abilities)

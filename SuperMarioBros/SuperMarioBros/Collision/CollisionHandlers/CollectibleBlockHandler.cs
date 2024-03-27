@@ -41,7 +41,8 @@ namespace SuperMarioBros.Collision.CollisionHandlers
         }
         public static void SendFallingData(ICollectibles collectible)
         {
-            collectible.IsFalling = IsFalling;
+            if(collectible is not WonderFlower)
+                collectible.IsFalling = IsFalling;
         }
     }
 }

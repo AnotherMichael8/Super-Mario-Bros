@@ -23,19 +23,19 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
         {
             if (animationCounter == 10 || animationCounter == 25 || animationCounter == 40 || animationCounter == 55)
             {
-                UpdatePlayersColor(FlowerColors[1], FlowerColors[2]);
+                UpdatePlayersColor(FlowerAnimColors[2]);
             }
             else if (animationCounter == 5 || animationCounter == 20 || animationCounter == 35 || animationCounter == 50)
             {
-                UpdatePlayersColor(FlowerColors[0], FlowerColors[1]);
+                UpdatePlayersColor(FlowerAnimColors[1]);
             }
             else if (animationCounter == 15 || animationCounter == 30 || animationCounter == 45)
             {
-                UpdatePlayersColor(FlowerColors[2], FlowerColors[0]);
+                UpdatePlayersColor(FlowerAnimColors[0]);
             }
             else if (animationCounter == 60)
             {
-                UpdatePlayersColor(MarioColors, FlowerColors[0]);
+                UpdatePlayersColor(FlowerAnimColors[0]);
             }
             animationCounter--;
             if (animationCounter == 0)
@@ -45,11 +45,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color[] color)
         {
             Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y + (64 - sourceRectangle.Height * 2), (int)Globals.BlockSize, sourceRectangle.Height * 2);
-
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.FlipHorizontally, .02f);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0), SpriteEffects.FlipHorizontally, .02f);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void StopSprinting();
         public void Jump();
         public void Hop();
+        public void Fall();
         public void Crouch();
         public void StopJumping();
         public void GrabPole();
@@ -40,6 +41,6 @@ namespace SuperMarioBros.PlayerCharacter
         public void SetDecorator(IPlayer player);
         public void RemoveDecorator();
         public void Update();
-        public void Draw(SpriteBatch spriteBatch, Color color);
+        public void Draw(SpriteBatch spriteBatch, Color[] color);
     }
 }

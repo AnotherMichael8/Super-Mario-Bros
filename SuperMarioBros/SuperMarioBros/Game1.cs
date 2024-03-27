@@ -65,16 +65,6 @@ namespace SuperMarioBros
             collisionManager = new CollisionManager(this, _spriteBatch);
             //goomba = new Koopa(new Vector2(400, 384));
             Controller = new GameplayController(this);
-            //levelGenerator = new LevelGenerator();
-           // levelGenerator.CreateFloor();
-            //levelGenerator.CreateAllFiles(13);
-            //levelGenerator.LoadAllFiles();
-            /*
-            levelGenerator.LoadFile(0);
-            levelGenerator.LoadFile(1);
-            levelGenerator.LoadFile(2);
-            levelGenerator.LoadFile(3);
-            */
             camera = new CameraController(MarioPlayer);
             camera.LoadObjectsOnScreen();
         }
@@ -101,7 +91,7 @@ namespace SuperMarioBros
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
-            MarioPlayer.Draw(_spriteBatch, Color.White);
+            MarioPlayer.Draw(_spriteBatch, null);
             AbstractEnemy.DrawAllEnemies(_spriteBatch);
             //goomba.Draw(_spriteBatch);
             AbstractBlock.DrawAllBlocks(_spriteBatch,Color.White);

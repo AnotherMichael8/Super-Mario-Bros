@@ -42,9 +42,13 @@ namespace SuperMarioBros.Levels
                     {
                         ChunkObjects[i].Add(CreateBlockObject(objDetails, i));
                     }
-                    if (objDetails[0].Equals("Enemy"))
+                    else if (objDetails[0].Equals("Enemy"))
                     {
                         ChunkObjects[i].Add(CreateEnemyObjects(objDetails, i));
+                    }
+                    else if (objDetails[0].Equals("Collectible"))
+                    {
+                        ChunkObjects[i].Add(CreateCollectibleObject(objDetails, i));
                     }
                 }
                 //ChunkObjects.Add(gameObjects);
@@ -135,6 +139,17 @@ namespace SuperMarioBros.Levels
                 block = new CoinBox(position);
             }
             return block;
+        }
+        private ICollectibles CreateCollectibleObject(string[] blockDetails, int levelChunk)
+        {
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
+            ICollectibles collectible = null;
+            if (blockDetails[1].Equals("WonderFlower"))
+            {
+                collectible = new WonderFlower(position);
+                collectible.StartSpawningCollectible(collectible);
+            }
+            return collectible;
         }
         private ICollectibles CreateCollectibleObject(string collectible, Vector2 position)
         {

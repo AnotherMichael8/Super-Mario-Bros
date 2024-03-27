@@ -51,7 +51,7 @@ namespace SuperMarioBros.Collectibles
                 {
                     verticalMovementFactor += (int)(3 * Globals.ScreenSizeMulti);
                 }
-                else
+                else if (IsFalling)
                     verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
                 trueYPosition += verticalMovementFactor/16.0;
             }
