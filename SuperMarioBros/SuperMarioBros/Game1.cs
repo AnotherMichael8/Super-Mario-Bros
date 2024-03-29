@@ -82,7 +82,6 @@ namespace SuperMarioBros
             Controller.Update(gameTime);
             collisionManager.Update();
             camera.Update();
-
             base.Update(gameTime);
         }
 
