@@ -52,5 +52,9 @@ namespace SuperMarioBros.Collectibles
         {
             return new WonderFlowerSprite(collectiblesTexture);
         }
+        public ICollectiblesSprite CreateWonderFlowerCollectionAnimation()
+        {
+            return new WonderFlowerCollectionAnimationSprite(collectiblesTexture);
+        }
     }
 }

@@ -19,18 +19,22 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
         private Color auraColor;
         private bool auraColorChangerA;
         private bool auraColorChangerB;
+        private float rotation;
+        private float rotationUpdater;
         public WonderFlowerSprite(Texture2D texture)
         {
             this.texture = texture;
             dilation = 0.05;
-            dilationChanger = 0.2;
-            auraColor = new Color(0, 96, 255);
+            dilationChanger = 0.15;
+            auraColor = new Color(72, 72, 255);
             auraColorChangerA = true;
             auraColorChangerB = true;
+            rotation = 0;
+            rotationUpdater = .0025f;
         }
         public void Update()
         {
-            if (dilation >= 7 || dilation <= 0)
+            if (dilation >= 5 || dilation <= 0)
             {
                 dilationChanger *= -1;
             }
@@ -43,21 +47,33 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
                 auraColor.B += 2;
             else
                 auraColor.B -= 2;
-            if (auraColor.A >= 255)
+            if (auraColor.A >= 210)
                 auraColorChangerA = false;
-            else if (auraColor.B <= 0)
+            else if (auraColor.B <= 72)
                 auraColorChangerA = true;
-            if(auraColor.B >= 255)
+            if(auraColor.B >= 210)
                 auraColorChangerB = false;
-            else if (auraColor.B <= 96)
-                auraColorChangerB = true;    
+            else if (auraColor.B <= 72)
+                auraColorChangerB = true;
+
+            if (rotation >= .2f || rotation <= -.2f)
+                rotationUpdater *= -1;
+            rotation += rotationUpdater;
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
             Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize + 4, (int)Globals.BlockSize + 4);
-            Rectangle auraDestinationRectangle = new Rectangle((int)(position.X - CameraController.CameraPosition - 20 * Globals.ScreenSizeMulti) - (int)dilation * 2, (int)(position.Y - 18 * Globals.ScreenSizeMulti) - (int)dilation * 2, (int)(36 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1), (int)(34 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1));
+            Vector2 origin = new Vector2(destinationRectangle.Width / 2, destinationRectangle.Height / 2);
+            Rectangle auraDestinationRectangle = new Rectangle((int)(position.X - CameraController.CameraPosition + 18 * Globals.ScreenSizeMulti) /*+ (int)dilation * 2*/, (int)(position.Y + 20 * Globals.ScreenSizeMulti) /*+ (int)dilation * 2*/, (int)(36 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1), (int)(34 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1));
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.299f);
+            spriteBatch.Draw(texture, auraDestinationRectangle, flowerAuraSourceRectangle, auraColor, rotation, origin, SpriteEffects.None, 0.301f);
+            /*
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize + 4, (int)Globals.BlockSize + 4);
+            Rectangle auraDestinationRectangle = new Rectangle((int)(position.X - CameraController.CameraPosition) - (int)dilation * 2, (int)position.Y  - (int)dilation * 2, (int)(36 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1), (int)(34 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1));
+            Vector2 origin = new Vector2(destinationRectangle.Width / 2, destinationRectangle.Height / 2);
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.3f);
-            spriteBatch.Draw(texture, auraDestinationRectangle, flowerAuraSourceRectangle, auraColor, 0, new Vector2(0), SpriteEffects.None, 0.3f);
+            spriteBatch.Draw(texture, auraDestinationRectangle, flowerAuraSourceRectangle, auraColor, 0f, new Vector2(0), SpriteEffects.None, 0.3f);
+            */
         }
     }
 }

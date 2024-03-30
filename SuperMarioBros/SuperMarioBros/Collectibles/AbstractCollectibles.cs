@@ -36,7 +36,7 @@ namespace SuperMarioBros.Collectibles
             spawnCollectible = true;
             chunk = (int)(Position.X / Globals.ScreenWidth);
         }
-        public void Collect()
+        public virtual void Collect()
         {
             Collectibles.Remove(this);
             CollisionManager.GameObjectList.Remove(this);

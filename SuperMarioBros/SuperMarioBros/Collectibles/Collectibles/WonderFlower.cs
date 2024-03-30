@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
@@ -13,6 +14,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         private int floatingFactor;
         private int currentVerticalMovementFactor;
         private int counter;
+        private bool animationPlaying;
         public WonderFlower(Vector2 position) : base(position)
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateWonderFlowerSprite();
@@ -23,22 +25,32 @@ namespace SuperMarioBros.Collectibles.Collectibles
             spawnCollectible = false;
             counter = 0;
             currentVerticalMovementFactor = 0;
+            animationPlaying = false;
         }
         public override void Update()
         {
-            verticalMovementFactor -= (int)(3 * Globals.ScreenSizeMulti);
-            base.Update();
-            verticalMovementFactor = 0;
-            if (counter == 0)
+            if (!animationPlaying)
             {
-                currentVerticalMovementFactor += floatingFactor;
-                verticalMovementFactor = currentVerticalMovementFactor;
+                verticalMovementFactor -= (int)(3 * Globals.ScreenSizeMulti);
+                base.Update();
+                verticalMovementFactor = 0;
+                if (counter == 0)
+                {
+                    currentVerticalMovementFactor += floatingFactor;
+                    verticalMovementFactor = currentVerticalMovementFactor;
+                }
+                else if (counter == 1)
+                    counter = -1;
+                if (verticalMovementFactor / (16 * Globals.ScreenSizeMulti) > 1 || verticalMovementFactor / (16 * Globals.ScreenSizeMulti) < -1)
+                {
+                    floatingFactor *= -1;
+                }
             }
-            else if (counter == 1)
-                counter = -1;
-            if (verticalMovementFactor / (16 * Globals.ScreenSizeMulti) > 1 || verticalMovementFactor / (16 * Globals.ScreenSizeMulti) < -1)
+            else
             {
-                floatingFactor *= -1;
+                sprite.Update();
+                if (counter >= 180)
+                    Collectibles.Remove(this);
             }
             counter++;
         }
@@ -52,6 +64,13 @@ namespace SuperMarioBros.Collectibles.Collectibles
             }
             else
                 trueYPosition -= verticalMovementFactor / 16.0;
+        }
+        public override void Collect()
+        {
+            CollisionManager.GameObjectList.Remove(this);
+            sprite = CollectiblesSpriteFactory.Instance.CreateWonderFlowerCollectionAnimation();
+            animationPlaying = true;
+            counter = 0;
         }
     }
 }
