@@ -51,6 +51,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
                 sprite.Update();
                 if (counter >= 180)
                     Collectibles.Remove(this);
+
             }
             counter++;
         }
