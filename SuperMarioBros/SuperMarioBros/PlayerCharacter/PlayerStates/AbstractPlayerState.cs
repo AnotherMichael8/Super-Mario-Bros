@@ -20,10 +20,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         //public enum PowerUps { NONE ,MUSHROOM, FIREFLOWER};
         public static PowerUps currentPowerUp { get; private set; } = PowerUps.NONE;
         protected static int AccelerationCap = 3 * 16;
-        protected static int JumpingSpeed = 0;
+        protected static double JumpingSpeed = 0;
         private double trueXPosition;
         private double trueYPosition;
-        public static int Speed { get;  set; } = 0;
+        public static double Speed { get;  set; } = 0;
         protected Player player;
         private static int invincibleTimer = 0;
 
@@ -90,7 +90,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             //currentPowerUp = PowerUps.STAR;
         }
-        public void UseAbility()
+        public virtual void UseAbility()
         {
             if(currentPowerUp == PowerUps.FIREFLOWER)
             {

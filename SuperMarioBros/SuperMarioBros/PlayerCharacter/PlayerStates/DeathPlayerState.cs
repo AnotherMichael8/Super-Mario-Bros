@@ -20,6 +20,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             moveTimer = 5;
             moveSpeed = 17;
         }
+        public override void UseAbility() { }
         public override void UpdateMovement()
         {
             //player.Position = new Vector2(player.Position.X, player.Position.Y - moveSpeed);

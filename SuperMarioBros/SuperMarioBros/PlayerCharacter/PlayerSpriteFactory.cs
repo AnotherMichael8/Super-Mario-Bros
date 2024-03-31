@@ -116,6 +116,9 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new FireballSprite(playerTexture);
         }
-        
+        public IPlayerSprite CreateWonderOrbSprite()
+        {
+            return new WonderOrbPlayerSprite(playerTexture);
+        }
     }
 }

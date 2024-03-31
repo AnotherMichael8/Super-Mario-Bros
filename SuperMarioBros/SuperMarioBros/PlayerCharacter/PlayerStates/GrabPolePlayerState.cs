@@ -14,5 +14,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             Speed = 0;
             JumpingSpeed = 0;
         }
+        public override void UseAbility() { }
     }
 }

@@ -37,6 +37,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             base.PowerUpFlower();
             player.State = new LeftFlowerPowerUpAnimationState(player, this);
         }
+        public override void Hop()
+        {
+            player.State = new LeftMoveJumpingPlayerState(player, 40);
+        }
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;

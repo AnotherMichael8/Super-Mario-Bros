@@ -17,7 +17,7 @@ namespace SuperMarioBros.Collectibles
     {
         public static List<ICollectibles> Collectibles = new List<ICollectibles>();
         protected ICollectiblesSprite sprite;
-        private Vector2 Position;
+        protected Vector2 Position;
         protected int horizMovementFactor;
         protected int verticalMovementFactor;
         private double trueXPosition;

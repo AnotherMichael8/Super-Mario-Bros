@@ -1,23 +1,24 @@
-﻿using System;
+﻿using SuperMarioBros.Collision;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
-    public class WonderFlower : AbstractCollectibles
+    public class WonderSeed : AbstractCollectibles
     {
         public override int SpawnDist { get; } = 16;
         private int floatingFactor;
         private int currentVerticalMovementFactor;
         private int counter;
         private bool animationPlaying;
-        public WonderFlower(Vector2 position) : base(position)
+        public WonderSeed(Vector2 position) : base(position)
         {
-            sprite = CollectiblesSpriteFactory.Instance.CreateWonderFlowerSprite();
+            sprite = CollectiblesSpriteFactory.Instance.CreateWonderSeedSprite();
             horizMovementFactor = 0;
             verticalMovementFactor = (int)(10 * Globals.ScreenSizeMulti);
             floatingFactor = (int)(1 * Globals.ScreenSizeMulti);
@@ -53,10 +54,8 @@ namespace SuperMarioBros.Collectibles.Collectibles
                 if (counter >= 180)
                 {
                     Collectibles.Remove(this);
-                    WonderSeed seed = new WonderSeed(Position);
-                    Collectibles.Add(seed);
-                    CollisionManager.GameObjectList.Add(seed);
-                }           
+
+                }
             }
             counter++;
         }
