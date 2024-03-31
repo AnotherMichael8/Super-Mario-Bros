@@ -36,6 +36,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void PowerUpMushroom();
         public void PowerUpFlower();
         public void PowerUpStar();
+        public void TriggerWonderState(Vector2 wonderPosition);
         public void UseAbility();
         public Rectangle GetRectanglePosition();
         public void SetDecorator(IPlayer player);

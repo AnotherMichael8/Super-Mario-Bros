@@ -12,7 +12,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         private int fallingSpeed;
         private bool noRight;
-        public LeftMoveJumpingPlayerState(Player player, int jumpingSpeed) : base(player)
+        public LeftMoveJumpingPlayerState(Player player, double jumpingSpeed) : base(player)
         {
             JumpingSpeed = jumpingSpeed;
             Initialize();
@@ -20,7 +20,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public LeftMoveJumpingPlayerState(Player player) : base(player)
         {
             Initialize();
-            int speed = Speed;
+            double speed = Speed;
             if (speed > -16)
                 speed = -16;
             JumpingSpeed = (int)(164 + (24 / (speed / 16.0)));

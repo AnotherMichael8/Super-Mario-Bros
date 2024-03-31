@@ -25,6 +25,7 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
         public void Jump();
         public void Hop();
         public void Crouch();
+        public void TriggerWonderState(Vector2 wonderPosition);
         public void PowerUpMushroom();
         public void PowerUpFlower();
         public void PowerUpStar();

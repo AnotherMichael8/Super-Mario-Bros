@@ -114,6 +114,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             decoratedPlayer.UseAbility();
         }
+        public void TriggerWonderState(Vector2 wonderPosition)
+        {
+            decoratedPlayer.TriggerWonderState(wonderPosition);
+        }
         public void SetDecorator(IPlayer decoLink)
         {
             decoratedPlayer.SetDecorator(decoLink);

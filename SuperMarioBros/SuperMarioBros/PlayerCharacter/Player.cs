@@ -118,6 +118,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             new CollectStar(game).Execute();
         }
+        public void TriggerWonderState(Vector2 wonderPosition)
+        {
+            State.TriggerWonderState(wonderPosition);
+        }
         public void UseAbility()
         {
             State.UseAbility();

@@ -21,6 +21,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             moveSpeed = 17;
         }
         public override void UseAbility() { }
+        public override void TriggerWonderState(Vector2 wonderPosition) { }
         public override void UpdateMovement()
         {
             //player.Position = new Vector2(player.Position.X, player.Position.Y - moveSpeed);

@@ -1,6 +1,7 @@
 ﻿using SuperMarioBros.Collectibles;
 using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.PlayerCharacter;
+using Microsoft.Xna.Framework;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,13 +36,10 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             {
                 player.PowerUpStar();
             }
-            /*
-            else if(collectible is Coin)
+            else if(collectible is WonderFlower)
             {
-                AddCoin
+                player.TriggerWonderState(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
             }
-
-            */
         }
     }
 }

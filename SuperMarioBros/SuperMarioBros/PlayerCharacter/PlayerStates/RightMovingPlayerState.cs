@@ -12,7 +12,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         private bool stop;
 
-        public RightMovingPlayerState(Player player, int speed = 20) : base(player)
+        public RightMovingPlayerState(Player player, double speed = 20) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightMovingPlayerSprite();
             if (speed < 0)

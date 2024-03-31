@@ -11,7 +11,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class RightFallingPlayerState : AbstractPlayerState, IRightFacing
     {
         private int fallingSpeed;
-        public RightFallingPlayerState(Player player, int jumpingSpeed = 16) : base(player)
+        public RightFallingPlayerState(Player player, double jumpingSpeed = 16) : base(player)
         {
             JumpingSpeed = jumpingSpeed;
             fallingSpeed = 8;

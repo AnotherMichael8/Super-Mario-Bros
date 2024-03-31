@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SuperMarioBros.PlayerCharacter.Interfaces.PowerUp;
+using static SuperMarioBros.PlayerCharacter.Interfaces.PowerUp; 
 
 namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 {
@@ -15,12 +15,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
     {
         public WonderOrbPlayerSprite(Texture2D texture, PowerUps powerUp) : base(texture, powerUp)
         {
-            sourceRectangle = new Rectangle(192, 185, 16, 16);
+            sourceRectangle = new Rectangle(208, 196, 16, 16);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color[] color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize/2, (int)Globals.BlockSize/2);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0), SpriteEffects.None, 0f);
         }
     }

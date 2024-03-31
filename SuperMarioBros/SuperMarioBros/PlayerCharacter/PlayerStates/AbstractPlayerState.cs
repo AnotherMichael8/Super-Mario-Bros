@@ -57,6 +57,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.State = new EnterPipePlayerState(player, pipe);
         }
+        public virtual void TriggerWonderState(Vector2 wonderPosition)
+        {
+            player.State = new WonderOrbPlayerState(player, wonderPosition);
+        }
         public virtual void Kill()
         {
             switch(currentPowerUp)
@@ -109,7 +113,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             trueXPosition = player.Position.X + (Speed / 16.0) * Globals.ScreenSizeMulti;
             trueYPosition = player.Position.Y - (JumpingSpeed / 16.0) * Globals.ScreenSizeMulti;
             player.Position = new Vector2((int)trueXPosition, (int)trueYPosition);
-            player.Speed = Speed/16;
+            player.Speed = (int)Speed/16;
             if (invincibleTimer > 0)
                 invincibleTimer--;
             else
