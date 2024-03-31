@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SuperMarioBros.Camera;
 using SuperMarioBros.Collision;
 
 namespace SuperMarioBros.Collectibles.Collectibles
@@ -77,6 +78,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
             sprite = CollectiblesSpriteFactory.Instance.CreateWonderFlowerCollectionAnimation();
             animationPlaying = true;
             counter = 0;
+            CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, null));
         }
     }
 }

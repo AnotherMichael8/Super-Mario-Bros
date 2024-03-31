@@ -18,6 +18,7 @@ namespace SuperMarioBros.Levels
     public class LevelGenerator
     {
         private List<List<IGameObject>> ChunkObjects;
+        private List<IGameObject> WonderBlocks;
         public LevelGenerator()
         {
             ChunkObjects = new List<List<IGameObject>>();
@@ -33,7 +34,6 @@ namespace SuperMarioBros.Levels
                 string fileName = Directory.GetCurrentDirectory();
                 fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/LevelCSV/1-1." + i + ".csv";
                 string[] CSVLine = File.ReadAllLines(fileName);
-                //List<IGameObject> gameObjects = new List<IGameObject>();
                 for(int c = 0; c < CSVLine.Length; c++)
                 {
                     string gameObject = CSVLine[c];
@@ -51,41 +51,73 @@ namespace SuperMarioBros.Levels
                         ChunkObjects[i].Add(CreateCollectibleObject(objDetails, i));
                     }
                 }
-                //ChunkObjects.Add(gameObjects);
             }
         }
-        public void LoadFile(int levelChunk)
+        public void CreateWonderEventFile()
         {
-            foreach (IGameObject gameObject in ChunkObjects[levelChunk])
+            WonderBlocks = new List<IGameObject>();
+            string fileName = Directory.GetCurrentDirectory();
+            fileName = fileName.Substring(0, fileName.Length - 16) + "Levels/SpecialChunksCSV/1-1.Wonder.csv";
+            string[] CSVLine = File.ReadAllLines(fileName);
+            for (int c = 0; c < CSVLine.Length; c++)
             {
-                if(gameObject is IBlock block && gameObject is not GroundBlock)
+                string gameObject = CSVLine[c];
+                string[] objDetails = gameObject.Split(",");
+                if (objDetails[0].Equals("Block"))
+                {
+                    WonderBlocks.Add(CreateBlockObject(objDetails, int.Parse(objDetails[objDetails.Length - 2]), int.Parse(objDetails[objDetails.Length - 1])));
+                }
+                else if (objDetails[0].Equals("Enemy"))
+                {
+                    WonderBlocks.Add(CreateEnemyObjects(objDetails, int.Parse(objDetails[objDetails.Length - 2]), int.Parse(objDetails[objDetails.Length - 1])));
+                }
+                else if (objDetails[0].Equals("Collectible"))
+                {
+                    WonderBlocks.Add(CreateCollectibleObject(objDetails, int.Parse(objDetails[objDetails.Length - 2]), int.Parse(objDetails[objDetails.Length - 1])));
+                }
+            }
+            LoadFile(WonderBlocks);
+        }
+        private void LoadFile(List<IGameObject> file)
+        {
+            foreach (IGameObject gameObject in file)
+            {
+                if (gameObject is IBlock block && gameObject is not GroundBlock)
                 {
                     AbstractBlock.Blocks.Add(block);
                 }
-                if(gameObject is IEnemy enemy)
+                if (gameObject is IEnemy enemy)
                 {
                     AbstractEnemy.Enemies.Add(enemy);
                 }
-                if(gameObject != null && gameObject is not GroundBlock)
+                if (gameObject != null && gameObject is not GroundBlock)
                     CollisionManager.GameObjectList.Add(gameObject);
             }
         }
-        public void UnloadFile(int levelChunk)
+        private void UnloadFile(List<IGameObject> file)
         {
-            foreach (IGameObject gameObject in ChunkObjects[levelChunk])
+            foreach (IGameObject gameObject in file)
             {
                 if (gameObject is IBlock block)
                 {
-                    if(block is not GroundBlock)
+                    if (block is not GroundBlock)
                         AbstractBlock.Blocks.Remove(block);
                 }
-                if(gameObject != null && gameObject is not GroundBlock)
+                if (gameObject != null && gameObject is not GroundBlock)
                     CollisionManager.GameObjectList.Remove(gameObject);
             }
         }
-        private IBlock CreateBlockObject(string[] blockDetails, int levelChunk)
+        public void LoadFileFromChunk(int levelChunk)
         {
-            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
+            LoadFile(ChunkObjects[levelChunk]);
+        }
+        public void UnloadFileFromChunk(int levelChunk)
+        {
+            UnloadFile(ChunkObjects[levelChunk]);
+        }
+        private IBlock CreateBlockObject(string[] blockDetails, int levelChunk, int height = 0)
+        {
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize + height * Globals.ScreenHeight));
             IBlock block = null;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
@@ -140,9 +172,9 @@ namespace SuperMarioBros.Levels
             }
             return block;
         }
-        private ICollectibles CreateCollectibleObject(string[] blockDetails, int levelChunk)
+        private ICollectibles CreateCollectibleObject(string[] blockDetails, int levelChunk, int height = 0)
         {
-            Vector2 position = new Vector2((int)(double.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(double.Parse(blockDetails[3]) * Globals.BlockSize));
+            Vector2 position = new Vector2((int)(double.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(double.Parse(blockDetails[3]) * Globals.BlockSize + height * Globals.ScreenHeight));
             ICollectibles collectible = null;
             if (blockDetails[1].Equals("WonderFlower"))
             {
@@ -173,9 +205,9 @@ namespace SuperMarioBros.Levels
                 return null;
             }
         }
-        private IEnemy CreateEnemyObjects(string[] blockDetails, int levelChunk)
+        private IEnemy CreateEnemyObjects(string[] blockDetails, int levelChunk, int height = 0)
         {
-            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(int.Parse(blockDetails[3]) * Globals.BlockSize));
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(int.Parse(blockDetails[3]) * Globals.BlockSize + height * Globals.ScreenHeight));
             IEnemy enemy = null;
             if (blockDetails[1].Equals("Goomba"))
             {
