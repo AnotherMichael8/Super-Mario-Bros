@@ -92,7 +92,16 @@ namespace SuperMarioBros
             if(MarioPlayer.Position.Y < Globals.ScreenHeight * -3)
             {
                 float yPos = MarioPlayer.Position.Y;
-                color = new Color((int)(0.0322580645 * yPos + 146.45), (int)(0.048064516 * yPos + 218.21), (int)(0.0764516129 * yPos + 347.09));
+                int colorA = (int)(0.0293548387 * yPos + 142.27);
+                int colorB = (int)(0.0451612903 * yPos + 214.03);
+                int colorC = (int)(0.071612903 * yPos + 340.12);
+                if(colorA < 9)
+                    colorA = 9;
+                if(colorB < 9)
+                    colorB = 9;
+                if(colorC < 15)
+                    colorC = 15;
+                color = new Color(colorA, colorB, colorC);
             }
             GraphicsDevice.Clear(color);
             _spriteBatch.Begin(SpriteSortMode.BackToFront);

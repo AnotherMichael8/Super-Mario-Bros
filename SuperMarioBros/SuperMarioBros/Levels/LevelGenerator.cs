@@ -117,7 +117,7 @@ namespace SuperMarioBros.Levels
         }
         private IBlock CreateBlockObject(string[] blockDetails, int levelChunk, int height = 0)
         {
-            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize + height * Globals.ScreenHeight));
+            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk),  (int)(int.Parse(blockDetails[3]) * Globals.BlockSize - height * Globals.ScreenHeight));
             IBlock block = null;
             if (blockDetails[1].Equals("QuestionBlock"))
             {
