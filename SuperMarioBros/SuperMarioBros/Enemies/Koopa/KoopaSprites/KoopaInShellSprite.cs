@@ -21,7 +21,7 @@ namespace SuperMarioBros.Enemies.Koopa.KoopaSprites
         public void Update() {}
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y + 20, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPositionX, (int)position.Y + 20 + CameraController.CameraPositionY, sourceRectangle.Width * 2, sourceRectangle.Height * 2);
 
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0), SpriteEffects.None, 0.1f);
         }

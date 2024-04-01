@@ -34,7 +34,8 @@ namespace SuperMarioBros.Blocks
                 right = true;
             if (left || right)
             {
-                destinationRectangle.X -= (int)Globals.BlockSize + CameraController.CameraPosition;
+                destinationRectangle.X -= (int)Globals.BlockSize + CameraController.CameraPositionX;
+                destinationRectangle.Y += CameraController.CameraPositionY;
                 spriteBatch.Draw(texture, destinationRectangle, VerticalTopLeftPipe, color, 0, new Vector2(0), SpriteEffects.None, .01f);
                 destinationRectangle.X += (int)Globals.BlockSize;
                 spriteBatch.Draw(texture, destinationRectangle, VertcialTopRightPipe, color, 0, new Vector2(0), SpriteEffects.None, .01f);

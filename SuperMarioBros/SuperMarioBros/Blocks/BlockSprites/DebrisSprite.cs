@@ -49,7 +49,8 @@ namespace SuperMarioBros.Blocks
             Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)(16 * Globals.ScreenSizeMulti), (int)(16 * Globals.ScreenSizeMulti));
             if (CameraController.CheckInFrame(destinationRectangle))
             {
-                destinationRectangle.X -= CameraController.CameraPosition;
+                destinationRectangle.X -= CameraController.CameraPositionX;
+                destinationRectangle.Y += CameraController.CameraPositionY;
                 spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), spriteEffect, 0f);
             }
         }

@@ -41,7 +41,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public override void UpdateMovement()
         {
-            JumpingSpeed -= fallingSpeed;
+            if (JumpingSpeed > -300)
+                JumpingSpeed -= fallingSpeed;
             if (player.OnGround)
             {
                 player.State = new LeftIdlePlayerState(player);

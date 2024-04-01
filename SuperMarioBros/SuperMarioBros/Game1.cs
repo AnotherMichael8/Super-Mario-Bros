@@ -14,6 +14,7 @@ using SuperMarioBros.Levels;
 using SuperMarioBros.Collectibles;
 using SuperMarioBros.Camera;
 using SuperMarioBros.Blocks.BlockType;
+using System.Runtime.CompilerServices;
 
 namespace SuperMarioBros
 {
@@ -87,7 +88,13 @@ namespace SuperMarioBros
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            Color color = Color.CornflowerBlue;
+            if(MarioPlayer.Position.Y < Globals.ScreenHeight * -3)
+            {
+                float yPos = MarioPlayer.Position.Y;
+                color = new Color((int)(0.0322580645 * yPos + 146.45), (int)(0.048064516 * yPos + 218.21), (int)(0.0764516129 * yPos + 347.09));
+            }
+            GraphicsDevice.Clear(color);
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
 
             MarioPlayer.Draw(_spriteBatch, null);
@@ -105,17 +112,20 @@ namespace SuperMarioBros
             foreach (IGameObject obj in CollisionManager.GameObjectList)
             {
                 Rectangle objHitBox = obj.GetHitBox();
-                objHitBox.X -= CameraController.CameraPosition;
+                objHitBox.X -= CameraController.CameraPositionX;
+                objHitBox.Y += CameraController.CameraPositionY;
                 _spriteBatch.Draw(_texture, objHitBox, Color.White);
                 if (obj is Pipe pipe && pipe.connectedPipe != null)
                 {
                     objHitBox = pipe.GetEnterPipeHitBox();
-                    objHitBox.X -= CameraController.CameraPosition;
+                    objHitBox.X -= CameraController.CameraPositionX;
+                    objHitBox.Y += CameraController.CameraPositionY;
                     _spriteBatch.Draw(texture2, objHitBox, Color.White);
                 }
             }
             Rectangle playerHitBox = MarioPlayer.GetHitBox();
-            playerHitBox.X -= CameraController.CameraPosition;
+            playerHitBox.X -= CameraController.CameraPositionX;
+            playerHitBox.Y += CameraController.CameraPositionY;
             _spriteBatch.Draw(_texture, playerHitBox, Color.White);
             Rectangle[] warnPlayerRectangles = { new Rectangle(playerHitBox.X, playerHitBox.Y - 9 * (int)(Globals.BlockSize / 32), playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle(playerHitBox.X, playerHitBox.Bottom, playerHitBox.Width, (int)(9 * Globals.BlockSize / 32)), new Rectangle((int)(playerHitBox.X - 9 * (Globals.BlockSize / 32)), playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height), new Rectangle(playerHitBox.Right, playerHitBox.Y, (int)(9 * (Globals.BlockSize / 32)), playerHitBox.Height) };
             foreach (Rectangle rectangle in warnPlayerRectangles)

@@ -74,9 +74,9 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize + 4, (int)Globals.BlockSize + 4);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPositionX, (int)position.Y + CameraController.CameraPositionY, (int)Globals.BlockSize + 4, (int)Globals.BlockSize + 4);
             Vector2 origin = new Vector2(destinationRectangle.Width / 2, destinationRectangle.Height / 2);
-            Rectangle auraDestinationRectangle = new Rectangle((int)(position.X - CameraController.CameraPosition + 18 * Globals.ScreenSizeMulti), (int)(position.Y + 20 * Globals.ScreenSizeMulti), (int)(36 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1), (int)(34 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1));
+            Rectangle auraDestinationRectangle = new Rectangle((int)(position.X - CameraController.CameraPositionX + 18 * Globals.ScreenSizeMulti), (int)(position.Y + 20 * Globals.ScreenSizeMulti) + CameraController.CameraPositionY, (int)(36 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1), (int)(34 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1));
             spriteBatch.Draw(texture, auraDestinationRectangle, sourceRectangle, auraColor * opacity, rotation, origin, SpriteEffects.None, 0f);
         }
     }

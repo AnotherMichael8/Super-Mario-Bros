@@ -20,7 +20,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerSprites
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color[] color)
         {
-            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPosition, (int)position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPositionX, (int)position.Y + CameraController.CameraPositionY, (int)Globals.BlockSize, (int)Globals.BlockSize);
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0), SpriteEffects.None, 0f);
         }
     }

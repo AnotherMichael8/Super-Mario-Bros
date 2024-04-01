@@ -45,7 +45,8 @@ namespace SuperMarioBros.Blocks.BlockSprites
             destinationRectangle.X = (int)position.X;
             if (inFrame)
             {
-                destinationRectangle.X -= CameraController.CameraPosition;
+                destinationRectangle.X -= CameraController.CameraPositionX;
+                destinationRectangle.Y += CameraController.CameraPositionY;
                 if (onLeft)
                 {
                     spriteBatch.Draw(texture, destinationRectangle, HorizontalTopLeftPipe, color, 0, new Vector2(0), spriteEffect, .01f);

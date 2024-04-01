@@ -10,13 +10,15 @@ namespace SuperMarioBros.Camera
     public class CameraController
     {
         private IPlayer player;
-        public static int CameraPosition { get; private set; } = 0;
+        public static int CameraPositionX { get; private set; } = 0;
+        public static int CameraPositionY { get; private set; } = 0;
         private int currentChunck;
         private HashSet<int> chuncksLoaded;
         private LevelGenerator levelGenerator;
         private const int NUMBER_CHUNKS = 13;
         public static List<Tuple<IGameObject, IGameObject>> UpdateObjectQueue;
         private bool wonderingInProcess;
+        private bool wonderEvent;
         private int counter;
         public CameraController(IPlayer player)
         {
@@ -25,6 +27,7 @@ namespace SuperMarioBros.Camera
             levelGenerator = new LevelGenerator();
             UpdateObjectQueue = new List<Tuple<IGameObject, IGameObject>>();
             wonderingInProcess = false;
+            wonderEvent = false;
             counter = 0;
         }
         public void Update()
@@ -32,15 +35,25 @@ namespace SuperMarioBros.Camera
             int previousChunk = currentChunck;
             if (!wonderingInProcess)
             {
-                if (player.Position.X - CameraPosition > Globals.ScreenWidth / 2)
+                if (player.Position.X - CameraPositionX > Globals.ScreenWidth / 2)
                 {
-                    CameraPosition += (int)(player.Position.X - CameraPosition - Globals.ScreenWidth / 2);
+                    CameraPositionX += (int)(player.Position.X - CameraPositionX - Globals.ScreenWidth / 2);
                 }
-                else if (player.Position.X - CameraPosition < Globals.ScreenWidth / 3 && CameraPosition > 0)
+                else if (player.Position.X - CameraPositionX < Globals.ScreenWidth / 3 && CameraPositionX > 0)
                 {
-                    CameraPosition += (int)(player.Position.X - CameraPosition - Globals.ScreenWidth / 3);
-                    if (CameraPosition < 0)
-                        CameraPosition = 0;
+                    CameraPositionX += (int)(player.Position.X - CameraPositionX - Globals.ScreenWidth / 3);
+                    if (CameraPositionX < 0)
+                        CameraPositionX = 0;
+                }
+                if(wonderEvent && player.Position.Y + CameraPositionY < Globals.ScreenHeight / 2)
+                {
+                    CameraPositionY += (int)(Globals.ScreenHeight / 2 - player.Position.Y - CameraPositionY);
+                }    
+                else if (wonderEvent && player.Position.Y + CameraPositionY > Globals.ScreenHeight / 2 && CameraPositionY > 0)
+                {
+                    CameraPositionY += (int)(Globals.ScreenHeight / 2 - player.Position.Y - CameraPositionY);
+                    if (CameraPositionY < 0)
+                        CameraPositionY = 0;
                 }
             }
             else
@@ -49,6 +62,7 @@ namespace SuperMarioBros.Camera
                 {
                     levelGenerator.CreateWonderEventFile();
                     wonderingInProcess = false;
+                    wonderEvent = true;
                 }
                 counter++;
             }
@@ -116,13 +130,13 @@ namespace SuperMarioBros.Camera
         }
         public static bool CheckInFrame(Rectangle position)
         {
-            return !(position.Right < CameraPosition || position.Left > CameraPosition + Globals.ScreenWidth);
+            return !(position.Right < CameraPositionX || position.Left > CameraPositionX + Globals.ScreenWidth);
         }
         public void BeginWonderEvent(WonderFlower flower)
         {
             wonderingInProcess = true;
             Rectangle hitBox = flower.GetBlockHitBox();
-            CameraPosition = hitBox.X + hitBox.Width/2 - Globals.ScreenWidth/2;
+            CameraPositionX = hitBox.X + hitBox.Width/2 - Globals.ScreenWidth/2;
         }
     }
 }
