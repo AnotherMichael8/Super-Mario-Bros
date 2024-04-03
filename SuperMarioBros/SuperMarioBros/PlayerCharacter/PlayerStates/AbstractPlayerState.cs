@@ -103,8 +103,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                     fireball = new Fireball(player, -1);
                 else
                     fireball = new Fireball(player, 1);
-                Player.Abilities.Add(fireball);
-                CollisionManager.GameObjectList.Add(fireball);
             }
         }
         public virtual void Update()

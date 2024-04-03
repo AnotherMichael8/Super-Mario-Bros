@@ -142,9 +142,8 @@ namespace SuperMarioBros.PlayerCharacter
             Position = new Vector2(Position.X, Position.Y + 1);
             Sprite.Update(Math.Abs(Speed));
             chunk = (int)(Position.X / Globals.ScreenWidth);
-            foreach(IPowerUpAbility ability in Abilities)
-                ability.Update();
-
+            for (int i = 0; i < Abilities.Count; i++)
+                Abilities[i].Update();
         }
         public void Draw(SpriteBatch spriteBatch, Color[] color)
         {

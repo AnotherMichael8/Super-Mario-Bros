@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Collision;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros.PlayerCharacter.PowerUpAbilites
 {
@@ -17,17 +18,24 @@ namespace SuperMarioBros.PlayerCharacter.PowerUpAbilites
         private int startVerticalMovement = 71;
         private int direction;
         public int chunk { get; private set; }
+        private static int numFireballs = 0;
 
         public Fireball(Player player, int direction) 
-        { 
-            if(direction == -1)
-                positionX = player.Position.X - Globals.BlockSize/2;
-            else
-                positionX = player.Position.X + Globals.BlockSize;
-            positionY = player.Position.Y + 9 * 2 * Globals.ScreenSizeMulti;
-            verticalMovementFactor = -54;
-            sprite = PlayerSpriteFactory.Instance.CreateFireballSprite();
-            this.direction = direction;
+        {
+            if (numFireballs < 2)
+            {
+                if (direction == -1)
+                    positionX = player.Position.X - Globals.BlockSize / 2;
+                else
+                    positionX = player.Position.X + Globals.BlockSize;
+                positionY = player.Position.Y + 9 * 2 * Globals.ScreenSizeMulti;
+                verticalMovementFactor = -54;
+                sprite = PlayerSpriteFactory.Instance.CreateFireballSprite();
+                this.direction = direction;
+                Player.Abilities.Add(this);
+                CollisionManager.GameObjectList.Add(this);
+                numFireballs++;
+            }
         }
         public void Bounce()
         {
@@ -38,6 +46,7 @@ namespace SuperMarioBros.PlayerCharacter.PowerUpAbilites
         {
             Player.Abilities.Remove(this);
             CollisionManager.GameObjectList.Remove(this);
+            numFireballs--;
         }
         public void Update()
         {
@@ -48,6 +57,8 @@ namespace SuperMarioBros.PlayerCharacter.PowerUpAbilites
             sprite.Update();
             position.X = (int)positionX;
             position.Y = (int)positionY;
+            if (!CameraController.CheckInFrame(GetHitBox()))
+                Explode();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
