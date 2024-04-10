@@ -46,7 +46,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             }
             else if(counter == 180)
             {
-                player.State = new RightIdlePlayerState(player);
+                player.State = new WonderRightIdlePlayerState(player);
             }
             player.Position = new Vector2((int)trueXPosition, (int)(trueYPosition + 16));
             counter++;

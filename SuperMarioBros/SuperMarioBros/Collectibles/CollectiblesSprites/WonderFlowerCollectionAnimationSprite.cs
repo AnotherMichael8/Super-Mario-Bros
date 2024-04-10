@@ -35,7 +35,7 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
             counter++;
             if (counter >= 120)
             {
-                dilation += 6;
+                dilation += 10;
                 opacityChanger = 0.00966f;
             }
             else if (counter >= 90)
