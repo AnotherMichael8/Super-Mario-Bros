@@ -2,3 +2,4 @@
 Block,BreakableBrickBlock,14,9,NONE
 Block,QuestionBlock,15,9,POWERUP
 Block,BreakableBrickBlock,16,9,NONE
+Block,InvisibleBlock,1,8,1UP

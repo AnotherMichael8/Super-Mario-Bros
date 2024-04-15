@@ -3,3 +3,7 @@ Block,BreakableBrickBlock,7,9,NONE
 Block,BreakableBrickBlock,10,5,NONE
 Block,BreakableBrickBlock,11,5,NONE
 Block,BreakableBrickBlock,12,5,NONE
+Enemy,Goomba,3,12
+Enemy,Goomba,4.5,12
+Enemy,Goomba,13,12
+Enemy,Goomba,14.5,12

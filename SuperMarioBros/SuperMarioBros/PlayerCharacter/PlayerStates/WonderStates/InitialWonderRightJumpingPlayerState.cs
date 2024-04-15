@@ -1,4 +1,5 @@
 ﻿using SuperMarioBros.PlayerCharacter.Interfaces;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,34 +8,25 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class RightFacingLeftMoveJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState, IRightFacing
+    public class InitialWonderRightJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState, IRightFacing
     {
         private int fallingSpeed;
-        private int leftBarrier;
-        public RightFacingLeftMoveJumpingPlayerState(Player player, int jumpingSpeed, bool noLeft = false) : base(player)
+        public InitialWonderRightJumpingPlayerState(Player player, double jumpingSpeed = 840) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
-            if(noLeft)
-                leftBarrier = 0;
-            else
-                leftBarrier = -48;
+            player.OnGround = false;
         }
         public override void MoveLeft()
         {
-            if (Speed > leftBarrier && !player.OnGround)
-                Speed -= 16;
-            else if(player.OnGround)
-                player.State = new LeftMovingPlayerState(player, Speed);
+            //player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed);
+            //player.State = new LeftMoveJumpingPlayerState(player, JumpingSpeed);
         }
+
         public override void MoveRight()
         {
-            Speed += 4;
-        }
-        public override void StopJumping()
-        {
-            fallingSpeed = 8;
+            //player.State = new RightMoveJumpingPlayerState(player, JumpingSpeed);
         }
         public override void PowerUpMushroom()
         {
@@ -49,13 +41,13 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
-            if (JumpingSpeed <= 16)
+            if(JumpingSpeed <= 16)
             {
-                StopJumping();
+                player.State = new RightFallingPlayerState(player, JumpingSpeed);
             }
-            if (player.OnGround)
+            if(player.OnGround)
             {
-                player.State = new RightSlidingPlayerState(player); ;
+                player.State = new RightIdlePlayerState(player);
             }
         }
     }

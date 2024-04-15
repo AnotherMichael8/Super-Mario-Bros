@@ -15,7 +15,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
-            fallingSpeed = 3;
+            if (WonderTime)
+                fallingSpeed = 1;
+            else
+                fallingSpeed = 3;
             player.OnGround = false;
         }
         public override void MoveLeft()
@@ -30,7 +33,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public override void StopJumping()
         {
-            fallingSpeed = 8;
+            if (WonderTime)
+                fallingSpeed = 4;
+            else
+                fallingSpeed = 8;
         }
         public override void PowerUpMushroom()
         {

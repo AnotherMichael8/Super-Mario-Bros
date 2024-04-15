@@ -16,7 +16,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
         }
         public void Kill()
         {
-
+            goomba.State = new GoombaDeathState(goomba);
         }
         public void MoveLeft()
         {

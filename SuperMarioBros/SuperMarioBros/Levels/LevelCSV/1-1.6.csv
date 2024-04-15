@@ -3,4 +3,5 @@ Block,BreakableBrickBlock,6,9,STAR
 Block,QuestionBlock,11,9,COIN
 Block,QuestionBlock,14,9,COIN
 Block,QuestionBlock,14,5,POWERUP
-Enemy,Goomba,14,12
+Enemy,Goomba,2,12
+Enemy,Goomba,3.5,12

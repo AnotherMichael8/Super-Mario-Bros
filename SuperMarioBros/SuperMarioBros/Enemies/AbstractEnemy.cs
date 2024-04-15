@@ -17,9 +17,11 @@ namespace SuperMarioBros.Enemies
         public IEnemyState State { get; set; }
         public IEnemySprite Sprite { get; set; }
         public bool IsDead { get; protected set; }
+        public bool IsFalling { get; set; }
         public int chunk { get; private set; }
         public double truePositionX { get; set; }
         public double truePositionY { get; set; }
+        private double verticalMovementFactor;
 
         public AbstractEnemy(Vector2 position)
         {
@@ -30,6 +32,7 @@ namespace SuperMarioBros.Enemies
             chunk = (int)(Position.X / Globals.ScreenWidth);
             truePositionX = position.X;
             truePositionY = position.Y;
+            verticalMovementFactor = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -41,7 +44,18 @@ namespace SuperMarioBros.Enemies
         {
             if (CameraController.CheckInFrame(new Rectangle((int)Position.X, (int)Position.Y, GetWidth(), 1)))
             {
-                Position = new Vector2(Position.X, Position.Y + 1);
+                if (!IsFalling)
+                {
+                    Position = new Vector2(Position.X, Position.Y + 1);
+                    verticalMovementFactor = 0;
+                }
+                else if (IsFalling)
+                {
+                    verticalMovementFactor += (int)(3 * Globals.ScreenSizeMulti);
+                    truePositionY += verticalMovementFactor / 16.0;
+                    Position = new Vector2(Position.X, (int)truePositionY);
+                }
+                
                 chunk = (int)(Position.X / Globals.ScreenWidth);
                 Sprite.Update();
                 State.Update();

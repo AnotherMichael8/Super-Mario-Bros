@@ -13,6 +13,7 @@ namespace SuperMarioBros.Enemies
     {
         public Vector2 Position { get; set; }
         public bool IsDead { get; }
+        public bool IsFalling { get; set; }
         public IEnemyState State { get; set; }
         public IEnemySprite Sprite { get; set; }
         public void MoveLeft();

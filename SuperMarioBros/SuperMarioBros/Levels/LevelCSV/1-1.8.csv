@@ -12,5 +12,7 @@ Block,DiamondBlock,13,9,4
 Block,DiamondBlock,14,10,3
 Block,DiamondBlock,15,11,2
 Block,DiamondBlock,16,12,1
+Enemy,Goomba,1,12
+Enemy,Goomba,2.5,12
 
 

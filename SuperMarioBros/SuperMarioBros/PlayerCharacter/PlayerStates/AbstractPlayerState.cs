@@ -5,6 +5,7 @@ using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.Collision;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
+using SuperMarioBros.PlayerCharacter.PlayerStates.WonderStates;
 using SuperMarioBros.PlayerCharacter.PowerUpAbilites;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public static double Speed { get;  set; } = 0;
         protected Player player;
         private static int invincibleTimer = 0;
+        protected static bool WonderTime = false;
 
         public AbstractPlayerState(Player player)
         {

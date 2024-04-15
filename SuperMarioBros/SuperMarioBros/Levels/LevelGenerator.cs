@@ -12,6 +12,7 @@ using SuperMarioBros.Enemies.Koopa;
 using SuperMarioBros.Collision.SideCollisionHandlers;
 using System.Linq;
 using System.ComponentModel;
+using SuperMarioBros.Events;
 
 namespace SuperMarioBros.Levels
 {
@@ -77,6 +78,7 @@ namespace SuperMarioBros.Levels
                 }
             }
             LoadFile(WonderBlocks);
+            AbstractEvent.Events.Add(new WonderLevel1Event());
         }
         private void LoadFile(List<IGameObject> file)
         {
@@ -102,6 +104,10 @@ namespace SuperMarioBros.Levels
                 {
                     if (block is not GroundBlock)
                         AbstractBlock.Blocks.Remove(block);
+                }
+                else if (gameObject is IEnemy enemy)
+                {
+                    AbstractEnemy.Enemies.Remove(enemy);
                 }
                 if (gameObject != null && gameObject is not GroundBlock)
                     CollisionManager.GameObjectList.Remove(gameObject);
@@ -170,6 +176,14 @@ namespace SuperMarioBros.Levels
             {
                 block = new CoinBox(position);
             }
+            else if (blockDetails[1].Equals("Asteroid"))
+            {
+                block = new AsteroidBlock(position, new Vector2(1,0));
+            }
+            else if (blockDetails[1].Equals("PassThroughBlock"))
+            {
+                block = new PassThroughFloorBlock(position, int.Parse(blockDetails[4]));
+            }
             return block;
         }
         private ICollectibles CreateCollectibleObject(string[] blockDetails, int levelChunk, int height = 0)
@@ -207,7 +221,7 @@ namespace SuperMarioBros.Levels
         }
         private IEnemy CreateEnemyObjects(string[] blockDetails, int levelChunk, int height = 0)
         {
-            Vector2 position = new Vector2((int)(int.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(int.Parse(blockDetails[3]) * Globals.BlockSize + height * Globals.ScreenHeight));
+            Vector2 position = new Vector2((int)(double.Parse(blockDetails[2]) * Globals.BlockSize + Globals.ScreenWidth * levelChunk), (int)(double.Parse(blockDetails[3]) * Globals.BlockSize + height * Globals.ScreenHeight));
             IEnemy enemy = null;
             if (blockDetails[1].Equals("Goomba"))
             {

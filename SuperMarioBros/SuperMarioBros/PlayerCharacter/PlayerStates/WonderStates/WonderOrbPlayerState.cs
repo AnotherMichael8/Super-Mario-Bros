@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.Design;
 
-namespace SuperMarioBros.PlayerCharacter.PlayerStates
+namespace SuperMarioBros.PlayerCharacter.PlayerStates.WonderStates
 {
     public class WonderOrbPlayerState : AbstractPlayerState
     {
@@ -46,7 +46,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             }
             else if(counter == 180)
             {
-                player.State = new WonderRightIdlePlayerState(player);
+                player.State = new InitialWonderRightIdlePlayerState(player);
+                WonderTime = true;
             }
             player.Position = new Vector2((int)trueXPosition, (int)(trueYPosition + 16));
             counter++;

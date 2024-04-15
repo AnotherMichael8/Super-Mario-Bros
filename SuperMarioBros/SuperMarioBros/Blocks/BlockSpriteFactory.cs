@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks.BlockSprites;
+using SuperMarioBros.Blocks.BlockType;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerSprites;
 using System;
@@ -54,6 +55,14 @@ namespace SuperMarioBros.Blocks
         public GroundBlockSprite CreateGroundBlockSprite()
         {
             return new GroundBlockSprite(blockTexture);
+        }
+        public AsteroidBlockSprite CreateAsteroidSprite()
+        {
+            return new AsteroidBlockSprite(blockTexture);
+        }
+        public PassThroughFloorBlockSprite CreatePassThroughFloorBlockSprite()
+        {
+            return new PassThroughFloorBlockSprite(blockTexture);
         }
     }
 }

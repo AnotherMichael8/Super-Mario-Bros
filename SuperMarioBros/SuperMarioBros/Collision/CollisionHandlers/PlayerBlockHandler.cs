@@ -19,12 +19,15 @@ namespace SuperMarioBros.Collision
                 if (player.State is not IJumpingPlayerState)
                 {
                     Rectangle playerHitBox = player.GetHitBox();
-                    player.Position = new Vector2(player.Position.X, player.Position.Y + (blockHitBox.Top - playerHitBox.Bottom));
+                    if (block is AsteroidBlock asteroid)
+                        player.Position = new Vector2((int)(player.Position.X + asteroid.HorzSpeed), player.Position.Y + (blockHitBox.Top - playerHitBox.Bottom));
+                    else
+                        player.Position = new Vector2(player.Position.X, player.Position.Y + (blockHitBox.Top - playerHitBox.Bottom));
                     player.OnGround = true;
                     IsFalling = false;
                 }
             }
-            else if (side is BottomCollision)
+            else if (side is BottomCollision && block is not PassThroughFloorBlock)
             {
                 if (player.State is IJumpingPlayerState)
                 {
@@ -32,13 +35,13 @@ namespace SuperMarioBros.Collision
                     player.StopUpwardMovement();
                 }
             }
-            else if (side is LeftCollision && block is not InvisibleBlock)
+            else if (side is LeftCollision && block is not InvisibleBlock && block is not PassThroughFloorBlock)
             {
                 player.Position = new Vector2((int)(blockHitBox.Left - Globals.BlockSize), player.Position.Y + 1);
                 if (AbstractPlayerState.Speed > 1)
                     AbstractPlayerState.Speed -= 3;
             }
-            else if (side is RightCollision && block is not InvisibleBlock)
+            else if (side is RightCollision && block is not InvisibleBlock && block is not PassThroughFloorBlock)
             {
                 player.Position = new Vector2(blockHitBox.Right, player.Position.Y + 1);
                 if (AbstractPlayerState.Speed < -1)

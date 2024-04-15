@@ -10,12 +10,15 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
     public class LeftJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState, ILeftFacing
     {
-        private int fallingSpeed;
+        private double fallingSpeed;
         public LeftJumpingPlayerState(Player player, double jumpingSpeed = 140) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
-            fallingSpeed = 3;
+            if (WonderTime)
+                fallingSpeed = 1;
+            else
+                fallingSpeed = 3;
             player.OnGround = false;
             if (player.Position.Y < Globals.ScreenHeight - (int)(3 * Globals.BlockSize))
             {
@@ -37,7 +40,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public override void StopJumping()
         {
-            fallingSpeed = 8;
+            if (WonderTime)
+                fallingSpeed = 4;
+            else
+                fallingSpeed = 8;
         }
         public override void PowerUpMushroom()
         {

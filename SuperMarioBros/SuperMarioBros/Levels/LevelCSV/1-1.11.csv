@@ -8,5 +8,6 @@ Block,DiamondBlock,11,7,6
 Block,DiamondBlock,12,6,7
 Block,DiamondBlock,13,5,8
 Block,DiamondBlock,14,5,8
+Enemy,Goomba,0.5,12
 
 

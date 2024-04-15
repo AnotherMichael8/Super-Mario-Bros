@@ -15,6 +15,7 @@ using SuperMarioBros.Collectibles;
 using SuperMarioBros.Camera;
 using SuperMarioBros.Blocks.BlockType;
 using System.Runtime.CompilerServices;
+using SuperMarioBros.Events;
 
 namespace SuperMarioBros
 {
@@ -83,6 +84,7 @@ namespace SuperMarioBros
             Controller.Update(gameTime);
             collisionManager.Update();
             camera.Update();
+            AbstractEvent.UpdateAllEvents();
             base.Update(gameTime);
         }
 
@@ -108,7 +110,6 @@ namespace SuperMarioBros
 
             MarioPlayer.Draw(_spriteBatch, null);
             AbstractEnemy.DrawAllEnemies(_spriteBatch);
-            //goomba.Draw(_spriteBatch);
             AbstractBlock.DrawAllBlocks(_spriteBatch,Color.White);
             AbstractCollectibles.DrawAllSprites(_spriteBatch,Color.White);
             //DrawCollisionBox();

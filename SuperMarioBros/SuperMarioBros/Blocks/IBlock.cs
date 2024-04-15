@@ -12,6 +12,7 @@ namespace SuperMarioBros.Blocks
     public interface IBlock : IGameObject
     {
         public Vector2 Position { get; set; }
+        public bool Bumped { get; }
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color color);
         public void Bump(PowerUp.PowerUps powerUp);

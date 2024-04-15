@@ -12,3 +12,5 @@ Block,BreakableBrickBlock,13,5,NONE
 Block,BreakableBrickBlock,14,5,NONE
 Block,CoinBox,15,9,
 Block,QuestionBlock,15,5,COIN
+Enemy,Goomba,1,4
+Enemy,Goomba,3,4

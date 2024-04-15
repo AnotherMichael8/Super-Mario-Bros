@@ -23,14 +23,19 @@ namespace SuperMarioBros.Blocks
         public static List<IBlock> Blocks = new List<IBlock>();
         public static List<IBlock> ChangedBlocks = new List<IBlock>();
         protected static int tempAnimateCounter;
+        public bool Bumped { get; protected set; }
         public int chunk { get; private set; }
         public AbstractBlock(Vector2 position)
         {
             Position = position;
             chunk = (int)(position.X / Globals.ScreenWidth);
+            Bumped = false;
         }
         public virtual void Bump(PowerUps powerUp) { }
-        public virtual void Update() { }
+        public virtual void Update() 
+        {
+            chunk = (int)(Position.X / Globals.ScreenWidth);
+        }
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
             sprite.Draw(spriteBatch, sourceRectangle, Position, color);

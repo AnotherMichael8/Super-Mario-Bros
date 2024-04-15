@@ -40,11 +40,13 @@ namespace SuperMarioBros.Blocks.BlockType
                 }
                 bumpCounter--;
                 noBump = true;
+                Bumped = false;
             }
         }
         public override void Bump(PowerUps powerUp)
         {
             bumpCounter = 5;
+            Bumped = true;
         }
     }
 }

@@ -13,7 +13,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public RightMoveFallingPlayerState(Player player, double jumpingSpeed = 16) : base(player)
         {
             JumpingSpeed = jumpingSpeed;
-            fallingSpeed = 8;
+            if (WonderTime)
+                fallingSpeed = 4;
+            else
+                fallingSpeed = 8;
             player.OnGround = false;
         }
         public override void MoveLeft()

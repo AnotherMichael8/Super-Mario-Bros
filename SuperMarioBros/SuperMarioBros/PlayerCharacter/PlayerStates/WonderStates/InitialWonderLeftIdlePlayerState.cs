@@ -1,19 +1,18 @@
 ﻿using SuperMarioBros.PlayerCharacter.Interfaces;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperMarioBros.PlayerCharacter.PlayerStates
+namespace SuperMarioBros.PlayerCharacter.PlayerStates.WonderStates
 {
-    public class WonderRightIdlePlayerState : AbstractPlayerState, IRightFacing
+    public class InitialWonderLeftIdlePlayerState: AbstractPlayerState, ILeftFacing
     {
         private int decelerationRate;
-        public WonderRightIdlePlayerState(Player player) : base(player)
+        public InitialWonderLeftIdlePlayerState(Player player) : base(player)
         {
-            player.Sprite = PlayerSpriteFactory.Instance.CreateRightIdlePlayerSprite();
+            player.Sprite = PlayerSpriteFactory.Instance.CreateLeftIdlePlayerSprite();
             decelerationRate = 0;
             Speed = 0;
             JumpingSpeed = 0;
@@ -21,17 +20,17 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
 
         public override void MoveLeft()
         {
-            player.State = new LeftMovingPlayerState(player);
+            player.State = new InitialWonderLeftMovingPlayerState(player);
         }
 
         public override void MoveRight()
         {
-            player.State = new RightMovingPlayerState(player);
+            player.State = new InitialWonderRightMovingPlayerState(player);
         }
 
         public override void Jump()
         {
-            player.State = new RightJumpingPlayerState(player, 840);
+            player.State = new InitialWonderLeftJumpingPlayerState(player);
         }
         public override void Fall()
         {
@@ -39,17 +38,17 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         }
         public override void Crouch()
         {
-            player.State = new RightCrouchingPlayerState(player);
+            //player.State = new LeftCrouchingPlayerState(player);
         }
         public override void PowerUpMushroom()
         {
             base.PowerUpMushroom();
-            player.State = new RightMushroomPowerUpAnimationState(player, this);
+            player.State = new LeftMushroomPowerUpAnimationState(player, this);
         }
         public override void PowerUpFlower()
         {
             base.PowerUpFlower();
-            player.State = new RightFlowerPowerUpAnimationState(player, this);
+            player.State = new LeftFlowerPowerUpAnimationState(player, this);
         }
         public override void UpdateMovement()
         {

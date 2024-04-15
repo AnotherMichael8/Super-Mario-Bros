@@ -28,7 +28,10 @@ namespace SuperMarioBros.Blocks.BlockType
             {
                 Position = new Vector2(Position.X, Position.Y - (int)(bumpCounter * (Globals.BlockSize / 32)));
                 bumpCounter--;
+                Bumped = true;
             }
+            else
+                Bumped = false;
         }
         public override void Bump(PowerUps powerUp)
         {

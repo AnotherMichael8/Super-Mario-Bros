@@ -46,11 +46,13 @@ namespace SuperMarioBros.Collision
             {
                 if (GameObjectList[i] is IEnemy enemy)
                 {
+                    EnemyBlockHandler.SetFalling();
                     for (int c = 0; c < GameObjectList.Count; c++)
                     {
                         IGameObject obj = GameObjectList[c];
                         CollisionDetector.CheckEnemyCollision(enemy, obj);
                     }
+                    EnemyBlockHandler.SendFallingData(enemy);
                 }
             }
         }

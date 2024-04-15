@@ -6,3 +6,4 @@ Block,QuestionBlock,7,9,COIN
 Block,BreakableBrickBlock,8,9,NONE
 Block,QuestionBlock,6,5,COIN
 Block,Pipe,12,11,2,TOP
+Enemy,Goomba,6,12

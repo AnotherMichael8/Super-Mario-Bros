@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Enemies.Koopa;
 using System.Numerics;
+using SuperMarioBros.PlayerCharacter.Interfaces;
 
 namespace SuperMarioBros.Collision
 {
@@ -18,7 +19,7 @@ namespace SuperMarioBros.Collision
         {
             if (!enemy.IsDead && player is not StarMario)
             {
-                if (side is TopCollision)
+                if (side is TopCollision || (player.IsFalling && player.State is not IJumpingPlayerState))
                 {
                     enemy.Kill();
                     player.OnGround = true;

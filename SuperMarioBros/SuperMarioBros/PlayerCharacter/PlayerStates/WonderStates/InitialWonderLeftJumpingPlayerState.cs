@@ -1,4 +1,5 @@
 ﻿using SuperMarioBros.PlayerCharacter.Interfaces;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,37 +8,25 @@ using System.Threading.Tasks;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
-    public class LeftFacingRightMoveJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState
+    public class InitialWonderLeftJumpingPlayerState : AbstractPlayerState, IJumpingPlayerState, ILeftFacing
     {
         private int fallingSpeed;
-        private int rightBarrier;
-        public LeftFacingRightMoveJumpingPlayerState(Player player, int jumpingSpeed, bool noRight = false) : base(player)
+        public InitialWonderLeftJumpingPlayerState(Player player, double jumpingSpeed = 840) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateLeftJumpingPlayerSprite();
             JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
-            if (noRight)
-                rightBarrier = 0;
-            else
-                rightBarrier = 48;
+            player.OnGround = false;
         }
         public override void MoveLeft()
         {
-            Speed -= 4;
+            //player.State = new RightFacingLeftMoveJumpingPlayerState(player, JumpingSpeed);
+            //player.State = new LeftMoveJumpingPlayerState(player, JumpingSpeed);
         }
+
         public override void MoveRight()
         {
-            if (Speed < rightBarrier && !player.OnGround)
-                Speed += 16;
-            else if (player.OnGround)
-                player.State = new RightMovingPlayerState(player, Speed);
-        }
-        public override void Hop()
-        {
-        }
-        public override void StopJumping()
-        {
-            fallingSpeed = 8;
+            //player.State = new RightMoveJumpingPlayerState(player, JumpingSpeed);
         }
         public override void PowerUpMushroom()
         {
@@ -52,13 +41,13 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void UpdateMovement()
         {
             JumpingSpeed -= fallingSpeed;
-            if (JumpingSpeed <= 16)
+            if(JumpingSpeed <= 16)
             {
-                StopJumping();
+                player.State = new LeftFallingPlayerState(player, JumpingSpeed);
             }
-            if (player.OnGround)
+            if(player.OnGround)
             {
-                player.State = new LeftSlidingPlayerState(player); ;
+                player.State = new LeftIdlePlayerState(player);
             }
         }
     }

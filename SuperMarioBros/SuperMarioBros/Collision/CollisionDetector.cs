@@ -23,6 +23,7 @@ namespace SuperMarioBros.Collision
         //private static List<Tuple<ICollision, IGameObject, int>> collisionWarning = new List<Tuple<ICollision, IGameObject, int>>();
         private static List<IBlock> bottomCollidedBlocks = new List<IBlock>();
         private static readonly ICollision[] warnRectSides = { new BottomCollision(), new TopCollision(), new RightCollision(), new LeftCollision() };
+        private static Queue<ICollision> rankedWarnRect = new Queue<ICollision>();
         public static void CheckPlayerCollision(IPlayer player, IGameObject obj, Game1 game)
         {
             Rectangle playerHitBox;
@@ -31,7 +32,6 @@ namespace SuperMarioBros.Collision
             else
                 playerHitBox = player.GetHitBox();
             Rectangle objHitBox = obj.GetHitBox();
-            
             if (playerHitBox.Intersects(objHitBox))
             {
                 ICollision side = WarnSideDetector(playerHitBox, objHitBox);
@@ -45,7 +45,7 @@ namespace SuperMarioBros.Collision
                         PlayerBlockHandler.HandlePlayerBlockCollision(player, block, side);
                 }
                 else if(obj is IEnemy enemy)
-                {
+                {                  
                     if (enemy is Koopa koopa)
                     {
                         PlayerEnemyHandler.HandlePlayerKoopaCollision(player, koopa, side);
@@ -103,6 +103,10 @@ namespace SuperMarioBros.Collision
                 if (obj is IBlock block)
                 {
                     EnemyBlockHandler.HandleEnemyBlockCollision(enemy, block, side);
+                }
+                else if (obj is IEnemy enemy2)
+                {
+                    EnemyEnemyHandler.HandleEnemyEnemyCollision(enemy, enemy2, side);
                 }
             }
         }
