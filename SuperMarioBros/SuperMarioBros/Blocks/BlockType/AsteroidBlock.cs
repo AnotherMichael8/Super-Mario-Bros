@@ -12,8 +12,8 @@ namespace SuperMarioBros.Blocks.BlockType
 {
     internal class AsteroidBlock : AbstractBlock
     {
-        private int height;
-        private int width;
+        public int height { get; private set; }
+        public int width { get; private set; }
         private AsteroidBlockSprite asteroidSprite;
         public double HorzSpeed { get; private set; }
         public AsteroidBlock(Vector2 position, Vector2 directionVector) : base(position)
