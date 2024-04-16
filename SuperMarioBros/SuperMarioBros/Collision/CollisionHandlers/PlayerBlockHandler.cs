@@ -5,12 +5,14 @@ using Microsoft.Xna.Framework;
 using SuperMarioBros.PlayerCharacter.Interfaces;
 using SuperMarioBros.PlayerCharacter.PlayerStates;
 using SuperMarioBros.Blocks.BlockType;
+using System.Collections.Generic;
 
 namespace SuperMarioBros.Collision
 {
     public class PlayerBlockHandler
     {
         private static bool IsFalling;
+        private static List<ICollision> collisions = new List<ICollision>();
         public static void HandlePlayerBlockCollision(IPlayer player, IBlock block, ICollision side)
         {
             Rectangle blockHitBox = block.GetHitBox();
@@ -47,6 +49,22 @@ namespace SuperMarioBros.Collision
                 if (AbstractPlayerState.Speed < -1)
                     AbstractPlayerState.Speed += 3;
             }
+            /*
+            collisions.Add(side);
+            bool leftCol = false;
+            bool rightCol = false;
+            foreach(ICollision collision in collisions)
+            {
+                if (leftCol || collision is LeftCollision)
+                    leftCol = true;
+                else if (rightCol || collision is RightCollision)
+                    rightCol = true;
+            }
+            if(leftCol && rightCol)
+            {
+                player.Kill();
+            }
+            */
         }
         public static void HandleFlagPoleCollision(IPlayer player, IBlock block)
         {
@@ -71,6 +89,7 @@ namespace SuperMarioBros.Collision
         public static void SendFallingData(IPlayer player)
         {
             player.IsFalling = IsFalling;
+            //collisions.Clear();
         }
     }
 }

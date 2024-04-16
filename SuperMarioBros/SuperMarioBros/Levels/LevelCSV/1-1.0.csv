@@ -1,6 +1,1 @@
 ﻿Block,GroundBlock,0,13,70,2
-Enemy,Goomba,7.5,12
-Block,InvisibleBlock,6,10,STAR
-Collectible,WonderFlower,8,7
-Block,Asteroid,5,4
-Block,PassThroughBlock,4,10,4

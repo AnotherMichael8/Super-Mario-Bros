@@ -71,7 +71,7 @@ namespace SuperMarioBros.Controllers
             {
                 foreach (Keys key in pressedKeys)
                 {
-                    if (doubleCommandMapping.ContainsKey(key))
+                    if (doubleCommandMapping.ContainsKey(key) && !heldKeys.Contains(key))
                     {
                         doubleCommandMapping[key].Execute();
                     }
