@@ -184,6 +184,10 @@ namespace SuperMarioBros.Levels
             {
                 block = new PassThroughFloorBlock(position, int.Parse(blockDetails[4]));
             }
+            else if (blockDetails[1].Equals("SpacePipe"))
+            {
+                block = new SpacePipe(position, bool.Parse(blockDetails[4]));
+            }
             return block;
         }
         private ICollectibles CreateCollectibleObject(string[] blockDetails, int levelChunk, int height = 0)

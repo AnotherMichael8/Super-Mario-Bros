@@ -64,5 +64,9 @@ namespace SuperMarioBros.Blocks
         {
             return new PassThroughFloorBlockSprite(blockTexture);
         }
+        public SpacePipeSprite CreateSpacePipeSprite()
+        {
+            return new SpacePipeSprite(blockTexture);
+        }
     }
 }

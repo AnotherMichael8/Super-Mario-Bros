@@ -17,6 +17,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             JumpingSpeed = jumpingSpeed;
             fallingSpeed = 3;
             player.OnGround = false;
+            SoundFactory.Instance.PlayMusic(SoundFactory.Instance.gustyWonderTheme);
         }
         public override void MoveLeft()
         {

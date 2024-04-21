@@ -26,6 +26,7 @@ namespace SuperMarioBros.Blocks.BlockType
             {
                 collectible.StartSpawningCollectible(collectible);
                 collectible = new Coin(coinPosition);
+                SoundFactory.PlaySound(SoundFactory.Instance.coin);
             }
             else
                 SpawnCollectible(collectible);

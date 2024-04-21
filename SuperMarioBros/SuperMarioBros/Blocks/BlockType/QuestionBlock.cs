@@ -56,6 +56,8 @@ namespace SuperMarioBros.Blocks.BlockType
         public override void Bump(PowerUps powerUp)
         {
             SpawnCollectible(collectible);
+            if(collectible is Coin)
+                SoundFactory.PlaySound(SoundFactory.Instance.coin);
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {

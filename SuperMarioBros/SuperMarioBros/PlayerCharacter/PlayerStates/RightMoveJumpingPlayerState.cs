@@ -23,7 +23,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             double speed = Speed;
             if (speed < 16)
                 speed = 16;
-            JumpingSpeed = 164 - (24/(speed/16));      
+            JumpingSpeed = 164 - (24/(speed/16));
+            SoundFactory.PlaySound(SoundFactory.Instance.smallJump);
         }
         public void Initialize()
         {

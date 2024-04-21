@@ -62,6 +62,7 @@ namespace SuperMarioBros
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             CollectiblesSpriteFactory.Instance.LoadAllTextures(Content);
+            SoundFactory.Instance.LoadAllTextures(Content);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             MarioPlayer = new Player(this);
             collisionManager = new CollisionManager(this, _spriteBatch);
@@ -78,13 +79,13 @@ namespace SuperMarioBros
 
             MarioPlayer.Update();
             AbstractEnemy.UpdateAllEnemies();
-            //goomba.Update();
             AbstractBlock.UpdateAllBlocks();
             AbstractCollectibles.UpdateAllSprites();
             Controller.Update(gameTime);
             collisionManager.Update();
             camera.Update();
             AbstractEvent.UpdateAllEvents();
+            SoundFactory.Instance.Update();
             base.Update(gameTime);
         }
 

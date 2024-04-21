@@ -52,6 +52,7 @@ namespace SuperMarioBros.Blocks.BlockType
             CollisionManager.GameObjectList.Remove(this);
             CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, null));
             Blocks.Add(new BrickDebris(Position));
+            SoundFactory.PlaySound(SoundFactory.Instance.breakBlock);
         }
 
     }

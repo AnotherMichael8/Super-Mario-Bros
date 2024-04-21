@@ -51,7 +51,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             AccelerationCap = 3 * 16;
         }
-        public void GrabPole()
+        public virtual void GrabPole()
         {
             player.State = new GrabPolePlayerState(player);
         }

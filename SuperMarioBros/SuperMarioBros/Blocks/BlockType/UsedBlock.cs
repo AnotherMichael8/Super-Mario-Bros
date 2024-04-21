@@ -36,7 +36,8 @@ namespace SuperMarioBros.Blocks.BlockType
             {
                 if (collectible is not Coin)
                 {
-                    collectible.StartSpawningCollectible(collectible);
+                   collectible.StartSpawningCollectible(collectible);
+                   SoundFactory.PlaySound(SoundFactory.Instance.powerUpAppears);
                 }
                 bumpCounter--;
                 noBump = true;

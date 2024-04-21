@@ -24,6 +24,7 @@ namespace SuperMarioBros.Collision
                     enemy.Kill();
                     player.OnGround = true;
                     player.Hop();
+                    SoundFactory.PlaySound(SoundFactory.Instance.stomp);
                 }
                 else
                 {

@@ -35,5 +35,10 @@ namespace SuperMarioBros.Collectibles.Collectibles
             else
                 trueYPosition -= verticalMovementFactor / 16.0;
         }
+        public override void Collect()
+        {
+            base.Collect();
+            SoundFactory.PlaySound(SoundFactory.Instance.collectPowerUp);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using SuperMarioBros.Camera;
 using SuperMarioBros.Collision;
 
@@ -79,6 +80,8 @@ namespace SuperMarioBros.Collectibles.Collectibles
             animationPlaying = true;
             counter = 0;
             CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, null));
+            SoundFactory.Instance.PauseMusic();
+            SoundFactory.PlaySound(SoundFactory.Instance.wonderFlowerCollect);
         }
     }
 }

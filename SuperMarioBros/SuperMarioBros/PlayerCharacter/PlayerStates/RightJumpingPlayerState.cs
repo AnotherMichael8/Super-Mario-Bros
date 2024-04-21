@@ -20,6 +20,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             else
                 fallingSpeed = 3;
             player.OnGround = false;
+            if (jumpingSpeed == 140)
+                SoundFactory.PlaySound(SoundFactory.Instance.smallJump);
         }
         public override void MoveLeft()
         {

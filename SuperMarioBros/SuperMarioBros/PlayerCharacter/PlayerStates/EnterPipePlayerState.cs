@@ -49,6 +49,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                 Speed = 0;
                 JumpingSpeed = 48;
             }
+            SoundFactory.Instance.PauseMusic();
+            SoundFactory.PlaySound(SoundFactory.Instance.pipe);
         }
         public override void UpdateMovement()
         {
@@ -84,6 +86,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                     Speed = 0;
                     JumpingSpeed = 6;
                 }
+                SoundFactory.Instance.RestartSong();
             }
             else if (frameCounter > 120)
             {

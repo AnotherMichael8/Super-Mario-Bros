@@ -12,8 +12,11 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateGrabPoleSprite();
             Speed = 0;
-            JumpingSpeed = 0;
+            JumpingSpeed = -16;
+            SoundFactory.Instance.PauseMusic();
+            SoundFactory.PlaySound(SoundFactory.Instance.flagpole);
         }
+        public override void GrabPole() { }
         public override void UseAbility() { }
     }
 }

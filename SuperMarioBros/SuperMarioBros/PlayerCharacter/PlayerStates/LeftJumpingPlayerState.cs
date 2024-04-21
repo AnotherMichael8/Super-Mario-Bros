@@ -20,9 +20,8 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             else
                 fallingSpeed = 3;
             player.OnGround = false;
-            if (player.Position.Y < Globals.ScreenHeight - (int)(3 * Globals.BlockSize))
-            {
-            }
+            if(jumpingSpeed == 140)
+                SoundFactory.PlaySound(SoundFactory.Instance.smallJump);
         }
         public override void BecomeIdle()
         {

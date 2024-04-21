@@ -19,12 +19,13 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
             player.HitBoxOff = true;
             moveTimer = 5;
             moveSpeed = 17;
+            SoundFactory.Instance.PauseMusic();
+            SoundFactory.PlaySound(SoundFactory.Instance.marioDeath);
         }
         public override void UseAbility() { }
         public override void TriggerWonderState(Vector2 wonderPosition) { }
         public override void UpdateMovement()
         {
-            //player.Position = new Vector2(player.Position.X, player.Position.Y - moveSpeed);
             JumpingSpeed -= 5;
         }
     }

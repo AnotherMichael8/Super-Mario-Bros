@@ -24,7 +24,7 @@ namespace SuperMarioBros.Blocks.BlockSprites
             {
                 destinationRectangle.X -= CameraController.CameraPositionX;
                 destinationRectangle.Y += CameraController.CameraPositionY;
-                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.01f);
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.011f);
             }
         }
     }

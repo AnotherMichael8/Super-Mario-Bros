@@ -35,6 +35,7 @@ namespace SuperMarioBros.PlayerCharacter.PowerUpAbilites
                 Player.Abilities.Add(this);
                 CollisionManager.GameObjectList.Add(this);
                 numFireballs++;
+                SoundFactory.PlaySound(SoundFactory.Instance.fireball);
             }
         }
         public void Bounce()

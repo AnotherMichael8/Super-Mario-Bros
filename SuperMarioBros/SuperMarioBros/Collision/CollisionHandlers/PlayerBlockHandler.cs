@@ -35,6 +35,7 @@ namespace SuperMarioBros.Collision
                 {
                     block.Bump(Player.CurrentPowerUp);
                     player.StopUpwardMovement();
+                    SoundFactory.PlaySound(SoundFactory.Instance.bump);
                 }
             }
             else if (side is LeftCollision && block is not InvisibleBlock && block is not PassThroughFloorBlock)

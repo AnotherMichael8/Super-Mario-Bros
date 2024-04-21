@@ -16,13 +16,22 @@ namespace SuperMarioBros.Blocks.BlockType
         public int width { get; private set; }
         private AsteroidBlockSprite asteroidSprite;
         public double HorzSpeed { get; private set; }
+        public double VertSpeed { get; private set; }
+        private double maxVertSpeed;
+        private double trueYPos;
+        private double trueXPos;
+        private double changeYPos;
         public AsteroidBlock(Vector2 position, Vector2 directionVector) : base(position)
         {
-            sourceRectangle = new Rectangle(0, 33, 16, 16);
             asteroidSprite = BlockSpriteFactory.Instance.CreateAsteroidSprite();
             height = 3;
             width = 3;
             HorzSpeed = directionVector.X;
+            maxVertSpeed = directionVector.Y;
+            VertSpeed = 0;
+            trueYPos = position.Y;
+            trueXPos = position.X;
+            changeYPos = 0.01;
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
@@ -37,7 +46,8 @@ namespace SuperMarioBros.Blocks.BlockType
         public override void Update()
         {
             base.Update();
-            Position = new Vector2((int)(Position.X + HorzSpeed), (int)Position.Y);
+            trueYPos += maxVertSpeed;
+            Position = new Vector2((int)(Position.X + HorzSpeed), (int)trueYPos);
         }
         public override Rectangle GetHitBox()
         {
