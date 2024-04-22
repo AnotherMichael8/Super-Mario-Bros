@@ -122,6 +122,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             State.TriggerWonderState(wonderPosition);
         }
+        public void WonderEventEnd()
+        {
+            State.WonderEventEnd(State);
+        }
         public void UseAbility()
         {
             State.UseAbility();

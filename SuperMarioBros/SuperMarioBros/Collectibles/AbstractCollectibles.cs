@@ -66,7 +66,7 @@ namespace SuperMarioBros.Collectibles
         public virtual void MoveLeft() { }
         public virtual void MoveRight() { }
         public virtual void StopUpwardMovement() { }
-        public void Draw(SpriteBatch spriteBatch, Color color)
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
             sprite.Draw(spriteBatch, Position, color);
         }

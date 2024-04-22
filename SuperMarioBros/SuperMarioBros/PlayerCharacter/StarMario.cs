@@ -106,6 +106,10 @@ namespace SuperMarioBros.PlayerCharacter
         {
             decoratedPlayer.PowerUpFlower();
         }
+        public void WonderEventEnd()
+        {
+            decoratedPlayer.WonderEventEnd();
+        }
         public void PowerUpStar()
         {
             decoratedPlayer.PowerUpStar();

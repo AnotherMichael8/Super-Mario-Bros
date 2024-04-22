@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace SuperMarioBros.Collectibles.CollectiblesSprites
 {
@@ -21,6 +22,9 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
         private bool auraColorChangerB;
         private float rotation;
         private float rotationUpdater;
+        private bool wonderSeedCollected;
+        private float opacity;
+        private int opacityCounter;
         public WonderSeedSprite(Texture2D texture)
         {
             this.texture = texture;
@@ -31,8 +35,11 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
             auraColorChangerB = true;
             rotation = 0;
             rotationUpdater = .0025f;
+            opacity = 1;
+            wonderSeedCollected = false;
+            opacityCounter = 0;
         }
-        public void Update()
+        public void Update(bool wonderSeedCollected)
         {
             if (dilation >= 5 || dilation <= 0)
             {
@@ -59,14 +66,28 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
             if (rotation >= .2f || rotation <= -.2f)
                 rotationUpdater *= -1;
             rotation += rotationUpdater;
+
+            if (wonderSeedCollected)
+            {
+                this.wonderSeedCollected = true;
+                opacityCounter++;
+            }
+            if (opacityCounter > 190)
+                opacity -= 0.05f;
+        }
+        public void Update()
+        {
+            Update(false);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
             Rectangle destinationRectangle = new Rectangle((int)position.X - CameraController.CameraPositionX, (int)position.Y + CameraController.CameraPositionY, (int)Globals.BlockSize + 4, (int)Globals.BlockSize + 4);
             Vector2 origin = new Vector2(destinationRectangle.Width / 2, destinationRectangle.Height / 2);
             Rectangle auraDestinationRectangle = new Rectangle((int)(position.X - CameraController.CameraPositionX + 18 * Globals.ScreenSizeMulti), (int)(position.Y + 20 * Globals.ScreenSizeMulti) + CameraController.CameraPositionY, (int)(36 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1), (int)(34 * 2 * Globals.ScreenSizeMulti) + 4 * ((int)dilation + 1));
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.299f);
-            spriteBatch.Draw(texture, auraDestinationRectangle, flowerAuraSourceRectangle, auraColor, rotation, origin, SpriteEffects.None, 0.301f);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color * opacity, 0, new Vector2(0), SpriteEffects.None, 0.299f);
+            if (!wonderSeedCollected)
+                spriteBatch.Draw(texture, auraDestinationRectangle, flowerAuraSourceRectangle, auraColor, rotation, origin, SpriteEffects.None, 0.301f);
         }
+
     }
 }

@@ -40,6 +40,10 @@ namespace SuperMarioBros.Collision.CollisionHandlers
             {
                 player.TriggerWonderState(new Vector2((int)collectible.GetPositionX(), (int)collectible.GetPositionY()));
             }
+            else if(collectible is WonderSeed)
+            {
+                player.WonderEventEnd();
+            }
         }
     }
 }

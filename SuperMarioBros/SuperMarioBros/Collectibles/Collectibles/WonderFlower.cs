@@ -55,9 +55,6 @@ namespace SuperMarioBros.Collectibles.Collectibles
                 if (counter >= 180)
                 {
                     Collectibles.Remove(this);
-                    WonderSeed seed = new WonderSeed(new Vector2(Position.X, (int)(Position.Y - Globals.BlockSize)));
-                    Collectibles.Add(seed);
-                    CollisionManager.GameObjectList.Add(seed);
                 }           
             }
             counter++;

@@ -92,6 +92,10 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         {
             currentPowerUp = PowerUps.FIREFLOWER;
         }
+        public virtual void WonderEventEnd(IPlayerState state)
+        {
+            player.State = new WonderSeedCollectPlayerState(player, state);
+        }
         public void PowerUpStar()
         {
             //currentPowerUp = PowerUps.STAR;

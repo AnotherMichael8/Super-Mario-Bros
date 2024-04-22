@@ -41,6 +41,7 @@ namespace SuperMarioBros.PlayerCharacter
         public Rectangle GetRectanglePosition();
         public void SetDecorator(IPlayer player);
         public void RemoveDecorator();
+        public void WonderEventEnd();
         public void Update();
         public void Draw(SpriteBatch spriteBatch, Color[] color);
     }

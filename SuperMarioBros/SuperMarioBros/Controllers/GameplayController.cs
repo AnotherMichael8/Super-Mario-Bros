@@ -31,7 +31,7 @@ namespace SuperMarioBros.Controllers
             commandMapping.Add(Keys.Down, new CrouchCommand(game));
             commandMapping.Add(Keys.Left, new MoveLeftCommand(game));
             commandMapping.Add(Keys.Right, new MoveRightCommand(game));
-            commandMapping.Add(Keys.LeftControl, new SprintCommand(game));
+            commandMapping.Add(Keys.LeftShift, new SprintCommand(game));
             commandMapping.Add(Keys.None, new BecomeIdleCommand(game));
             //commandMapping.Add(Keys.R, new UseAbilityCommand(game));
 
@@ -39,7 +39,7 @@ namespace SuperMarioBros.Controllers
             doubleCommandMapping.Add(Keys.A, new EnterPipeCommand(game, new RightCollision()));
             doubleCommandMapping.Add(Keys.S, new EnterPipeCommand(game, new TopCollision()));
             doubleCommandMapping.Add(Keys.D, new EnterPipeCommand(game, new LeftCollision()));
-            doubleCommandMapping.Add(Keys.LeftControl, new UseAbilityCommand(game));
+            doubleCommandMapping.Add(Keys.LeftShift, new UseAbilityCommand(game));
 
             moveKeys.Add(Keys.Left);
             moveKeys.Add(Keys.Right);
@@ -55,7 +55,7 @@ namespace SuperMarioBros.Controllers
                 if (!pressedKeys.Contains(heldKeys[c]))
                 {
                     //Checks if the sprint button is still being held
-                    if (heldKeys[c] == Keys.LeftControl)
+                    if (heldKeys[c] == Keys.LeftShift)
                         new StopSprintingCommand(game).Execute();
                     else if (heldKeys[c] == Keys.W)//|| heldKeys[c] == Keys.Up)
                         new StopJumpingCommand(game).Execute();

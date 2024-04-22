@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using SuperMarioBros.PlayerCharacter;
 using SuperMarioBros.Levels;
 using SuperMarioBros.Collectibles.Collectibles;
+using SuperMarioBros.Collectibles;
 
 namespace SuperMarioBros.Camera
 {
@@ -73,6 +74,8 @@ namespace SuperMarioBros.Camera
                 levelGenerator.ReplaceObject(UpdateObjectQueue[0].Item1, UpdateObjectQueue[0].Item2);
                 if (UpdateObjectQueue[0].Item1 is WonderFlower flower && !wonderingInProcess)
                     BeginWonderEvent(flower);
+                if (UpdateObjectQueue[0].Item1 is WonderSeed seed && !wonderingInProcess)
+                    EndWonderEvent(seed);
                 UpdateObjectQueue.Remove(UpdateObjectQueue[0]);
             }
         }
@@ -137,6 +140,14 @@ namespace SuperMarioBros.Camera
             wonderingInProcess = true;
             Rectangle hitBox = flower.GetBlockHitBox();
             CameraPositionX = hitBox.X + hitBox.Width/2 - Globals.ScreenWidth/2;
+        }
+        public void EndWonderEvent(WonderSeed seed)
+        {
+            Rectangle hitBox = seed.GetBlockHitBox();
+            CameraPositionX = hitBox.X + hitBox.Width / 2 - Globals.ScreenWidth / 2;
+            levelGenerator.RemoveWonderEventFile();
+            AbstractCollectibles.Collectibles.Remove(seed);
+            SoundFactory.Instance.RestartSong();
         }
     }
 }

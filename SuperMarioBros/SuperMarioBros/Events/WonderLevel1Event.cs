@@ -75,5 +75,13 @@ namespace SuperMarioBros.Events
             CollisionManager.GameObjectList.Remove(asteroid);
             asteroids.Remove(asteroid);
         }
+        public void Stop()
+        {
+            foreach(AsteroidBlock asteroid in asteroids)
+            {
+                AbstractBlock.Blocks.Remove(asteroid);
+                CollisionManager.GameObjectList.Remove(asteroid);
+            }
+        }
     }
 }

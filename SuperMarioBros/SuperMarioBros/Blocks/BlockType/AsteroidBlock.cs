@@ -10,28 +10,28 @@ using SuperMarioBros.Blocks.BlockSprites;
 
 namespace SuperMarioBros.Blocks.BlockType
 {
-    internal class AsteroidBlock : AbstractBlock
+    public class AsteroidBlock : AbstractBlock
     {
         public int height { get; private set; }
         public int width { get; private set; }
         private AsteroidBlockSprite asteroidSprite;
-        public double HorzSpeed { get; private set; }
-        public double VertSpeed { get; private set; }
+        public double HorzSpeed { get; protected set; }
+        public double VertSpeed { get; protected set; }
+        protected Vector2 directionVector;
         private double maxVertSpeed;
         private double trueYPos;
         private double trueXPos;
         private double changeYPos;
-        public AsteroidBlock(Vector2 position, Vector2 directionVector) : base(position)
+        public AsteroidBlock(Vector2 position, Vector2 directionVector, int width = 3, int height = 3) : base(position)
         {
             asteroidSprite = BlockSpriteFactory.Instance.CreateAsteroidSprite();
-            height = 3;
-            width = 3;
+            this.height = height;
+            this.width = width;
+            this.directionVector = directionVector;
             HorzSpeed = directionVector.X;
-            maxVertSpeed = directionVector.Y;
-            VertSpeed = 0;
+            VertSpeed = directionVector.Y;
             trueYPos = position.Y;
             trueXPos = position.X;
-            changeYPos = 0.01;
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
@@ -42,12 +42,13 @@ namespace SuperMarioBros.Blocks.BlockType
                     asteroidSprite.Draw(spriteBatch, new Vector2((int)Position.X + (int)(Globals.BlockSize * w), (int)Position.Y + (int)(Globals.BlockSize * h)), color);
                 }
             }
-        }
+        }             
         public override void Update()
         {
             base.Update();
-            trueYPos += maxVertSpeed;
-            Position = new Vector2((int)(Position.X + HorzSpeed), (int)trueYPos);
+            trueYPos += VertSpeed;
+            trueXPos += HorzSpeed;
+            Position = new Vector2((int)trueXPos, (int)trueYPos);
         }
         public override Rectangle GetHitBox()
         {

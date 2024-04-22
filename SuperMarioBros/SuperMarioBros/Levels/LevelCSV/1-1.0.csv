@@ -1,1 +1,3 @@
 ﻿Block,GroundBlock,0,13,70,2
+Block,OrbitAsteroid,6,6
+Collectible,WonderSeed,4,9

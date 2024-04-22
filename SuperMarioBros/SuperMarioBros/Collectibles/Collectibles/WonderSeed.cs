@@ -6,6 +6,9 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarioBros.Collectibles.CollectiblesSprites;
+using Microsoft.Xna.Framework.Graphics;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros.Collectibles.Collectibles
 {
@@ -16,6 +19,7 @@ namespace SuperMarioBros.Collectibles.Collectibles
         private int currentVerticalMovementFactor;
         private int counter;
         private bool animationPlaying;
+        private WonderSeedSprite animationPlayingSprite;
         public WonderSeed(Vector2 position) : base(position)
         {
             sprite = CollectiblesSpriteFactory.Instance.CreateWonderSeedSprite();
@@ -51,13 +55,19 @@ namespace SuperMarioBros.Collectibles.Collectibles
             else
             {
                 sprite.Update();
-                if (counter >= 180)
+                animationPlayingSprite.Update(animationPlaying);
+                if (counter >= 210)
                 {
-                    Collectibles.Remove(this);
-
+                    CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, null));
                 }
             }
             counter++;
+        }
+        public override void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            base.Draw(spriteBatch, color);
+            if(animationPlaying)
+                animationPlayingSprite.Draw(spriteBatch, Position, color);
         }
         public override void SpawnCollectible(Vector2 orginalPosition)
         {
@@ -73,7 +83,9 @@ namespace SuperMarioBros.Collectibles.Collectibles
         public override void Collect()
         {
             CollisionManager.GameObjectList.Remove(this);
-            sprite = CollectiblesSpriteFactory.Instance.CreateWonderFlowerCollectionAnimation();
+            if(sprite is WonderSeedSprite)
+                animationPlayingSprite = (WonderSeedSprite)sprite;
+            sprite = CollectiblesSpriteFactory.Instance.CreateWonderSeedCollectionAnimation();
             animationPlaying = true;
             counter = 0;
         }

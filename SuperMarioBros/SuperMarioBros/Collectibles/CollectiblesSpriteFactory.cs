@@ -60,5 +60,9 @@ namespace SuperMarioBros.Collectibles
         {
             return new WonderSeedSprite(collectiblesTexture);
         }
+        public ICollectiblesSprite CreateWonderSeedCollectionAnimation()
+        {
+            return new WonderSeedCollectionAnimationSprite(collectiblesTexture);
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace SuperMarioBros.PlayerCharacter.Interfaces
         public void StopJumping();
         public void StopUpwardMovement();
         public void Kill();
+        public void WonderEventEnd(IPlayerState state);
         public void Fall();
         public void Jump();
         public void Hop();

@@ -80,6 +80,19 @@ namespace SuperMarioBros.Levels
             LoadFile(WonderBlocks);
             AbstractEvent.Events.Add(new WonderLevel1Event());
         }
+        public void RemoveWonderEventFile()
+        {
+            UnloadFile(WonderBlocks);
+            for(int i = 0; i < AbstractEvent.Events.Count; i++)
+            {
+                if (AbstractEvent.Events[i] is WonderLevel1Event wonderEvent)
+                {
+                    wonderEvent.Stop();
+                    AbstractEvent.Events.Remove(wonderEvent);
+                    break;
+                }
+            }
+        }
         private void LoadFile(List<IGameObject> file)
         {
             foreach (IGameObject gameObject in file)
@@ -160,6 +173,10 @@ namespace SuperMarioBros.Levels
                 AbstractBlock.Blocks.Add(block);
                 CollisionManager.GameObjectList.Add(block);
             }
+            else if (blockDetails[1].Equals("GrayGroundBlock"))
+            {
+                block = new GrayGroundBlock(position, int.Parse(blockDetails[4]), int.Parse(blockDetails[5]));
+            }
             else if (blockDetails[1].Equals("DiamondBlock"))
             {
                 block = new DiamondBlock(position, int.Parse(blockDetails[4]));
@@ -179,6 +196,10 @@ namespace SuperMarioBros.Levels
             else if (blockDetails[1].Equals("Asteroid"))
             {
                 block = new AsteroidBlock(position, new Vector2(1,0));
+            }
+            else if (blockDetails[1].Equals("OrbitAsteroid"))
+            {
+                block = new OrbitingAsteroidBlock(position, new Vector2(1,1), new Vector2((float)(position.X + 3 * Globals.BlockSize), (float)(position.Y + 3 * Globals.BlockSize)), 1, 1);
             }
             else if (blockDetails[1].Equals("PassThroughBlock"))
             {
