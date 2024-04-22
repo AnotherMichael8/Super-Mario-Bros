@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperMarioBros.Collision;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros.Enemies.Goomba.GoombaStates
 {
@@ -35,6 +36,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
             {
                 AbstractEnemy.Enemies.Remove(goomba);
                 CollisionManager.GameObjectList.Remove(goomba);
+                CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(goomba, null));
             }
             deathCounter++;
 

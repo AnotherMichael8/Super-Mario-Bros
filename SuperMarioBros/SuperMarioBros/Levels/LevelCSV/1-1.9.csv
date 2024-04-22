@@ -3,7 +3,7 @@ Block,DiamondBlock,6,11,2
 Block,DiamondBlock,7,10,3
 Block,DiamondBlock,8,9,4
 Block,DiamondBlock,9,9,4
-Block,GroundBlock,12,13,60,2
+Block,GroundBlock,12,13,60,3
 Block,DiamondBlock,15,12,1
 Block,DiamondBlock,14,11,2
 Block,DiamondBlock,13,10,3

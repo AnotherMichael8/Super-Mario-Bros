@@ -175,6 +175,12 @@
 /processorParam:Quality=Best
 /build:smb_stomp.wav
 
+#begin StarMario.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:StarMario.mp3
+
 #begin TrueMarioCharacters.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -204,4 +210,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:wonder-flower-collect-soundNEW1.wav
+
+#begin WonderSeedCollection.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:WonderSeedCollection.wav
 

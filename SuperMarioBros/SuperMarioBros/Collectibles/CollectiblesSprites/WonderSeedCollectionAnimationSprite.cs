@@ -54,19 +54,19 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
             else if (counter >= 0)
                 dilation += 2;
             */
-            if (counter >= 190 && counter < 210)
+            if (counter >= 160 && counter < 180)
             {
-                dilation -= 5;
+                dilation -= 3.5;
             }
-            else if (counter >= 130 && counter < 160)
+            else if (counter >= 120 && counter < 140)
             {
                 dilation -= dilationUpdater;
-                dilationUpdater += dilationUpdater / 30;
+                dilationUpdater += dilationUpdater / 20;
             }
-            else if (counter >= 100 && counter < 130 || counter >= 160 && counter < 190)
+            else if (counter >= 100 && counter < 120 || counter >= 140 && counter < 160)
             {
                 dilation += dilationUpdater;
-                dilationUpdater -= dilationUpdater / 30;
+                dilationUpdater -= dilationUpdater / 20;
                 opacityChanger = 0;
             }
             else if (counter >= 0 && counter < 100)

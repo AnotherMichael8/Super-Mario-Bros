@@ -73,6 +73,7 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
                     player.Position = new Vector2(player.Position.X, (int)(player.Position.Y + Globals.BlockSize));
                     invincibleTimer = 120;
                     player.Invincible = true;
+                    SoundFactory.PlaySound(SoundFactory.Instance.pipe);
                     break;
                 default:
                     if(invincibleTimer <= 0)

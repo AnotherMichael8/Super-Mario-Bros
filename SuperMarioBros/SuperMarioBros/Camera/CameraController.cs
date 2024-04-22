@@ -20,6 +20,7 @@ namespace SuperMarioBros.Camera
         public static List<Tuple<IGameObject, IGameObject>> UpdateObjectQueue;
         private bool wonderingInProcess;
         private bool wonderEvent;
+        private bool stopVertical;
         private int counter;
         public CameraController(IPlayer player)
         {
@@ -29,6 +30,7 @@ namespace SuperMarioBros.Camera
             UpdateObjectQueue = new List<Tuple<IGameObject, IGameObject>>();
             wonderingInProcess = false;
             wonderEvent = false;
+            stopVertical = false;
             counter = 0;
         }
         public void Update()
@@ -74,9 +76,14 @@ namespace SuperMarioBros.Camera
                 levelGenerator.ReplaceObject(UpdateObjectQueue[0].Item1, UpdateObjectQueue[0].Item2);
                 if (UpdateObjectQueue[0].Item1 is WonderFlower flower && !wonderingInProcess)
                     BeginWonderEvent(flower);
-                if (UpdateObjectQueue[0].Item1 is WonderSeed seed && !wonderingInProcess)
+                if (UpdateObjectQueue[0].Item1 is WonderSeed seed)
                     EndWonderEvent(seed);
                 UpdateObjectQueue.Remove(UpdateObjectQueue[0]);
+            }
+            if(stopVertical && !player.IsFalling)
+            {
+                wonderEvent = false;
+                stopVertical = false;
             }
         }
         public void LoadObjectsOnScreen()
@@ -145,9 +152,16 @@ namespace SuperMarioBros.Camera
         {
             Rectangle hitBox = seed.GetBlockHitBox();
             CameraPositionX = hitBox.X + hitBox.Width / 2 - Globals.ScreenWidth / 2;
+            CameraPositionY = hitBox.Y + hitBox.Height / 2 - Globals.ScreenHeight / 2;
             levelGenerator.RemoveWonderEventFile();
             AbstractCollectibles.Collectibles.Remove(seed);
             SoundFactory.Instance.RestartSong();
+            stopVertical = true;
+        }
+        public static void RepositionCamera(Rectangle hitBox)
+        {
+            CameraPositionX = hitBox.X + hitBox.Width / 2 - Globals.ScreenWidth / 2;
+            CameraPositionY = hitBox.Y + hitBox.Height / 2 - Globals.ScreenHeight / 2;
         }
     }
 }

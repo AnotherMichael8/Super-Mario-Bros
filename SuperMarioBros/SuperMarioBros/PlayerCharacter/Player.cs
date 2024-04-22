@@ -148,6 +148,12 @@ namespace SuperMarioBros.PlayerCharacter
             chunk = (int)(Position.X / Globals.ScreenWidth);
             for (int i = 0; i < Abilities.Count; i++)
                 Abilities[i].Update();
+            if (Position.Y > Globals.ScreenHeight + Globals.BlockSize)
+            {
+                Kill();
+                Position = new Vector2(Position.X, (int)(Globals.ScreenHeight + Globals.BlockSize / 2));
+            }
+
         }
         public void Draw(SpriteBatch spriteBatch, Color[] color)
         {

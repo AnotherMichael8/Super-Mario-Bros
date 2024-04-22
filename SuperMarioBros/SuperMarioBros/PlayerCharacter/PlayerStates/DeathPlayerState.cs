@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SuperMarioBros.Camera;
 
 namespace SuperMarioBros.PlayerCharacter.PlayerStates
 {
@@ -11,11 +12,16 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     {
         private int moveTimer;
         private int moveSpeed;
+        private Rectangle hitBox;
         public DeathPlayerState(Player player) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateDeathPlayerSprite();
             Speed = 0;
-            JumpingSpeed = 155;
+            hitBox = player.GetBlockHitBox();
+            if (hitBox.Y <= Globals.ScreenHeight)
+                JumpingSpeed = 155;
+            else
+                JumpingSpeed = 16;
             player.HitBoxOff = true;
             moveTimer = 5;
             moveSpeed = 17;
@@ -26,7 +32,12 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
         public override void TriggerWonderState(Vector2 wonderPosition) { }
         public override void UpdateMovement()
         {
-            JumpingSpeed -= 5;
+            if(player.Position.Y > Globals.ScreenHeight) 
+            {
+                JumpingSpeed = 16;
+            }
+            else if(hitBox.Y <= Globals.ScreenHeight)
+                JumpingSpeed -= 5;
         }
     }
 }

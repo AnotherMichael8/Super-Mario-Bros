@@ -72,7 +72,7 @@ namespace SuperMarioBros.Collectibles.CollectiblesSprites
                 this.wonderSeedCollected = true;
                 opacityCounter++;
             }
-            if (opacityCounter > 190)
+            if (opacityCounter > 160)
                 opacity -= 0.05f;
         }
         public void Update()

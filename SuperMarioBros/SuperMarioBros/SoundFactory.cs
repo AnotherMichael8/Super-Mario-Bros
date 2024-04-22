@@ -30,9 +30,11 @@ namespace SuperMarioBros
         public SoundEffect marioDeath { get; private set; }
         public SoundEffect gameOver { get; private set; }
         public SoundEffect wonderFlowerCollect { get; private set; }
+        public SoundEffect wonderSeedCollect { get; private set; }
         public Song mainTheme { get; private set; }
         public Song loopTheme { get; private set; }
         public Song gustyWonderTheme { get; private set; }
+        public Song starMario { get; private set; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -64,6 +66,8 @@ namespace SuperMarioBros
             collectPowerUp = content.Load<SoundEffect>("smb_powerup");
             powerUpAppears = content.Load<SoundEffect>("smb_powerup_appears");
             wonderFlowerCollect = content.Load<SoundEffect>("wonder-flower-collect-soundNEW1");
+            wonderSeedCollect = content.Load<SoundEffect>("WonderSeedCollection");
+
 
             stomp = content.Load<SoundEffect>("smb_stomp");
             marioDeath = content.Load<SoundEffect>("smb_mariodie");
@@ -71,6 +75,7 @@ namespace SuperMarioBros
             mainTheme = content.Load<Song>("Ground_Theme");
             loopTheme = content.Load<Song>("Ground_ThemeLoop");
             gustyWonderTheme = content.Load<Song>("Gusty_Garden_Galaxy_8Bit");
+            starMario = content.Load<Song>("StarMario");
             currentSong = loopTheme;
             MediaPlayer.Play(mainTheme);
         }
@@ -79,9 +84,9 @@ namespace SuperMarioBros
         {
             sound.Play(volume, 0f, 0f);
         }
-        public void PlayMusic(Song song)
+        public void PlayMusic(Song song, float volume = 1)
         {
-            currentSong = song;
+            MediaPlayer.Volume = volume;
             MediaPlayer.Play(song);
         }
         public void PauseMusic()
@@ -92,6 +97,7 @@ namespace SuperMarioBros
         {
             MediaPlayer.Stop();
             MediaPlayer.IsRepeating = false;
+            MediaPlayer.Volume = 1;
             MediaPlayer.Play(mainTheme);
         }
         public void Update()

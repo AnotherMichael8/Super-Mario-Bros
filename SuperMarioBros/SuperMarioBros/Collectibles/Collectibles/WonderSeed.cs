@@ -56,9 +56,10 @@ namespace SuperMarioBros.Collectibles.Collectibles
             {
                 sprite.Update();
                 animationPlayingSprite.Update(animationPlaying);
-                if (counter >= 210)
+                if (counter >= 180)
                 {
                     CameraController.UpdateObjectQueue.Add(new Tuple<IGameObject, IGameObject>(this, null));
+                    SoundFactory.Instance.RestartSong();
                 }
             }
             counter++;
@@ -88,6 +89,8 @@ namespace SuperMarioBros.Collectibles.Collectibles
             sprite = CollectiblesSpriteFactory.Instance.CreateWonderSeedCollectionAnimation();
             animationPlaying = true;
             counter = 0;
+            SoundFactory.Instance.PauseMusic();
+            SoundFactory.PlaySound(SoundFactory.Instance.wonderSeedCollect,1);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace SuperMarioBros.PlayerCharacter
         private IPlayer decoratedPlayer;
         private int starCounter;
         private int timer;
+        private bool wonderStop;
 
         protected readonly Color[][] StarColors =
         {
@@ -41,6 +42,8 @@ namespace SuperMarioBros.PlayerCharacter
             Position = decoratedPlayer.Position;
             starCounter = 0;
             timer = 0;
+            SoundFactory.Instance.PlayMusic(SoundFactory.Instance.starMario);
+            wonderStop = false;
             SetDecorator(this);
         }
         public void BecomeIdle()
@@ -109,6 +112,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void WonderEventEnd()
         {
             decoratedPlayer.WonderEventEnd();
+            wonderStop = true;
         }
         public void PowerUpStar()
         {
@@ -121,6 +125,7 @@ namespace SuperMarioBros.PlayerCharacter
         public void TriggerWonderState(Vector2 wonderPosition)
         {
             decoratedPlayer.TriggerWonderState(wonderPosition);
+            wonderStop = true;
         }
         public void SetDecorator(IPlayer decoLink)
         {
@@ -132,10 +137,12 @@ namespace SuperMarioBros.PlayerCharacter
         }
         public void Update()
         {
-            if(timer >= 720)
+            if(timer >= 720 || wonderStop)
             {
                 PlayerSpriteFactory.Instance.RevertTextureData();
                 RemoveDecorator();
+                if(!wonderStop)
+                    SoundFactory.Instance.RestartSong();
             }
             starCounter++;
             timer++;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuperMarioBros.Blocks;
+using SuperMarioBros.Camera;
 using SuperMarioBros.Collectibles.Collectibles;
 using SuperMarioBros.Collision;
 using SuperMarioBros.PlayerCharacter;
@@ -44,18 +45,21 @@ namespace SuperMarioBros.Collectibles
         public abstract void SpawnCollectible(Vector2 originalPosition);
         public virtual void Update()
         {
-            if (!spawnCollectible) 
+            if (!spawnCollectible)
             {
-                trueXPosition += horizMovementFactor / 16.0;
-                if (IsFalling)
+                if (CameraController.CheckInFrame(GetHitBox()))
                 {
-                    verticalMovementFactor += (int)(3 * Globals.ScreenSizeMulti);
+                    trueXPosition += horizMovementFactor / 16.0;
+                    if (IsFalling)
+                    {
+                        verticalMovementFactor += (int)(3 * Globals.ScreenSizeMulti);
+                    }
+                    else if (!IsFalling)
+                        verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
+                    trueYPosition += verticalMovementFactor / 16.0;
                 }
-                else if (!IsFalling)
-                    verticalMovementFactor = (int)(16 * Globals.ScreenSizeMulti);
-                trueYPosition += verticalMovementFactor/16.0;
             }
-            else if(spawnCollectible)
+            else if (spawnCollectible)
             {
                 SpawnCollectible(originalPosition);
             }

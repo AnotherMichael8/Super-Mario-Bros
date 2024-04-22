@@ -6,7 +6,7 @@ Block,BreakableBrickBlock,5,5,NONE
 Block,BreakableBrickBlock,6,5,NONE
 Block,BreakableBrickBlock,7,5,NONE
 Block,BreakableBrickBlock,8,5,NONE
-Block,GroundBlock,10,13,64,2
+Block,GroundBlock,10,13,64,3
 Block,BreakableBrickBlock,12,5,NONE
 Block,BreakableBrickBlock,13,5,NONE
 Block,BreakableBrickBlock,14,5,NONE
