@@ -13,7 +13,8 @@ namespace SuperMarioBros.PlayerCharacter
     {
         private Game1 game;
         public static List<IPowerUpAbility> Abilities;
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; 
+            set; }
         public IPlayerSprite Sprite { get; set; }
         public IPlayerState State { get; set; }
         public int Speed { get; set; }

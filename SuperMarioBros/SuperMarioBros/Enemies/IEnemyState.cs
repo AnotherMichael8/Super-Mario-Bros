@@ -11,6 +11,7 @@ namespace SuperMarioBros.Enemies
         public void MoveLeft();
         public void MoveRight();
         public void Kill();
+        public void FallingKill();
         public void Update();
     }
 }

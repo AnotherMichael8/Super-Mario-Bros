@@ -11,7 +11,6 @@ namespace SuperMarioBros.PlayerCharacter.PlayerStates
     public class RightMovingPlayerState : AbstractPlayerState, IRightFacing
     {
         private bool stop;
-
         public RightMovingPlayerState(Player player, double speed = 20) : base(player)
         {
             player.Sprite = PlayerSpriteFactory.Instance.CreateRightMovingPlayerSprite();

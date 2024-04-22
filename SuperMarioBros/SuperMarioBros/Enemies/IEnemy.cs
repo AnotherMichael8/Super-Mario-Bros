@@ -18,6 +18,7 @@ namespace SuperMarioBros.Enemies
         public IEnemySprite Sprite { get; set; }
         public void MoveLeft();
         public void MoveRight();
+        public void FallingKill();
         public void Kill();
         public int GetHeight();
         public int GetWidth();

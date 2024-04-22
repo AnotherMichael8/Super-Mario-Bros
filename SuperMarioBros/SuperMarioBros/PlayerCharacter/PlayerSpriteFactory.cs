@@ -108,9 +108,9 @@ namespace SuperMarioBros.PlayerCharacter
         {
             return new LeftAnimationFlowerSprite(playerTexture, powerUp, previousSprite);
         }
-        public IPlayerSprite CreateGrabPoleSprite()
+        public IPlayerSprite CreateGrabPoleSprite(SpriteEffects flip = SpriteEffects.None)
         {
-            return new GrabPolePlayerSprite(playerTexture, powerUp);
+            return new GrabPolePlayerSprite(playerTexture, powerUp, flip);
         }
         public IPowerAbilitySprite CreateFireballSprite()
         {

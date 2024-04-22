@@ -23,7 +23,7 @@ namespace SuperMarioBros.Collision
                 enemy.Position = new Vector2(enemy.Position.X, blockHitBox.Y - enemy.GetHeight());
                 IsFalling = false;
                 if (block.Bumped)
-                    enemy.Kill();
+                    enemy.FallingKill();
                 /*
                 if (block is GroundBlock && enemyHitBox.Right >= blockHitBox.Right)
                 {

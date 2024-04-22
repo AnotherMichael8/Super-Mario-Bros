@@ -19,6 +19,9 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
             goomba.Sprite = EnemySpriteFactory.Instance.CreateDeathGoombaEnemySprite();
             deathCounter = 0;
         }
+        public void FallingKill()
+        {
+        }
         public void Kill()
         {
         }

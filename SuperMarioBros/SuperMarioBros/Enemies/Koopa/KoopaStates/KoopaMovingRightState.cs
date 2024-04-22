@@ -14,6 +14,7 @@ namespace SuperMarioBros.Enemies.Koopa.KoopaStates
         {
             this.koopa = koopa;
         }
+        public void FallingKill() { }
         public void Kill()
         {
 

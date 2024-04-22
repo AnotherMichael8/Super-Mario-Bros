@@ -82,6 +82,7 @@ namespace SuperMarioBros.Enemies
         public abstract void MoveRight();
         public abstract int GetHeight();
         public abstract int GetWidth();
+        public abstract void FallingKill();
         //public abstract void Update();
     }
 }

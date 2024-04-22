@@ -31,6 +31,7 @@ namespace SuperMarioBros
         public SoundEffect gameOver { get; private set; }
         public SoundEffect wonderFlowerCollect { get; private set; }
         public SoundEffect wonderSeedCollect { get; private set; }
+        public SoundEffect stageClear { get; private set; }
         public Song mainTheme { get; private set; }
         public Song loopTheme { get; private set; }
         public Song gustyWonderTheme { get; private set; }
@@ -67,7 +68,7 @@ namespace SuperMarioBros
             powerUpAppears = content.Load<SoundEffect>("smb_powerup_appears");
             wonderFlowerCollect = content.Load<SoundEffect>("wonder-flower-collect-soundNEW1");
             wonderSeedCollect = content.Load<SoundEffect>("WonderSeedCollection");
-
+            stageClear = content.Load<SoundEffect>("smb_stage_clear");
 
             stomp = content.Load<SoundEffect>("smb_stomp");
             marioDeath = content.Load<SoundEffect>("smb_mariodie");

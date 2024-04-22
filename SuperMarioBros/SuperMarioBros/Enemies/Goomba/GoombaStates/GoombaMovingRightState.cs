@@ -14,6 +14,10 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
         {
             this.goomba = goomba;
         }
+        public void FallingKill()
+        {
+            goomba.State = new FallingGoombaDeathState(goomba);
+        }
         public void Kill()
         {
             goomba.State = new GoombaDeathState(goomba);

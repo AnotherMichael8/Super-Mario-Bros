@@ -12,8 +12,9 @@ namespace SuperMarioBros.Blocks
     public class FlagPoleSprite
     {
         private Texture2D texture;
-        private Rectangle sourceRectangle = new Rectangle(0, 588, 16, 160);
+        private readonly Rectangle sourceRectangle = new Rectangle(0, 588, 16, 160);
         private readonly Rectangle castleLeftSourceRectangle = new Rectangle(24, 684, 48, 80);
+        private readonly Rectangle castleRightSourceRectangle = new Rectangle(72, 684, 32, 80);
         public FlagPoleSprite(Texture2D texture)
         {
             this.texture = texture;
@@ -33,6 +34,9 @@ namespace SuperMarioBros.Blocks
                 castleDestinationRect.X -= CameraController.CameraPositionX;
                 castleDestinationRect.Y += CameraController.CameraPositionY;
                 spriteBatch.Draw(texture, castleDestinationRect, castleLeftSourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0.2f);
+                castleDestinationRect.X += castleDestinationRect.Width;
+                castleDestinationRect.Width = (int)(64 * Globals.ScreenSizeMulti);
+                spriteBatch.Draw(texture, castleDestinationRect, castleRightSourceRectangle, color, 0, new Vector2(0), SpriteEffects.None, 0f);
             }
 
         }

@@ -10,10 +10,12 @@ namespace SuperMarioBros.Enemies.Goomba
     {
         private int Height = (int)Globals.BlockSize;
         private int Width = (int)Globals.BlockSize;
+        private bool noHitBox;
         public Goomba(Vector2 position) : base(position)
         {
             Sprite = EnemySpriteFactory.Instance.CreateMovingGoombaEnemySprite();
             State = new GoombaMovingLeftState(this);
+            noHitBox = false;
         }
         public override void MoveRight()
         {
@@ -28,6 +30,12 @@ namespace SuperMarioBros.Enemies.Goomba
             State.Kill();
             IsDead = true;
         }
+        public override void FallingKill()
+        {
+            State.FallingKill();
+            IsDead = true;
+            noHitBox = true;
+        }
         public override int GetHeight()
         {
             return Height;
@@ -38,11 +46,17 @@ namespace SuperMarioBros.Enemies.Goomba
         }
         public override Rectangle GetHitBox()
         {
-            return new Rectangle((int)Position.X + 4, (int)Position.Y + 10, 24, (int)(Globals.BlockSize - 20));
+            if (!noHitBox)
+                return new Rectangle((int)Position.X + 4, (int)Position.Y + 10, 24, (int)(Globals.BlockSize - 20));
+            else
+                return Rectangle.Empty;
         }
         public override Rectangle GetBlockHitBox()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            if (!noHitBox)
+                return new Rectangle((int)Position.X, (int)Position.Y, (int)Globals.BlockSize, (int)Globals.BlockSize);
+            else
+                return Rectangle.Empty;
         }
     }
 }

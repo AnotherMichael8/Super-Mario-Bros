@@ -44,5 +44,9 @@ namespace SuperMarioBros.Enemies
         {
             return new KoopaInShellSprite(enemyTexture);
         }
+        public IEnemySprite CreateFallingDeathGoombaEnemySprite()
+        {
+            return new FallingGoombaDeathSprite(enemyTexture);
+        }
     }
 }

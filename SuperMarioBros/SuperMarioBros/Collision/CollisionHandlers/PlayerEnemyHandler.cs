@@ -33,7 +33,12 @@ namespace SuperMarioBros.Collision
             }
             else if (player is StarMario)
             {
-                enemy.Kill();
+                enemy.FallingKill();
+                if (side is LeftCollision)
+                    enemy.MoveRight();
+                else if(side is RightCollision)
+                    enemy.MoveLeft();
+
             }
         }
         public static void HandlePlayerKoopaCollision(IPlayer player, Koopa koopa, ICollision side)

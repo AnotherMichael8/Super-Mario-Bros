@@ -30,6 +30,10 @@ namespace SuperMarioBros.Enemies.Koopa
             State.Kill();
             InShell = true;
         }
+        public override void FallingKill()
+        {
+
+        }
         public override int GetHeight()
         {
             return Height;

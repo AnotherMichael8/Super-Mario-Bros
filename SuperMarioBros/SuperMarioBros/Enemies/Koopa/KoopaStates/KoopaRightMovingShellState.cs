@@ -17,6 +17,7 @@ namespace SuperMarioBros.Enemies.Koopa.KoopaStates
             koopa.Sprite = EnemySpriteFactory.Instance.CreateInShellKoopaEnemySprite();
             deathCounter = 0;
         }
+        public void FallingKill() { }
         public void Kill()
         {
         }

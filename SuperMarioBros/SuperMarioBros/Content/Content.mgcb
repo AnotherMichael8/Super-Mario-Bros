@@ -169,6 +169,18 @@
 /processorParam:Quality=Best
 /build:smb_powerup.wav
 
+#begin smb_stage_clear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:smb_stage_clear.wav
+
+#begin smb_stage_clear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:smb_stage_clear.wav
+
 #begin smb_stomp.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

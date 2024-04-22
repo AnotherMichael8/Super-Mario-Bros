@@ -31,7 +31,11 @@ namespace SuperMarioBros.Collision.CollisionHandlers
         {
             if (ability is Fireball fireball)
             {
-                enemy.Kill();
+                enemy.FallingKill();
+                if (side is LeftCollision)
+                    enemy.MoveRight();
+                else if (side is RightCollision)
+                    enemy.MoveLeft();
                 fireball.Explode();
             }
         }
