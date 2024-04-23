@@ -22,7 +22,7 @@ namespace SuperMarioBros
         public SoundEffect coin { get; private set; }
         public SoundEffect fireball { get; private set; }
         public SoundEffect flagpole { get; private set; }
-        public SoundEffect kickShell { get; private set; }
+        public SoundEffect kick { get; private set; }
         public SoundEffect pipe { get; private set; }
         public SoundEffect collectPowerUp { get; private set; }
         public SoundEffect powerUpAppears { get; private set; }
@@ -62,7 +62,7 @@ namespace SuperMarioBros
             coin = content.Load<SoundEffect>("smb_coin");
             fireball = content.Load<SoundEffect>("smb_fireball");
             flagpole = content.Load<SoundEffect>("smb_flagpole");
-            kickShell = content.Load<SoundEffect>("smb_kick");
+            kick = content.Load<SoundEffect>("smb_kick");
             pipe = content.Load<SoundEffect>("smb_pipe");
             collectPowerUp = content.Load<SoundEffect>("smb_powerup");
             powerUpAppears = content.Load<SoundEffect>("smb_powerup_appears");

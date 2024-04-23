@@ -23,6 +23,7 @@ namespace SuperMarioBros.Enemies.Goomba.GoombaStates
             deathCounter = 0;
             movementX = 1;
             movementY = -150;
+            SoundFactory.PlaySound(SoundFactory.Instance.kick);
         }
         public void FallingKill() { }
         public void Kill()
